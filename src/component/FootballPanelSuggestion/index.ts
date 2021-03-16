@@ -1,0 +1,1 @@
+export { FootballPanelSuggestion } from "./FootballPanelSuggestion";

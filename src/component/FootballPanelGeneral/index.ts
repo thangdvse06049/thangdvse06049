@@ -1,0 +1,1 @@
+export { FootballPanelGeneral } from "./FootballPanelGeneral";

@@ -1,0 +1,8 @@
+{
+  "wallet-confirmed-message-1": "Request number: {{id}}",
+  "wallet-confirmed-message-2": "Please transfer this {{amount}} in VND to Ad Alpha account:",
+  "wallet-confirmed-message-3": "Account name: Cong ty TNHH Cong Nghe và Dich vu so Ad Alpha",
+  "wallet-confirmed-message-4": "Account number: 19132870880019 – Techcombank – Branch Ngoc Khanh, Hanoi.",
+  "wallet-confirmed-message-5": "Please note in transfer message: <Request number> <Topup Amount> ",
+  "wallet-confirmed-message-6": "Once the transfer is confirmed, your balance will be credited."
+}
