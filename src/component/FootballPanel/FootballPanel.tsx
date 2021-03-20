@@ -20,7 +20,7 @@ const TABS = {
 export const FootballPanel = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [currentTab, setCurrentTab] = React.useState(TABS.GENERAL);
+  const [currentTab, setCurrentTab] = React.useState(TABS.ADVANCED);
 
   const renderPlayer = () => {
     return (

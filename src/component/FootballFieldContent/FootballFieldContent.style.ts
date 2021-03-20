@@ -40,7 +40,9 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   formationPlayer: {
+    overflow: "hidden",
     background: "green",
+    borderRadius: 6,
   },
   playerName: {
     textTransform: "uppercase",
