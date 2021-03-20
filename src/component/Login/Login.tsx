@@ -9,29 +9,31 @@ import Alert from "@material-ui/lab/Alert";
 import { useHistory } from "react-router-dom";
 import { useStyles } from "./Login.style";
 import LogoSVG from "./assets/logo.svg";
+import { User } from "../../models/user";
+import { UserCtx } from "../../context/User";
 
 export const Login = () => {
   const classes = useStyles();
   const history = useHistory();
+  const { login }: any = React.useContext(UserCtx);
   const [isLoading, setLoading] = React.useState(false);
   const [hasError, setError] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const onSubmit = (event: React.FormEvent) => {
+  const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     setError(false);
     setLoading(true);
 
-    setTimeout(() => {
-      if (!password || !email) {
-        setError(true);
-        setLoading(false);
-      } else {
-        history.push("/football");
-      }
-    }, 1000);
+    try {
+      const res = await User.login(email, password);
+      login(res.data.token);
+    } catch (e) {
+      setError(true);
+      setLoading(false);
+    }
   };
 
   const onChangeEmail = (

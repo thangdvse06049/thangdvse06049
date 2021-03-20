@@ -10,13 +10,15 @@ import { useStyles } from "./Navigation.style";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useHistory } from "react-router-dom";
 import clsx from "classnames";
+import { UserCtx } from "../../context/User";
 
 export const Navigation = () => {
   const classes = useStyles();
   const history = useHistory();
+  const { logout }: any = React.useContext(UserCtx);
 
   const onClickLogout = () => {
-    history.push("/aa/qwee");
+    logout();
   };
 
   return (
@@ -44,7 +46,10 @@ export const Navigation = () => {
           <div className={classes.verticalBar} />
           <div className={classes.flexGrow} />
           <div className={classes.verticalBar} />
-          <div className={clsx(classes.button, "logout")}>
+          <div
+            className={clsx(classes.button, "logout")}
+            onClick={onClickLogout}
+          >
             <div className={classes.buttonIcon} />
             Logout
           </div>

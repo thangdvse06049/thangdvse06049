@@ -1,18 +1,18 @@
 import React from "react";
-import { Switch, Route, useHistory, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { UserCtx } from "./context/User";
 import FootballPage from "./pages/Football";
 import LoginPage from "./pages/Login";
 
 export const Routes = () => {
+  const { user } = React.useContext(UserCtx);
+
   return (
     <Switch>
-      <Route exact path="/football">
-        <FootballPage />
-      </Route>
       <Route exact path="/">
-        <LoginPage />
+        {!user ? <LoginPage /> : <FootballPage />}
       </Route>
-      <Redirect to="/football" />
+      <Redirect to="/" />
     </Switch>
   );
 };
