@@ -85,9 +85,22 @@ export const useStyles = makeStyles((theme) => ({
   status: {
     width: "100%",
     height: 5,
-    background: "yellow",
     borderBottomLeftRadius: 6,
     borderBottomRightRadius: 6,
-    "&.excellent": {},
+    "&.excellent": {
+      background: "#4BAEEA",
+    },
+    "&.good": {
+      background: "#4BAC5B",
+    },
+    "&.normal": {
+      background: "#68369A",
+    },
+    "&.bad": {
+      background: "#DF8244",
+    },
+    "&.terrible": {
+      background: "#EC3323",
+    },
   },
 }));

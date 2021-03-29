@@ -1,4 +1,4 @@
-export const FORMATIONS = {
+export const FORMATIONS: any = {
   "4-4-2": [
     ["gk"],
     ["lb", "lcb", "rcb", "rb"],
@@ -117,22 +117,18 @@ export const FORMATIONS = {
   "3-4-2-1": [
     ["gk"],
     ["lcb3", "cb", "rcb3"],
-    ["lwb", "lcmf", "rcmf", "rwb"],
+    ["lw", "lcmf", "rcmf", "rw"],
     ["amf", "amf"],
     ["cf"],
   ],
-  "4-4-0" : [
-    ["gk"],
-    ["lb", "lcb", "rcb", "rb"],
-    ["lwb", "lcmf", "rcmf", "rwb"],
-  ],
-  "4-3-1" : [
+  "4-4-0": [["gk"], ["lb", "lcb", "rcb", "rb"], ["lw", "lcmf", "rcmf", "rw"]],
+  "4-3-1": [
     ["gk"],
     ["lb", "lcb", "rcb", "rb"],
     ["lcmf3", "dmf", "rcmf3"],
     ["cf"],
   ],
-  "4-3-2-1":[
+  "4-3-2-1": [
     ["gk"],
     ["lb", "lcb", "rcb", "rb"],
     ["lcmf3", "dmf", "rcmf3"],
@@ -149,7 +145,7 @@ export const FORMATIONS = {
   "3-4-1": [
     ["gk"],
     ["lcb3", "cb", "rcb3"],
-    ["lwb", "lcmf", "rcmf", "rwb"],
+    ["lw", "lcmf", "rcmf", "rw"],
     ["cf"],
   ],
   "3-3-3-1": [
@@ -159,31 +155,31 @@ export const FORMATIONS = {
     ["lamf", "amf", "ramf"],
     ["cf"],
   ],
-  "4-2-1-2":[
+  "4-2-1-2": [
     ["gk"],
     ["lb", "lcb", "rcb", "rb"],
     ["ldmf", "rdmf"],
     ["amf"],
     ["ss", "cf"],
   ],
-  "4-1-3-1":[
+  "4-1-3-1": [
     ["gk"],
     ["lb", "lcb", "rcb", "rb"],
     ["dmf"],
     ["lamf", "amf", "ramf"],
     ["cf"],
   ],
-  "4-2-2-1":[
+  "4-2-2-1": [
     ["gk"],
     ["lb", "lcb", "rcb", "rb"],
     ["ldmf", "rdmf"],
     ["amf", "amf"],
     ["cf"],
   ],
-  "3-5-1-1":[
+  "3-5-1-1": [
     ["gk"],
     ["lcb3", "cb", "rcb3"],
-    ["lwb", "lcmf3", "dmf", "rcmf3", "rwb"],
+    ["lw", "lcmf3", "dmf", "rcmf3", "rw"],
     ["amf"],
     ["cf"],
   ],
@@ -216,13 +212,13 @@ export const FORMATIONS = {
   "4-5-1": [
     ["gk"],
     ["lb", "lcb", "rcb", "rb"],
-    ["lwb", "lcmf3", "dmf", "rcmf3", "rwb"],
+    ["lw", "lcmf3", "dmf", "rcmf3", "rw"],
     ["cf"],
   ],
-  "4-2-2-0":[
+  "4-2-2-0": [
     ["gk"],
     ["lb", "lcb", "rcb", "rb"],
     ["ldmf", "rdmf"],
     ["amf", "amf"],
-  ]
+  ],
 };

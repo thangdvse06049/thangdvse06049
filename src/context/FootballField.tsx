@@ -1,13 +1,14 @@
 import React from "react";
 
 const DEFAULT_STATE = {
-  formation: "4-2-2-2",
+  formation: "",
   budget: 10000000,
   rank: 5,
 };
 
 const ACTIONS = {
   UPDATE_FILTERS: "UPDATE_FILTER",
+  UPDATE_FORMATION: "UPDATE_FORMATION",
 };
 
 export const FootballFieldCtx = React.createContext({ ...DEFAULT_STATE });
@@ -21,6 +22,11 @@ const reducer = (state: any, action: any) => {
         formation,
         budget,
         rank,
+      };
+    case ACTIONS.UPDATE_FORMATION:
+      return {
+        ...state,
+        formation,
       };
     default: {
       return state;
@@ -38,6 +44,10 @@ const updateFilters = (
   dispatch({ type: ACTIONS.UPDATE_FILTERS, formation, rank, budget });
 };
 
+const updateFormation = (dispatch: any, formation: string) => {
+  dispatch({ type: ACTIONS.UPDATE_FORMATION, formation });
+};
+
 export const FootballFieldProvider = ({ children }: any) => {
   const [state, dispatch] = React.useReducer(reducer, {
     ...DEFAULT_STATE,
@@ -46,6 +56,8 @@ export const FootballFieldProvider = ({ children }: any) => {
   const setter = {
     updateFilters: (formation: string, rank: number, budget: number) =>
       updateFilters(dispatch, formation, rank, budget),
+    updateFormation: (formation: string) =>
+      updateFormation(dispatch, formation),
   };
 
   const value = { ...state, ...setter };

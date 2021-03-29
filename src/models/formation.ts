@@ -11,4 +11,14 @@ export class Formation extends TeamseyesAuth {
 
     return response.data;
   }
+
+  static async getScheme(scheme: string) {
+    const response = await axios.get(`/api/formations/${scheme}`, {
+      headers: {
+        ...Formation.getAuthHeader(),
+      },
+    });
+
+    return response.data;
+  }
 }
