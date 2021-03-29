@@ -1,6 +1,5 @@
-import { Typography } from "@material-ui/core";
-import { map } from "lodash";
 import React from "react";
+import { map } from "lodash";
 import { useStyles } from "./FootballPanelAdvanced.style";
 import clsx from "classnames";
 const currencyFormatter = require("currency-formatter");
@@ -25,22 +24,6 @@ const BMI = {
 
 const MARKET_VALUE = 500000;
 
-const getGrade = (value: number) => {
-  if (value > 0.8) {
-    return "excellent";
-  } else if (value >= 0.6) {
-    return "good";
-  } else if (value >= 0.5) {
-    return "average";
-  } else if (value >= 0.4) {
-    return "ok";
-  } else if (value >= 0.2) {
-    return "bad";
-  } else {
-    return "terrible";
-  }
-};
-
 export const FootballPanelAdvanced = () => {
   const classes = useStyles();
 
@@ -52,7 +35,7 @@ export const FootballPanelAdvanced = () => {
           {map(AGE, (value, key) => {
             if (value <= 0) return null;
             return (
-              <div className={clsx(classes.grade, key)}>
+              <div className={clsx(classes.grade, key)} key={key}>
                 <div className={classes.gradeValue}>{value * 100}%</div>
                 <div className={classes.gradeKey}>{key}</div>
               </div>
@@ -65,7 +48,7 @@ export const FootballPanelAdvanced = () => {
         {map(BMI, (value, key) => {
           if (value <= 0) return null;
           return (
-            <div className={clsx(classes.grade, key)}>
+            <div className={clsx(classes.grade, key)} key={key}>
               <div className={classes.gradeValue}>{value * 100}%</div>
               <div className={classes.gradeKey}>{key}</div>
             </div>
@@ -76,7 +59,13 @@ export const FootballPanelAdvanced = () => {
         <div className={classes.categoryTitle}>Market Value</div>
         <div>
           Current estimation at this position:{" "}
-          <b>{currencyFormatter.format(MARKET_VALUE, { code: "EUR" })}</b>
+          <b>
+            {currencyFormatter.format(MARKET_VALUE, {
+              code: "EUR",
+              decimalDigits: 0,
+              precision: 0,
+            })}
+          </b>
         </div>
       </div>
     </div>

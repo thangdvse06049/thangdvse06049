@@ -15,7 +15,7 @@ import { UserCtx } from "../../context/User";
 export const Navigation = () => {
   const classes = useStyles();
   const history = useHistory();
-  const { logout }: any = React.useContext(UserCtx);
+  const { logout, user }: any = React.useContext(UserCtx);
 
   const onClickLogout = () => {
     logout();
@@ -37,7 +37,7 @@ export const Navigation = () => {
             className={clsx(
               classes.button,
               "football",
-              history.location.pathname === "/football" ? "active" : ""
+              history.location.pathname === "/" ? "active" : ""
             )}
           >
             <div className={classes.buttonIcon} />

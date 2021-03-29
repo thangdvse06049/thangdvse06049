@@ -5,7 +5,6 @@ const token = localStorage.getItem("teamseyes-token");
 let user: any = null;
 if (token) {
   const res: any = jwt.decode(token);
-  console.log(res.user);
   user = res?.user || null;
 }
 

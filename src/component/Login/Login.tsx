@@ -14,7 +14,6 @@ import { UserCtx } from "../../context/User";
 
 export const Login = () => {
   const classes = useStyles();
-  const history = useHistory();
   const { login }: any = React.useContext(UserCtx);
   const [isLoading, setLoading] = React.useState(false);
   const [hasError, setError] = React.useState(false);

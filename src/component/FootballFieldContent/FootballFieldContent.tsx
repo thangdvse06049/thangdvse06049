@@ -17,14 +17,15 @@ export const FootballFieldContent = () => {
           {map(["1"].concat(columns), (nbPlayers, index) => {
             return (
               <div
+                key={index}
                 className={classes.formationColumn}
                 style={{ width: `${100 / (columns.length + 1)}%` }}
               >
                 {Array(parseInt(nbPlayers, 10))
                   .fill("")
-                  .map((p) => {
+                  .map((p, i) => {
                     return (
-                      <div className={classes.formationPlayer}>
+                      <div key={i} className={classes.formationPlayer}>
                         <div className={classes.player}>
                           <div
                             className={classes.playerAvatar}
