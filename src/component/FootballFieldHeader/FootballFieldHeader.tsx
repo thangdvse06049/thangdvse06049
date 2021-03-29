@@ -1,14 +1,21 @@
 import { Button, MenuItem } from "@material-ui/core";
-import React from "react";
+import React, { useEffect } from "react";
 import { FORMATIONS } from "../../constants/formation";
 import { TETextFieldOutlined } from "../TETextFieldOutlined";
 import { useStyles } from "./FootballFieldHeader.style";
 import { map } from "lodash";
 import { FootballFieldCtx } from "../../context/FootballField";
+import { Formation } from "../../models/formation";
 
 export const FootballFieldHeader = () => {
   const classes = useStyles();
   const { formation, rank, budget } = React.useContext(FootballFieldCtx);
+
+  useEffect(() => {
+    Formation.list().then((response) => {
+      console.log(response);
+    });
+  }, []);
 
   return (
     <div className={classes.root}>
