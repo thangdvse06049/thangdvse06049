@@ -1,0 +1,1 @@
+export { TeamInformation } from "./TeamInformation";

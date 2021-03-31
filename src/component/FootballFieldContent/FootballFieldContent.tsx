@@ -53,9 +53,7 @@ export const FootballFieldContent = () => {
                         </div>
                       </div>
                       <div
-                        className={clsx(
-                          classes.status,
-                          player?.performance?.gradeLabel
+                        className={clsx(classes.status,player?.performance?.gradeLabel
                         )}
                       />
                     </div>

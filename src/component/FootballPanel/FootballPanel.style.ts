@@ -37,6 +37,21 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: 14,
     fontWeight: 500,
     color: "white",
+    "&.excellent": {
+      background: "#4BAEEA",
+    },
+    "&.good": {
+      background: "#4BAC5B",
+    },
+    "&.normal": {
+      background: "#68369A",
+    },
+    "&.bad": {
+      background: "#DF8244",
+    },
+    "&.terrible": {
+      background: "#EC3323",
+    },
   },
   name: {
     fontSize: 18,

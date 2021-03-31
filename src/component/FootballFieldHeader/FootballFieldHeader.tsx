@@ -8,13 +8,9 @@ import { map, maxBy } from "lodash";
 
 export const FootballFieldHeader = () => {
   const classes = useStyles();
-  const {
-    rank,
-    budget,
-    updateFormation,
-    updatePlayer,
-    player,
-  } = React.useContext<any>(FootballFieldCtx);
+  const { rank, budget, updateFormation, updatePlayer } = React.useContext<any>(
+    FootballFieldCtx
+  );
   const [listFormations, setListFormations] = useState([] as any);
   const [localFormation, setLocalFormation] = useState(null as any);
 

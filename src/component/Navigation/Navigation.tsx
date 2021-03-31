@@ -11,6 +11,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { useHistory } from "react-router-dom";
 import clsx from "classnames";
 import { UserCtx } from "../../context/User";
+import { TeamInformation } from "../TeamInformation";
 
 export const Navigation = () => {
   const classes = useStyles();
@@ -45,6 +46,11 @@ export const Navigation = () => {
           </div>
           <div className={classes.verticalBar} />
           <div className={classes.flexGrow} />
+
+          <div className={classes.teamInfor}>
+            <TeamInformation />
+          </div>
+
           <div className={classes.verticalBar} />
           <div
             className={clsx(classes.button, "logout")}

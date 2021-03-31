@@ -66,4 +66,12 @@ export const useStyles = makeStyles((theme) => ({
   flexGrow: {
     flexGrow: 1,
   },
+  teamInfor: {
+    marginRight: 90,
+    minHeight: 64,
+    width: 150,
+    height: "100%",
+    borderLeft: "1px solid #E1E3EB",
+    borderRight: "1px solid #E1E3EB",
+  },
 }));

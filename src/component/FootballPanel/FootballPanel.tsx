@@ -22,7 +22,7 @@ export const FootballPanel = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [currentTab, setCurrentTab] = React.useState(TABS.SUGGESTION);
-  const { formation } = React.useContext<any>(FootballFieldCtx);
+  const { player } = React.useContext<any>(FootballFieldCtx);
 
   const renderPlayer = () => {
     return (
@@ -30,10 +30,20 @@ export const FootballPanel = () => {
         <div className={classes.header}>
           <div
             className={classes.avatar}
-            style={{ backgroundImage: `url(https://via.placeholder.com/150)` }}
+            style={{
+              backgroundImage: `url(${
+                player?.avatar || "https://via.placeholder.com/150"
+              })`,
+            }}
           ></div>
-          <div className={clsx(classes.status, "good")}>Good</div>
-          <Typography className={classes.name}>Kevin Perard</Typography>
+          <div
+            className={clsx(classes.status, player?.performance?.gradeLabel)}
+          >
+            {player?.performance?.gradeLabel}
+          </div>
+          <Typography className={classes.name}>
+            {player.performance?.playerName}
+          </Typography>
         </div>
         <div className={classes.tabs}>
           <div
