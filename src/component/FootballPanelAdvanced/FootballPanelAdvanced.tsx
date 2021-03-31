@@ -2,41 +2,57 @@ import React from "react";
 import { map } from "lodash";
 import { useStyles } from "./FootballPanelAdvanced.style";
 import clsx from "classnames";
+import { FootballFieldCtx } from "../../context/FootballField";
 const currencyFormatter = require("currency-formatter");
 
-const AGE = {
-  excellent: 0.2,
-  good: 0,
-  ok: 0.1,
-  average: 0.5,
-  bad: 0.1,
-  terrible: 0.1,
-};
+const BMIAGE_KEYS = [
+  "Average but bad",
+  "Average but good",
+  "Bad",
+  "Excellent",
+  "Good",
+  "Terrible",
+];
 
-const BMI = {
-  excellent: 0.3,
-  good: 0.1,
-  ok: 0.1,
-  average: 0.3,
-  bad: 0.2,
-  terrible: 0,
+const getGradeFromKey = (key: string) => {
+  switch (key) {
+    case "Excellent":
+      return "excellent";
+    case "Good":
+      return "good";
+    case "Average but good":
+      return "ok";
+    case "Average but bad":
+      return "average";
+    case "Bad":
+      return "bad";
+    case "Terrible":
+      return "terrible";
+  }
 };
-
-const MARKET_VALUE = 500000;
 
 export const FootballPanelAdvanced = () => {
   const classes = useStyles();
-
+  const { player } = React.useContext<any>(FootballFieldCtx);
+  
   return (
     <div className={classes.root}>
       <div className={classes.category}>
-        <div className={classes.categoryTitle}>Age</div>
+        <div className={classes.categoryTitle}>
+          Age ({player.performance.age})
+        </div>
         <div>
-          {map(AGE, (value, key) => {
+          {map(BMIAGE_KEYS, (key) => {
+            const value = player.bmiAge[key].age;
             if (value <= 0) return null;
             return (
-              <div className={clsx(classes.grade, key)} key={key}>
-                <div className={classes.gradeValue}>{value * 100}%</div>
+              <div
+                className={clsx(classes.grade, getGradeFromKey(key))}
+                key={key}
+              >
+                <div className={classes.gradeValue}>
+                  {Math.round(value * 100)}%
+                </div>
                 <div className={classes.gradeKey}>{key}</div>
               </div>
             );
@@ -44,12 +60,42 @@ export const FootballPanelAdvanced = () => {
         </div>
       </div>
       <div className={classes.category}>
-        <div className={classes.categoryTitle}>BMI</div>
-        {map(BMI, (value, key) => {
+        <div className={classes.categoryTitle}>
+          Age + 1 ({player.performance.age + 1})
+        </div>
+        <div>
+          {map(BMIAGE_KEYS, (key) => {
+            const value = player.bmiAge[key].nextAge;
+            if (value <= 0) return null;
+            return (
+              <div
+                className={clsx(classes.grade, getGradeFromKey(key))}
+                key={key}
+              >
+                <div className={classes.gradeValue}>
+                  {Math.round(value * 100)}%
+                </div>
+                <div className={classes.gradeKey}>{key}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className={classes.category}>
+        <div className={classes.categoryTitle}>
+          BMI ({player.performance.BMI + 1})
+        </div>
+        {map(BMIAGE_KEYS, (key) => {
+          const value = player.bmiAge[key].bmi;
           if (value <= 0) return null;
           return (
-            <div className={clsx(classes.grade, key)} key={key}>
-              <div className={classes.gradeValue}>{value * 100}%</div>
+            <div
+              className={clsx(classes.grade, getGradeFromKey(key))}
+              key={key}
+            >
+              <div className={classes.gradeValue}>
+                {Math.round(value * 100)}%
+              </div>
               <div className={classes.gradeKey}>{key}</div>
             </div>
           );
@@ -60,11 +106,13 @@ export const FootballPanelAdvanced = () => {
         <div>
           Current estimation at this position:{" "}
           <b>
-            {currencyFormatter.format(MARKET_VALUE, {
-              code: "EUR",
-              decimalDigits: 0,
-              precision: 0,
-            })}
+            {player.marketValue
+              ? currencyFormatter.format(player.marketValue, {
+                  code: "EUR",
+                  decimalDigits: 0,
+                  precision: 0,
+                })
+              : "N/A"}
           </b>
         </div>
       </div>

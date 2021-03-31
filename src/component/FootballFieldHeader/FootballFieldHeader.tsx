@@ -8,11 +8,16 @@ import { map, maxBy } from "lodash";
 
 export const FootballFieldHeader = () => {
   const classes = useStyles();
-  const { rank, budget, updateFormation, updatePlayer } = React.useContext<any>(
-    FootballFieldCtx
-  );
+  const {
+    rank,
+    budget,
+    updateFormation,
+    updateFilters,
+    updatePlayer,
+  } = React.useContext<any>(FootballFieldCtx);
   const [listFormations, setListFormations] = useState([] as any);
   const [localFormation, setLocalFormation] = useState(null as any);
+  const [localRank, setLocalRank] = useState(rank);
 
   const loadScheme = async (scheme: string) => {
     const players = await Formation.getScheme(scheme);
@@ -21,6 +26,7 @@ export const FootballFieldHeader = () => {
       players,
     };
     updateFormation(formation);
+    updateFilters(localRank, budget);
     updatePlayer(formation.players[0]);
   };
 
@@ -34,7 +40,6 @@ export const FootballFieldHeader = () => {
       const max = maxBy(formations, "count");
       setLocalFormation(max);
       setListFormations(formations);
-
       loadScheme(max.scheme);
     });
   }, []);
@@ -43,6 +48,11 @@ export const FootballFieldHeader = () => {
     const scheme = event.target.value;
     const formation = listFormations.find((f: any) => f.scheme === scheme);
     setLocalFormation(formation);
+  };
+
+  const onChangeRank = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const rank = event.target.value;
+    setLocalRank(rank);
   };
 
   const onApply = async () => {
@@ -62,7 +72,8 @@ export const FootballFieldHeader = () => {
         id="input-rank"
         label="Rank"
         type="number"
-        defaultValue={rank}
+        onChange={onChangeRank}
+        defaultValue={localRank}
         fullWidth
       />
       <TETextFieldOutlined

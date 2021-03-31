@@ -26,4 +26,8 @@ export const useStyles = makeStyles((theme) => ({
   playerBudget: {
     padding: `0 ${theme.spacing(1)}px`,
   },
+  emptySuggestions: {
+    padding: `${theme.spacing(2)}px`,
+    textAlign: "center",
+  },
 }));

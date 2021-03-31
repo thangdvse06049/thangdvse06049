@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useStyles } from "./FootballPanelGeneral.style";
-import { map, startsWith } from "lodash";
+import { kebabCase, map } from "lodash";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import clsx from "classnames";
 import { Collapse } from "react-collapse";
 import { FootballFieldCtx } from "../../context/FootballField";
-import { LINK, SENTENCES, TRANSLATION } from "../../constants/footballGeneral";
+import { LINK, TRANSLATION } from "../../constants/footballGeneral";
 
-let links: any, sentences: any, translations: any;
+let links: any, translations: any;
 
 const getGrade = (value: number) => {
   if (value > 0.8) {
@@ -15,9 +15,9 @@ const getGrade = (value: number) => {
   } else if (value >= 0.6) {
     return "good";
   } else if (value >= 0.5) {
-    return "average";
+    return "average but good";
   } else if (value >= 0.4) {
-    return "ok";
+    return "average but bad";
   } else if (value >= 0.2) {
     return "bad";
   } else {
@@ -27,7 +27,6 @@ const getGrade = (value: number) => {
 
 const getSentence = (field: any, value: any) => {
   try {
-    let index: number;
     if (value > 0.8) return "Excellent";
     else if (value > 0.6) return "Good";
     else if (value > 0.5) return "Average but good";
@@ -41,7 +40,6 @@ const getSentence = (field: any, value: any) => {
 
 export const FootballPanelGeneral = () => {
   links = LINK;
-  sentences = SENTENCES;
   translations = TRANSLATION;
   const classes = useStyles();
 
@@ -49,7 +47,7 @@ export const FootballPanelGeneral = () => {
   const [expanded, setExpanded] = React.useState<string | null>(null);
 
   useEffect(() => {
-    setExpanded(Object.keys(formation.players[0].ppi.details)[0]);
+    setExpanded(Object.keys(formation?.players[0].ppi?.details)[0]);
   }, [formation]);
 
   const renderCategoryHeader = (category: string) => {
@@ -64,10 +62,10 @@ export const FootballPanelGeneral = () => {
           <div
             className={clsx(
               classes.grade,
-              getGrade(player.ppi.summary[category])
+              kebabCase(getGrade(player?.ppi?.summary[category]))
             )}
           >
-            {getGrade(player.ppi.summary[category])}
+            {getGrade(player?.ppi?.summary[category])}
           </div>
           <div className={classes.categoryTitle}>{category}</div>
         </div>
@@ -94,14 +92,14 @@ export const FootballPanelGeneral = () => {
                   <div
                     className={clsx(
                       classes.grade,
-                      getGrade(player.ppi.details[category][key])
+                      getGrade(player?.ppi?.details[category][key])
                     )}
                   >
-                    {getGrade(player.ppi.details[category][key])}
+                    {getGrade(player?.ppi?.details[category][key])}
                   </div>
                 </div>
                 <div>
-                  {getSentence(value, player.ppi.details[category][key])}
+                  {getSentence(value, player?.ppi?.details[category][key])}
                 </div>
               </div>
             );

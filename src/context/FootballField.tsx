@@ -21,7 +21,6 @@ const reducer = (state: any, action: any) => {
     case ACTIONS.UPDATE_FILTERS:
       return {
         ...state,
-        formation,
         budget,
         rank,
       };
@@ -42,13 +41,8 @@ const reducer = (state: any, action: any) => {
 };
 
 // DIspatch
-const updateFilters = (
-  dispatch: any,
-  formation: string,
-  rank: number,
-  budget: number
-) => {
-  dispatch({ type: ACTIONS.UPDATE_FILTERS, formation, rank, budget });
+const updateFilters = (dispatch: any, rank: number, budget: number) => {
+  dispatch({ type: ACTIONS.UPDATE_FILTERS, rank, budget });
 };
 
 const updateFormation = (dispatch: any, formation: string) => {
@@ -65,8 +59,8 @@ export const FootballFieldProvider = ({ children }: any) => {
   });
 
   const setter = {
-    updateFilters: (formation: string, rank: number, budget: number) =>
-      updateFilters(dispatch, formation, rank, budget),
+    updateFilters: (rank: number, budget: number) =>
+      updateFilters(dispatch, rank, budget),
     updateFormation: (formation: string) =>
       updateFormation(dispatch, formation),
     updatePlayer: (player: any) => updatePlayer(dispatch, player),

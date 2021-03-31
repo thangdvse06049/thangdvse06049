@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FootballFieldCtx } from "../../context/FootballField";
 import { useStyles } from "./FootballFieldContent.style";
-import { map, groupBy } from "lodash";
+import { map, groupBy, kebabCase } from "lodash";
 import clsx from "classnames";
 import { FORMATIONS } from "../../constants/formation";
 
@@ -53,7 +53,9 @@ export const FootballFieldContent = () => {
                         </div>
                       </div>
                       <div
-                        className={clsx(classes.status,player?.performance?.gradeLabel
+                        className={clsx(
+                          classes.status,
+                          kebabCase(player?.performance?.gradeLabel)
                         )}
                       />
                     </div>

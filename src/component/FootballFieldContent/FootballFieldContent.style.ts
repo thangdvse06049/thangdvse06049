@@ -93,7 +93,10 @@ export const useStyles = makeStyles((theme) => ({
     "&.good": {
       background: "#4BAC5B",
     },
-    "&.normal": {
+    "&.average-but-good": {
+      background: "#68369A",
+    },
+    "&.average-but-bad": {
       background: "#68369A",
     },
     "&.bad": {

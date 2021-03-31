@@ -46,22 +46,22 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: 10,
     fontWeight: 600,
     "&.excellent": {
-      background: "green",
+      background: "#4BAEEA",
     },
     "&.good": {
-      background: "blue",
+      background: "#4BAC5B",
     },
-    "&.ok": {
-      background: "teal",
+    "&.average-but-good": {
+      background: "#68369A",
     },
-    "&.average": {
-      background: "yellow",
+    "&.average-but-bad": {
+      background: "#68369A",
     },
     "&.bad": {
-      background: "orange",
+      background: "#DF8244",
     },
     "&.terrible": {
-      background: "red",
+      background: "#EC3323",
     },
   },
   contentRow: {

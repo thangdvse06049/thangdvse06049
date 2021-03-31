@@ -21,4 +21,24 @@ export class Formation extends TeamseyesAuth {
 
     return response.data;
   }
+
+  static async getPositionSuggestions(
+    scheme: string,
+    position: string,
+    rank: number,
+    budget: number
+  ) {
+    const response = await axios.get(
+      `/api/formations/${scheme}/suggestions/${position}?rank=${rank}&budget=${
+        budget || 0
+      }`,
+      {
+        headers: {
+          ...Formation.getAuthHeader(),
+        },
+      }
+    );
+
+    return response.data;
+  }
 }

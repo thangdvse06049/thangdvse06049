@@ -11,6 +11,7 @@ import { FootballPanelGeneral } from "../FootballPanelGeneral";
 import { FootballPanelAdvanced } from "../FootballPanelAdvanced";
 import { FootballPanelSuggestion } from "../FootballPanelSuggestion";
 import { FootballFieldCtx } from "../../context/FootballField";
+import { kebabCase } from "lodash";
 
 const TABS = {
   GENERAL: 0,
@@ -37,12 +38,16 @@ export const FootballPanel = () => {
             }}
           ></div>
           <div
-            className={clsx(classes.status, player?.performance?.gradeLabel)}
+            className={clsx(
+              classes.status,
+              kebabCase(player?.performance?.gradeLabel)
+            )}
           >
             {player?.performance?.gradeLabel}
           </div>
           <Typography className={classes.name}>
-            {player.performance?.playerName}
+            {player?.performance?.playerName} ({player?.position?.toUpperCase()}
+            )
           </Typography>
         </div>
         <div className={classes.tabs}>

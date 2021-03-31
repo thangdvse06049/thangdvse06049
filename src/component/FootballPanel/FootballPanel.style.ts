@@ -28,10 +28,12 @@ export const useStyles = makeStyles((theme) => ({
   },
   status: {
     position: "absolute",
-    top: 68,
+    top: 75,
     background: "rgba(37,215,120,1)",
     height: 22,
-    width: 58,
+    minWidth: 58,
+    paddingLeft: 10,
+    paddingRight: 10,
     borderRadius: 35,
     textAlign: "center",
     fontSize: 14,
@@ -43,7 +45,10 @@ export const useStyles = makeStyles((theme) => ({
     "&.good": {
       background: "#4BAC5B",
     },
-    "&.normal": {
+    "&.average-but-good": {
+      background: "#68369A",
+    },
+    "&.average-but-bad": {
       background: "#68369A",
     },
     "&.bad": {
