@@ -7,14 +7,17 @@ import { FORMATIONS } from "../../constants/formation";
 
 export const FootballFieldContent = () => {
   const classes = useStyles();
-
-  const { formation } = React.useContext<any>(FootballFieldCtx);
+  const { formation, updatePlayer } = React.useContext<any>(FootballFieldCtx);
   if (!formation) {
     return <></>;
   }
-  const columns = FORMATIONS[formation.scheme];
 
+  const columns = FORMATIONS[formation.scheme];
   const formationByPosition = groupBy(formation.players, "position");
+
+  const onDetailsPlayer = (player: any) => {
+    updatePlayer(player);
+  };
 
   return (
     <div className={classes.root}>
@@ -30,7 +33,11 @@ export const FootballFieldContent = () => {
                 {positions.map((position: any, i: number) => {
                   const [player] = formationByPosition[position] || [];
                   return (
-                    <div key={i} className={classes.formationPlayer}>
+                    <div
+                      key={i}
+                      className={classes.formationPlayer}
+                      onClick={() => onDetailsPlayer(player)}
+                    >
                       <div className={classes.player}>
                         <div
                           className={classes.playerAvatar}

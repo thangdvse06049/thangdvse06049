@@ -10,6 +10,7 @@ import {
 import { FootballPanelGeneral } from "../FootballPanelGeneral";
 import { FootballPanelAdvanced } from "../FootballPanelAdvanced";
 import { FootballPanelSuggestion } from "../FootballPanelSuggestion";
+import { FootballFieldCtx } from "../../context/FootballField";
 
 const TABS = {
   GENERAL: 0,
@@ -21,6 +22,7 @@ export const FootballPanel = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [currentTab, setCurrentTab] = React.useState(TABS.SUGGESTION);
+  const { formation } = React.useContext<any>(FootballFieldCtx);
 
   const renderPlayer = () => {
     return (

@@ -9,8 +9,8 @@ export const Football = () => {
 
   return (
     <div className={classes.root}>
-      <FootballPanel />
       <FootballFieldProvider>
+        <FootballPanel />
         <FootballField />
       </FootballFieldProvider>
     </div>

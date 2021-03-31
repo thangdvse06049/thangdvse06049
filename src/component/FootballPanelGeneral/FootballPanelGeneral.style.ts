@@ -65,12 +65,13 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   contentRow: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 3,
+    marginBottom: 5,
   },
   contentKey: {
     textTransform: "uppercase",
+  },
+  contentValue: {
+    display: "flex",
+    justifyContent: "space-between",
   },
 }));

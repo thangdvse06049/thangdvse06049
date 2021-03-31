@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useStyles } from "./FootballPanelGeneral.style";
-import { map } from "lodash";
+import { map, startsWith } from "lodash";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import clsx from "classnames";
 import { Collapse } from "react-collapse";
+import { FootballFieldCtx } from "../../context/FootballField";
+import { LINK, SENTENCES, TRANSLATION } from "../../constants/footballGeneral";
 
-const FAKE_JSON = `{"playerId":102,"playerName":"Marcelo","playerFullName":"Marcelo Antônio Guedes Filho","teamName":"Olympique Lyonnais","positions":["rcb","cb"],"detailsRanked":{"x":{"x":0.27086614173228346},"y":{"y":0.06771653543307087},"DefenseursCentraux":{"positiveCB":0.0015748031496062992,"OffensiveLBRB":0.0015748031496062992},"DefenseurLateraux":{"OffensiveLBRB":0.0015748031496062992,"DefensiveLBRB":0.0015748031496062992},"MilieuxDefensif":{"OffensiveDMF":0.0015748031496062992,"DefensiveDMF":0.0015748031496062992},"MilieuxRelayeur":{"OffensiveLCMFRCMF":0.0015748031496062992,"DefensiveLCMFRCMF":0.0015748031496062992},"MilieuxOffensif":{"OffensiveAMF":0.0015748031496062992},"Ailliers":{"OffensiveLAMFRAMF":0.0015748031496062992,"DefensiveLAMFRAMF":0.0015748031496062992},"Attaquants":{"OffensiveCF":0.0015748031496062992},"Gardiens":{"Gk":0.0015748031496062992},"Test":{"OffensiveCF":0.0015748031496062992}},"details":{"DefenseursCentraux":{"positiveCB":0,"OffensiveLBRB":0},"DefenseurLateraux":{"OffensiveLBRB":0,"DefensiveLBRB":0},"MilieuxDefensif":{"OffensiveDMF":0,"DefensiveDMF":0},"MilieuxRelayeur":{"OffensiveLCMFRCMF":0,"DefensiveLCMFRCMF":0},"MilieuxOffensif":{"OffensiveAMF":0},"Ailliers":{"OffensiveLAMFRAMF":0,"DefensiveLAMFRAMF":0},"Attaquants":{"OffensiveCF":0},"Gardiens":{"Gk":0},"Test":{"OffensiveCF":0}},"summary":{"x":0.30467023400153254,"y":1,"DefenseursCentraux":0,"DefenseurLateraux":0,"MilieuxDefensif":0,"MilieuxRelayeur":0,"MilieuxOffensif":0,"Ailliers":0,"Attaquants":0,"Gardiens":0,"Test":0},"summaryRanked":{"x":0.27086614173228346,"y":0.06771653543307087,"DefenseursCentraux":0.0015748031496062992,"DefenseurLateraux":0.0015748031496062992,"MilieuxDefensif":0.0015748031496062992,"MilieuxRelayeur":0.0015748031496062992,"MilieuxOffensif":0.0015748031496062992,"Ailliers":0.0015748031496062992,"Attaquants":0.0015748031496062992,"Gardiens":0.0015748031496062992,"Test":0.0015748031496062992}}`;
-const FAKE = JSON.parse(FAKE_JSON);
+let links: any, sentences: any, translations: any;
 
 const getGrade = (value: number) => {
   if (value > 0.8) {
@@ -24,11 +25,32 @@ const getGrade = (value: number) => {
   }
 };
 
+const getSentence = (field: any, value: any) => {
+  try {
+    let index: number;
+    if (value > 0.8) return "Excellent";
+    else if (value > 0.6) return "Good";
+    else if (value > 0.5) return "Average but good";
+    else if (value > 0.4) return "Average but bad";
+    else if (value > 0.2) return "Bad";
+    else return "Mediocre";
+  } catch (e) {
+    return `error_${field}`;
+  }
+};
+
 export const FootballPanelGeneral = () => {
+  links = LINK;
+  sentences = SENTENCES;
+  translations = TRANSLATION;
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(
-    Object.keys(FAKE.details)[0] as string | null
-  );
+
+  const { formation, player } = React.useContext<any>(FootballFieldCtx);
+  const [expanded, setExpanded] = React.useState<string | null>(null);
+
+  useEffect(() => {
+    setExpanded(Object.keys(formation.players[0].ppi.details)[0]);
+  }, [formation]);
 
   const renderCategoryHeader = (category: string) => {
     return (
@@ -40,9 +62,12 @@ export const FootballPanelGeneral = () => {
       >
         <div className={classes.categoryInnerHeader}>
           <div
-            className={clsx(classes.grade, getGrade(FAKE.summary[category]))}
+            className={clsx(
+              classes.grade,
+              getGrade(player.ppi.summary[category])
+            )}
           >
-            {getGrade(FAKE.summary[category])}
+            {getGrade(player.ppi.summary[category])}
           </div>
           <div className={classes.categoryTitle}>{category}</div>
         </div>
@@ -59,14 +84,24 @@ export const FootballPanelGeneral = () => {
             expanded: expanded === category,
           })}
         >
-          {map(Object.keys(details), (key) => {
+          {map(details, ([value], key) => {
             return (
               <div className={classes.contentRow}>
-                <div className={classes.contentKey}>{key}</div>
-                <div
-                  className={clsx(classes.grade, getGrade(FAKE.details[key]))}
-                >
-                  {getGrade(FAKE.details[key])}
+                <div className={classes.contentValue}>
+                  <div className={classes.contentKey}>
+                    {translations[key] || key}
+                  </div>
+                  <div
+                    className={clsx(
+                      classes.grade,
+                      getGrade(player.ppi.details[category][key])
+                    )}
+                  >
+                    {getGrade(player.ppi.details[category][key])}
+                  </div>
+                </div>
+                <div>
+                  {getSentence(value, player.ppi.details[category][key])}
                 </div>
               </div>
             );
@@ -78,12 +113,12 @@ export const FootballPanelGeneral = () => {
 
   return (
     <div className={classes.root}>
-      {map(FAKE.details, (details: any, category: string) => {
+      {map(links, (details: any, category: string) => {
         return (
           <div className={classes.category}>
             {renderCategoryHeader(category)}
             {renderDetails(category, details)}
-            {/* <div className={classes.categoryContent}>{'123'}</div> */}
+            <div className={classes.categoryContent}> </div>
           </div>
         );
       })}
