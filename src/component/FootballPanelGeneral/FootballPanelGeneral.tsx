@@ -62,10 +62,10 @@ export const FootballPanelGeneral = () => {
           <div
             className={clsx(
               classes.grade,
-              kebabCase(getGrade(player?.ppi?.summary[category]))
+              kebabCase(getGrade(player?.ppi?.summaryRanked[category]))
             )}
           >
-            {getGrade(player?.ppi?.summary[category])}
+            {getGrade(player?.ppi?.summaryRanked[category])}
           </div>
           <div className={classes.categoryTitle}>{category}</div>
         </div>
@@ -92,14 +92,17 @@ export const FootballPanelGeneral = () => {
                   <div
                     className={clsx(
                       classes.grade,
-                      getGrade(player?.ppi?.details[category][key])
+                      getGrade(player?.ppi?.detailsRanked[category][key])
                     )}
                   >
-                    {getGrade(player?.ppi?.details[category][key])}
+                    {getGrade(player?.ppi?.detailsRanked[category][key])}
                   </div>
                 </div>
                 <div>
-                  {getSentence(value, player?.ppi?.details[category][key])}
+                  {getSentence(
+                    value,
+                    player?.ppi?.detailsRanked[category][key]
+                  )}
                 </div>
               </div>
             );

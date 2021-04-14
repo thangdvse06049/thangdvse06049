@@ -37,7 +37,9 @@ export const FootballFieldHeader = () => {
         ...obj,
       }));
 
-      const max = maxBy(formations, "count");
+      const max = maxBy(formations, (o) =>
+        o.ratioUsed > 0.17 ? o.ratioMatchesWon : 0
+      );
       setLocalFormation(max);
       setListFormations(formations);
       loadScheme(max.scheme);

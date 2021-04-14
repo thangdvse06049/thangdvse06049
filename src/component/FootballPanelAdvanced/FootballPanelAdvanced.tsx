@@ -34,12 +34,12 @@ const getGradeFromKey = (key: string) => {
 export const FootballPanelAdvanced = () => {
   const classes = useStyles();
   const { player } = React.useContext<any>(FootballFieldCtx);
-  
+
   return (
     <div className={classes.root}>
       <div className={classes.category}>
         <div className={classes.categoryTitle}>
-          Age ({player.performance.age})
+          Age ({player?.performance?.age})
         </div>
         <div>
           {map(BMIAGE_KEYS, (key) => {
