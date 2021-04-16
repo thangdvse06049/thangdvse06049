@@ -63,6 +63,9 @@ export const useStyles = makeStyles((theme) => ({
     "&.terrible": {
       background: "#EC3323",
     },
+    "&.error": {
+      color: "#EC3323",
+    },
   },
   contentRow: {
     marginBottom: 5,

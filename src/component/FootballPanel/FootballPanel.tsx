@@ -22,7 +22,7 @@ const TABS = {
 export const FootballPanel = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [currentTab, setCurrentTab] = React.useState(TABS.SUGGESTION);
+  const [currentTab, setCurrentTab] = React.useState(TABS.GENERAL);
   const { player } = React.useContext<any>(FootballFieldCtx);
 
   const renderPlayer = () => {
@@ -33,7 +33,8 @@ export const FootballPanel = () => {
             className={classes.avatar}
             style={{
               backgroundImage: `url(${
-                player?.avatar || "https://via.placeholder.com/150"
+                player?.player?.imageDataURL ||
+                "https://via.placeholder.com/150"
               })`,
             }}
           ></div>

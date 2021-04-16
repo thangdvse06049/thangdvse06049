@@ -5,6 +5,7 @@ import { useStyles } from "./FootballFieldHeader.style";
 import { FootballFieldCtx } from "../../context/FootballField";
 import { Formation } from "../../models/formation";
 import { map, maxBy } from "lodash";
+import { UserCtx } from "../../context/User";
 
 export const FootballFieldHeader = () => {
   const classes = useStyles();
@@ -15,6 +16,8 @@ export const FootballFieldHeader = () => {
     updateFilters,
     updatePlayer,
   } = React.useContext<any>(FootballFieldCtx);
+
+  const { user } = React.useContext<any>(UserCtx);
   const [listFormations, setListFormations] = useState([] as any);
   const [localFormation, setLocalFormation] = useState(null as any);
   const [localRank, setLocalRank] = useState(rank);
@@ -44,7 +47,7 @@ export const FootballFieldHeader = () => {
       setListFormations(formations);
       loadScheme(max?.scheme);
     });
-  }, []);
+  }, [user.teamId, user.seasonId]);
 
   const onChangeFormation = (event: React.ChangeEvent<HTMLInputElement>) => {
     const scheme = event.target.value;

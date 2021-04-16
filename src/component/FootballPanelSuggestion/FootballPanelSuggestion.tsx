@@ -45,11 +45,11 @@ export const FootballPanelSuggestion = () => {
           <div className={clsx(classes.player, { grey: i % 2 === 0 })}>
             <div
               className={classes.playerAvatar}
-              style={{ backgroundImage: `url(${player.avatar})` }}
+              style={{ backgroundImage: `url(${player?.player?.imageDataURL})` }}
             />
-            <div className={classes.playerName}>{player.playerName}</div>
+            <div className={classes.playerName}>{player?.playerName}</div>
             <div className={classes.playerBudget}>
-              {currencyFormatter.format(player.marketValue, {
+              {currencyFormatter.format(player?.marketValue, {
                 code: "EUR",
                 decimalDigits: 0,
                 precision: 0,

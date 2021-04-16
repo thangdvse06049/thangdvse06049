@@ -11,11 +11,12 @@ import { Autocomplete } from "@material-ui/lab";
 import { Season } from "../../models/season";
 import { Team } from "../../models/team";
 import { User } from "../../models/user";
+import { find } from "lodash";
 
 export const InforSetting = (props: any) => {
   const { openSettings, setOpenSettings } = props;
   const classes = useStyles();
-  const { user, update } = React.useContext<any>(UserCtx);
+  const { user, update, login } = React.useContext<any>(UserCtx);
   const [season, setSeason] = useState<any>();
   const [team, setTeam] = useState<any>();
 
@@ -31,14 +32,19 @@ export const InforSetting = (props: any) => {
   };
 
   const onApplySetting = async () => {
-    update({ ...user, seasonId: season._id, teamId: team._id });
-    try {
-      await User.updateUser({
-        seasonId: season._id,
-        teamId: team._id,
-      });
-    } catch (e) {
-      console.log(e);
+    if (season?._id && team?._id) {
+      update({ ...user, seasonId: season._id, teamId: team._id });
+      try {
+        await User.updateUser({
+          seasonId: season._id,
+          teamId: team._id,
+        });
+
+        const res = await User.refreshToken();
+        login(res.data.token);
+      } catch (e) {
+        console.log(e);
+      }
     }
 
     setOpenSettings(false);
@@ -56,12 +62,16 @@ export const InforSetting = (props: any) => {
 
   const fetchSeason = async () => {
     const resSeason = await Season.getListSeasonByCompetitionId();
+    const season = find(resSeason, { _id: user.seasonId });
     setSeasonOption(resSeason);
+    setSeason(season);
   };
 
   const fetchTeam = async () => {
     const resTeam = await Team.getListTeamBySeasonId(season._id);
+    const team = find(resTeam, { _id: user.teamId });
     setTeamOption(resTeam);
+    setTeam(team);
   };
 
   return (

@@ -43,7 +43,7 @@ export const FootballPanelAdvanced = () => {
         </div>
         <div>
           {map(BMIAGE_KEYS, (key) => {
-            const value = player.bmiAge[key].age;
+            const value = player?.bmiAge[key].age;
             if (value <= 0) return null;
             return (
               <div
@@ -61,11 +61,11 @@ export const FootballPanelAdvanced = () => {
       </div>
       <div className={classes.category}>
         <div className={classes.categoryTitle}>
-          Age + 1 ({player.performance.age + 1})
+          Age + 1 ({player?.performance.age + 1})
         </div>
         <div>
           {map(BMIAGE_KEYS, (key) => {
-            const value = player.bmiAge[key].nextAge;
+            const value = player?.bmiAge[key].nextAge;
             if (value <= 0) return null;
             return (
               <div
@@ -83,10 +83,10 @@ export const FootballPanelAdvanced = () => {
       </div>
       <div className={classes.category}>
         <div className={classes.categoryTitle}>
-          BMI ({player.performance.BMI + 1})
+          BMI ({player?.performance.BMI + 1})
         </div>
         {map(BMIAGE_KEYS, (key) => {
-          const value = player.bmiAge[key].bmi;
+          const value = player?.bmiAge[key].bmi;
           if (value <= 0) return null;
           return (
             <div
@@ -106,8 +106,8 @@ export const FootballPanelAdvanced = () => {
         <div>
           Current estimation at this position:{" "}
           <b>
-            {player.marketValue
-              ? currencyFormatter.format(player.marketValue, {
+            {player?.marketValue
+              ? currencyFormatter.format(player?.marketValue, {
                   code: "EUR",
                   decimalDigits: 0,
                   precision: 0,

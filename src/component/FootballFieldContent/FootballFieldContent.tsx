@@ -43,7 +43,7 @@ export const FootballFieldContent = () => {
                           className={classes.playerAvatar}
                           style={{
                             backgroundImage: `url(${
-                              player?.avatar ||
+                              player?.player?.imageDataURL ||
                               "https://via.placeholder.com/150"
                             })`,
                           }}

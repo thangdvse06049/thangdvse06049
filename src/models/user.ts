@@ -9,6 +9,14 @@ export class User extends TeamseyesAuth {
     });
   }
 
+  static async refreshToken() {
+    return axios.post("/api/auth/token/refresh", null, {
+      headers: {
+        ...User.getAuthHeader(),
+      },
+    });
+  }
+
   static async updateUser(objUser: any) {
     const response = await axios.put(`/api/update-user`, objUser, {
       headers: {

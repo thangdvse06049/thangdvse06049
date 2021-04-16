@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useStyles } from "./FootballPanelGeneral.style";
-import { kebabCase, map } from "lodash";
+import { isNumber, kebabCase, map } from "lodash";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import clsx from "classnames";
 import { Collapse } from "react-collapse";
@@ -10,6 +10,8 @@ import { LINK, TRANSLATION } from "../../constants/footballGeneral";
 let links: any, translations: any;
 
 const getGrade = (value: number) => {
+  if (!isNumber(value)) return "error";
+
   if (value > 0.8) {
     return "excellent";
   } else if (value >= 0.6) {
@@ -25,19 +27,6 @@ const getGrade = (value: number) => {
   }
 };
 
-const getSentence = (field: any, value: any) => {
-  try {
-    if (value > 0.8) return "Excellent";
-    else if (value > 0.6) return "Good";
-    else if (value > 0.5) return "Average but good";
-    else if (value > 0.4) return "Average but bad";
-    else if (value > 0.2) return "Bad";
-    else return "Mediocre";
-  } catch (e) {
-    return `error_${field}`;
-  }
-};
-
 export const FootballPanelGeneral = () => {
   links = LINK;
   translations = TRANSLATION;
@@ -47,7 +36,9 @@ export const FootballPanelGeneral = () => {
   const [expanded, setExpanded] = React.useState<string | null>(null);
 
   useEffect(() => {
-    setExpanded(Object.keys(formation?.players[0].ppi?.details)[0]);
+    if (formation?.players?.length) {
+      setExpanded(Object.keys(formation?.players[0].ppi?.details)[0]);
+    }
   }, [formation]);
 
   const renderCategoryHeader = (category: string) => {
@@ -89,20 +80,16 @@ export const FootballPanelGeneral = () => {
                   <div className={classes.contentKey}>
                     {translations[key] || key}
                   </div>
-                  <div
-                    className={clsx(
-                      classes.grade,
-                      getGrade(player?.ppi?.detailsRanked[category][key])
-                    )}
-                  >
-                    {getGrade(player?.ppi?.detailsRanked[category][key])}
+                  <div>
+                    <div
+                      className={clsx(
+                        classes.grade,
+                        getGrade(player?.ppi?.detailsRanked[category][key])
+                      )}
+                    >
+                      {getGrade(player?.ppi?.detailsRanked[category][key])}
+                    </div>
                   </div>
-                </div>
-                <div>
-                  {getSentence(
-                    value,
-                    player?.ppi?.detailsRanked[category][key]
-                  )}
                 </div>
               </div>
             );
