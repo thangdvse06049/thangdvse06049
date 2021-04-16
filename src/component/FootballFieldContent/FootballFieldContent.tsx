@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FootballFieldCtx } from "../../context/FootballField";
 import { useStyles } from "./FootballFieldContent.style";
 import { map, groupBy, kebabCase } from "lodash";

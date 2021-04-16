@@ -6,7 +6,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import { useHistory } from "react-router-dom";
 import { useStyles } from "./Login.style";
 import LogoSVG from "./assets/logo.svg";
 import { User } from "../../models/user";

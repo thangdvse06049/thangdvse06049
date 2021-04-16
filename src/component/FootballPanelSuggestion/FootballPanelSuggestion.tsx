@@ -7,12 +7,6 @@ import { map } from "lodash";
 
 const currencyFormatter = require("currency-formatter");
 
-const players = Array(25).fill({
-  avatar: "https://via.placeholder.com/150",
-  name: "Kevin Aime Perard",
-  value: Math.floor(Math.random() * 1000000000),
-});
-
 export const FootballPanelSuggestion = () => {
   const classes = useStyles();
   const { player, formation, budget, rank } = React.useContext<any>(
@@ -31,7 +25,6 @@ export const FootballPanelSuggestion = () => {
         budget
       )
         .then((data) => {
-          console.log(data);
           setSuggestions(
             data.sort((a: any, b: any) => a.scoreGrade - b.scoreGrade)
           );

@@ -1,13 +1,6 @@
-import {
-  AppBar,
-  IconButton,
-  Toolbar,
-  Typography,
-  Button,
-} from "@material-ui/core";
+import { AppBar, Toolbar } from "@material-ui/core";
 import React from "react";
 import { useStyles } from "./Navigation.style";
-import MenuIcon from "@material-ui/icons/Menu";
 import { useHistory } from "react-router-dom";
 import clsx from "classnames";
 import { UserCtx } from "../../context/User";
@@ -16,7 +9,7 @@ import { TeamInformation } from "../TeamInformation";
 export const Navigation = () => {
   const classes = useStyles();
   const history = useHistory();
-  const { logout, user }: any = React.useContext(UserCtx);
+  const { logout }: any = React.useContext(UserCtx);
 
   const onClickLogout = () => {
     logout();
