@@ -1,0 +1,1 @@
+export { InforSetting } from "./InforSetting";

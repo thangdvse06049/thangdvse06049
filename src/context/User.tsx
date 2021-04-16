@@ -15,6 +15,7 @@ const DEFAULT_STATE = {
 const ACTIONS = {
   LOGIN: "LOGIN",
   LOGOUT: "LOGOUT",
+  UPDATE: "UPDATE",
 };
 
 console.log(user);
@@ -32,6 +33,11 @@ const reducer = (state: any, action: any) => {
     case ACTIONS.LOGOUT:
       return {
         user: null,
+      };
+    case ACTIONS.UPDATE:
+      return {
+        ...state,
+        user,
       };
     default: {
       return state;
@@ -51,6 +57,10 @@ const logout = (dispatch: any) => {
   dispatch({ type: ACTIONS.LOGOUT });
 };
 
+const update = (dispatch: any, user: any) => {
+  dispatch({ type: ACTIONS.UPDATE, user });
+};
+
 export const UserProvider = ({ children }: any) => {
   const [state, dispatch] = React.useReducer(reducer, {
     ...DEFAULT_STATE,
@@ -60,6 +70,7 @@ export const UserProvider = ({ children }: any) => {
   const setter = {
     login: (token: string) => login(dispatch, token),
     logout: () => logout(dispatch),
+    update: (user: any) => update(dispatch, user),
   };
 
   const value = { ...state, ...setter };

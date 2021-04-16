@@ -5,6 +5,7 @@ export const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     display: "flex",
     padding: 6,
+    justifyContent: "center",
   },
   avatar: {
     marginTop: 2,
@@ -13,7 +14,6 @@ export const useStyles = makeStyles((theme) => ({
     height: 50,
     width: 50,
     backgroundSize: "cover",
-    marginLeft: 15,
   },
   teamName: {
     color: "black",

@@ -32,7 +32,7 @@ export const FootballFieldHeader = () => {
 
   useEffect(() => {
     Formation.list().then((response) => {
-      const formations = map(response.formations, (obj, scheme) => ({
+      const formations = map(response?.formations, (obj, scheme) => ({
         scheme,
         ...obj,
       }));
@@ -42,7 +42,7 @@ export const FootballFieldHeader = () => {
       );
       setLocalFormation(max);
       setListFormations(formations);
-      loadScheme(max.scheme);
+      loadScheme(max?.scheme);
     });
   }, []);
 

@@ -46,6 +46,9 @@ export const useStyles = makeStyles((theme) => ({
       "&.logout $buttonIcon": {
         backgroundImage: `url(/logout_fill.svg)`,
       },
+      "&.settings $buttonIcon": {
+        backgroundImage: `url(/ranking_fill.svg)`,
+      },
     },
     "&.football $buttonIcon": {
       height: 13,
@@ -57,6 +60,11 @@ export const useStyles = makeStyles((theme) => ({
       width: 17,
       backgroundImage: `url(/logout.svg)`,
     },
+    "&.settings $buttonIcon": {
+      height: 16,
+      width: 17,
+      backgroundImage: `url(/ranking.svg)`,
+    },
   },
   buttonIcon: {
     marginRight: theme.spacing(0.5),
@@ -67,9 +75,14 @@ export const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   teamInfor: {
-    marginRight: 90,
     minHeight: 64,
-    width: 150,
+    width: 225,
+    height: "100%",
+    borderLeft: "1px solid #E1E3EB",
+  },
+  inforSetting: {
+    minHeight: 64,
+    width: 100,
     height: "100%",
     borderLeft: "1px solid #E1E3EB",
     borderRight: "1px solid #E1E3EB",

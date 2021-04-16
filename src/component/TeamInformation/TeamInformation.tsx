@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useStyles } from "./TeamInformation.style";
 import { Team } from "../../models/team";
+import { UserCtx } from "../../context/User";
 
 export const TeamInformation = () => {
   const classes = useStyles();
   const [teamInfor, setTeamInfor] = useState<any>();
+  const { user } = React.useContext<any>(UserCtx);
+
   useEffect(() => {
-    Team.teamFormation().then((response) => {
+    Team.teamFormation(user.teamId).then((response) => {
       setTeamInfor(response);
     });
-  }, []);
+  }, [user.teamId]);
+
   return (
     <div className={classes.root}>
       <div
