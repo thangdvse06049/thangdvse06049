@@ -19,4 +19,34 @@ export class Team extends TeamseyesAuth {
     });
     return response.data;
   }
+
+  static async getTPI(competitionId: any, seasonId: any) {
+    const response = await axios.get(
+      `/teamtpi/tpi?competitionId=${competitionId}&seasonId=${seasonId}`,
+      {
+        headers: {
+          ...Team.getAuthHeader(),
+        },
+      }
+    );
+    return response.data;
+  }
+
+  static async getSeasons() {
+    const response = await axios.get(`/teamtpi/seasons`, {
+      headers: {
+        ...Team.getAuthHeader(),
+      },
+    });
+    return response.data;
+  }
+
+  static async getCompetitions() {
+    const response = await axios.get(`/teamtpi/competitions`, {
+      headers: {
+        ...Team.getAuthHeader(),
+      },
+    });
+    return response.data;
+  }
 }

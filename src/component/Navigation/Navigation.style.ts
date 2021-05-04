@@ -43,17 +43,25 @@ export const useStyles = makeStyles((theme) => ({
       "&.football $buttonIcon": {
         backgroundImage: `url(/field_active.svg)`,
       },
+      "&.team $buttonIcon": {
+        backgroundImage: `url(/analytics_active.svg)`,
+      },
       "&.logout $buttonIcon": {
         backgroundImage: `url(/logout_fill.svg)`,
       },
       "&.settings $buttonIcon": {
-        backgroundImage: `url(/ranking_fill.svg)`,
+        backgroundImage: `url(/undo_fill.svg)`,
       },
     },
     "&.football $buttonIcon": {
       height: 13,
       width: 20,
       backgroundImage: `url(/field.svg)`,
+    },
+    "&.team $buttonIcon": {
+      height: 13,
+      width: 20,
+      backgroundImage: `url(/analytic.svg)`,
     },
     "&.logout $buttonIcon": {
       height: 16,
@@ -63,7 +71,7 @@ export const useStyles = makeStyles((theme) => ({
     "&.settings $buttonIcon": {
       height: 16,
       width: 17,
-      backgroundImage: `url(/ranking.svg)`,
+      backgroundImage: `url(/undo.svg)`,
     },
   },
   buttonIcon: {
