@@ -13,6 +13,7 @@ import {
   TPI_SUMMARY,
   TPI_CATEGORY_LABEL,
   TPI_ORDER_CHART,
+  TPI_TRANSLATION,
 } from "../../constants/team-tpi";
 import classnames from "classnames";
 import { LINK_SENTENCES } from "../../constants/link_sentences";
@@ -125,25 +126,20 @@ export const TeamAnalytics = () => {
                       </div>
                       <div className={classes.separator} />
 
-                      {map(arrayFields, (fields) => {
+                      {map(arrayFields, (fields: string[], key: string) => {
+                        console.log(fields, key);
                         return (
                           <div className={classes.sentence}>
                             <div className={classes.sentenceTitle}>
-                              {fields.join(", ")}
+                              {TPI_TRANSLATION[category][key]}
                             </div>
                             <div className={classes.sentenceContent}>
                               {map(fields, (field: any) => {
-                                const indexFirst = getSentenceIndex(
+                                const index = getSentenceIndex(
                                   (tpi.detailsRanked[category][field] /
                                     tpi.nbTeams) *
                                     100
                                 );
-
-                                const index = indexFirst
-                                  ? indexFirst
-                                  : getSentenceIndex(
-                                      tpi.details[category][field] * 100
-                                    );
                                 return (
                                   <span>
                                     {TPI[category][field]
@@ -192,9 +188,10 @@ export const TeamAnalytics = () => {
         type="radar"
         options={{
           height: 250,
-          legend: {
-            position: "top",
-            display: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
           },
           scale: {
             reverse: false,

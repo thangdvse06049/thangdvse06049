@@ -34,21 +34,6 @@ export const Navigation = () => {
           <Toolbar>
             <img src={"/logo.png"} height="30" className={classes.logo} />
             <div className={classes.verticalBar} />
-            <div
-              onClick={() => {
-                history.push("/football");
-              }}
-              className={clsx(
-                classes.button,
-                "football",
-                history.location.pathname === "/football" ? "active" : ""
-              )}
-            >
-              <div className={classes.buttonIcon} />
-              Football Field
-            </div>
-
-            <div className={classes.verticalBar} />
 
             <div
               onClick={() => {
@@ -62,6 +47,20 @@ export const Navigation = () => {
             >
               <div className={classes.buttonIcon} />
               Team Analytics
+            </div>
+            <div className={classes.verticalBar} />
+            <div
+              onClick={() => {
+                history.push("/football");
+              }}
+              className={clsx(
+                classes.button,
+                "football",
+                history.location.pathname === "/football" ? "active" : ""
+              )}
+            >
+              <div className={classes.buttonIcon} />
+              Football Field
             </div>
 
             <div className={classes.verticalBar} />
