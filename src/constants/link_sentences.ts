@@ -13,7 +13,6 @@ export const LINK_SENTENCES = {
   DEFENSIF: {
     goals2: ["goals2", "cleanSheets2"],
     goalMean2: ["goalMean2"],
-    groupPasses: ["groupPasses"],
     attacks: ["attacks", "withShots2"],
     shots2: ["shots2", "shotsFromBox2"],
     shotBlocked2: ["shotBlocked2", "headShotsRatio2"],
