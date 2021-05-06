@@ -13,6 +13,7 @@ export const Routes = () => {
       <Switch>
         <Route path="/football" component={FootballPage} />
         <Route path="/team" component={TeamPage} />
+        <Redirect to="/football" />
       </Switch>
     );
   };
