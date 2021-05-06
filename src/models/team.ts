@@ -22,7 +22,7 @@ export class Team extends TeamseyesAuth {
 
   static async getTPI(competitionId: any, seasonId: any) {
     const response = await axios.get(
-      `/teamtpi/tpi?competitionId=${competitionId}&seasonId=${seasonId}`,
+      `/api/teamtpi/tpi?competitionId=${competitionId}&seasonId=${seasonId}`,
       {
         headers: {
           ...Team.getAuthHeader(),
@@ -33,7 +33,7 @@ export class Team extends TeamseyesAuth {
   }
 
   static async getSeasons() {
-    const response = await axios.get(`/teamtpi/seasons`, {
+    const response = await axios.get(`/api/teamtpi/seasons`, {
       headers: {
         ...Team.getAuthHeader(),
       },
@@ -42,7 +42,7 @@ export class Team extends TeamseyesAuth {
   }
 
   static async getCompetitions() {
-    const response = await axios.get(`/teamtpi/competitions`, {
+    const response = await axios.get(`/api/teamtpi/competitions`, {
       headers: {
         ...Team.getAuthHeader(),
       },
