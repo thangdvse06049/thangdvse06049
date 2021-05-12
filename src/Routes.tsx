@@ -26,9 +26,12 @@ export const Routes = () => {
           <Redirect to="/football" />
         </Route>
         <Route exact path="/team" component={TeamPage}>
-          {!user ? <LoginPage /> : <TeamPage />}
-          <Redirect to="/team" />
+          <TeamPage />
         </Route>
+        <Route exact path="/login" component={TeamPage}>
+          <LoginPage />
+        </Route>
+        <Redirect to={!user ? "/login" : "/team"} />
       </Switch>
     );
   };
