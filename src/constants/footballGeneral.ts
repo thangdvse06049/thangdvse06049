@@ -625,7 +625,7 @@ export const LINK = {
   },
 };
 
-export const TRANSLATION = {
+export const TRANSLATION: any = {
   FINITION: "FINITION",
   goals: "Buteur",
   goalsEfficiency: "Efficacité Devant le But",

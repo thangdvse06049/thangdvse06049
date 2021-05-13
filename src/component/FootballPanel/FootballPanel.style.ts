@@ -2,12 +2,10 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    border: "1px solid #E1E3EB",
     background: "white",
-    width: 350,
-    maxHeight: `calc(100vh - ${theme.spacing(4)}px - 2px - 64px)`,
-    minHeight: `calc(100vh - ${theme.spacing(4)}px - 2px - 64px)`,
-    borderRadius: 6,
+    width: 349,
+    maxHeight: `calc(100vh - ${theme.spacing(4)}px - 2px - 64px - 43px - 13px)`,
+    minHeight: `calc(100vh - ${theme.spacing(4)}px - 2px - 64px - 43px - 13px)`,
     overflowY: "scroll",
   },
   header: {

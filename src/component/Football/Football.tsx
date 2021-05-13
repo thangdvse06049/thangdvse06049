@@ -2,6 +2,7 @@ import React from "react";
 import FootballFieldProvider from "../../context/FootballField";
 import { FootballField } from "../FootballField";
 import { FootballPanel } from "../FootballPanel";
+import { SearchPlayer } from "../SearchPlayer";
 import { useStyles } from "./Football.style";
 
 export const Football = () => {
@@ -10,7 +11,10 @@ export const Football = () => {
   return (
     <div className={classes.root}>
       <FootballFieldProvider>
-        <FootballPanel />
+        <div className={classes.leftPanel}>
+          <SearchPlayer />
+          <FootballPanel />
+        </div>
         <FootballField />
       </FootballFieldProvider>
     </div>

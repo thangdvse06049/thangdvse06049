@@ -127,7 +127,6 @@ export const TeamAnalytics = () => {
                       <div className={classes.separator} />
 
                       {map(arrayFields, (fields: string[], key: string) => {
-                        console.log(fields, key);
                         return (
                           <div className={classes.sentence}>
                             <div className={classes.sentenceTitle}>
