@@ -269,6 +269,7 @@ export const SearchPlayer = () => {
                   renderOption={(option) => detailPlayer(option)}
                   renderInput={(params) => (
                     <TextField
+                      autoFocus
                       {...params}
                       label="Search Player"
                       inputProps={{
