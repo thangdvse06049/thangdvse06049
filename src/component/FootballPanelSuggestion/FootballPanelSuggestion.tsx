@@ -3,7 +3,8 @@ import { useStyles } from "./FootballPanelSuggestion.style";
 import clsx from "classnames";
 import { FootballFieldCtx } from "../../context/FootballField";
 import { Formation } from "../../models/formation";
-import { map } from "lodash";
+import { capitalize, map } from "lodash";
+import { Team } from "../../models/team";
 
 const currencyFormatter = require("currency-formatter");
 
@@ -18,16 +19,13 @@ export const FootballPanelSuggestion = () => {
   useEffect(() => {
     if (formation.scheme) {
       setSuggestions(null);
-      Formation.getPositionSuggestions(
-        formation.scheme,
+      Team.getPositionSuggestions(
+        player.playerId,
         player?.position,
-        rank,
-        budget
+        parseInt(rank, 10)
       )
         .then((data) => {
-          setSuggestions(
-            data.sort((a: any, b: any) => a.scoreGrade - b.scoreGrade)
-          );
+          setSuggestions(data);
         })
         .catch((e) => {
           setSuggestions([]);
@@ -45,16 +43,24 @@ export const FootballPanelSuggestion = () => {
           <div className={clsx(classes.player, { grey: i % 2 === 0 })}>
             <div
               className={classes.playerAvatar}
-              style={{ backgroundImage: `url(${player?.player?.imageDataURL})` }}
+              style={{
+                backgroundImage: `url(${player?.player?.imageDataURL})`,
+              }}
             />
-            <div className={classes.playerName}>{player?.playerName}</div>
-            <div className={classes.playerBudget}>
+            <div className={classes.playerInfo}>
+              <div className={classes.playerName}>{player?.playerName}</div>
+              <div>Competition: {capitalize(player?.competitionCategory)}</div>
+              <div>Team: {capitalize(player?.teamCategory)}</div>
+              <div>PPI: {capitalize(player?.ppi)}</div>
+              <div>Status: {capitalize(player?.progression)}</div>
+            </div>
+            {/* <div className={classes.playerBudget}>
               {currencyFormatter.format(player?.marketValue, {
                 code: "EUR",
                 decimalDigits: 0,
                 precision: 0,
               })}
-            </div>
+            </div> */}
           </div>
         );
       })}

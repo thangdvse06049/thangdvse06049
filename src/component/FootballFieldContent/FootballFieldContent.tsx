@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FootballFieldCtx } from "../../context/FootballField";
 import { useStyles } from "./FootballFieldContent.style";
 import { map, groupBy, kebabCase } from "lodash";
 import clsx from "classnames";
 import { FORMATIONS } from "../../constants/formation";
+import { UserCtx } from "../../context/User";
+import { Team } from "../../models/team";
 
 export const FootballFieldContent = () => {
   const classes = useStyles();
+  const { user } = React.useContext<any>(UserCtx);
   const { formation, updatePlayer } = React.useContext<any>(FootballFieldCtx);
-  if (!formation) {
-    return <></>;
-  }
 
   const columns = FORMATIONS[formation.scheme];
   const formationByPosition = groupBy(formation.players, "position");
@@ -18,6 +18,18 @@ export const FootballFieldContent = () => {
   const onDetailsPlayer = (player: any) => {
     updatePlayer(player);
   };
+
+  useEffect(() => {
+    Team.getTpiToPPi()
+      .then((data) => {})
+      .catch((e) => {
+        console.log(e);
+      });
+  }, [user.teamId, user.seasonId]);
+
+  if (!formation) {
+    return null;
+  }
 
   return (
     <div className={classes.root}>

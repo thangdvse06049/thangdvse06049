@@ -1,5 +1,4 @@
 import React from "react";
-import { useStyles } from "./FootballPanel.style";
 import clsx from "classnames";
 import {
   Dialog,
@@ -12,6 +11,7 @@ import { FootballPanelAdvanced } from "../FootballPanelAdvanced";
 import { FootballPanelSuggestion } from "../FootballPanelSuggestion";
 import { FootballFieldCtx } from "../../context/FootballField";
 import { kebabCase } from "lodash";
+import { useStyles } from "./FootballPanel.style";
 
 const TABS = {
   GENERAL: 0,

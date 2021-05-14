@@ -52,14 +52,22 @@ const getColor = (category: any, key: any, v: any) => {
 };
 
 const getAdviceIndex = (category: any, key: any, value: any) => {
-  const v = inverseValue(category, key, value);
-  const index = Math.floor(v / 20);
-  return index === 5 ? 4 : index;
+  if (value > 80) return 0;
+  if (value > 60) return 1;
+  if (value > 50) return 2;
+  if (value > 40) return 3;
+  if (value > 20) return 4;
+  return 5;
 };
 
-const getSentenceIndex = (v: any) => {
-  const index = Math.floor(v / 20);
-  return index === 5 ? 4 : index;
+const getSentenceIndex = (value: any) => {
+  console.log(value);
+  if (value > 80) return 0;
+  if (value > 60) return 1;
+  if (value > 50) return 2;
+  if (value > 40) return 3;
+  if (value > 20) return 4;
+  return 5;
 };
 
 export const TeamAnalytics = () => {
@@ -86,7 +94,7 @@ export const TeamAnalytics = () => {
           map(LINK_SENTENCES, (arrayFields, category) => {
             const cateValue: any = tpi.summary[category] * 100;
             const cateNormalValue: any =
-              100 - (tpi.summaryRanked[category] * 100) / tpi.nbTeams;
+              100 - (tpi.summaryRanked[category] / tpi.nbTeams) * 100;
 
             const categoryValue = parseInt(cateValue, 10);
             const categoryNormalizedValue = parseInt(cateNormalValue, 10);
@@ -120,7 +128,11 @@ export const TeamAnalytics = () => {
                       <div className={classes.categoryAdvice}>
                         {
                           TPI_SUMMARY[category][
-                            getAdviceIndex(category, null, categoryValue)
+                            getAdviceIndex(
+                              category,
+                              null,
+                              categoryNormalizedValue
+                            )
                           ]
                         }
                       </div>
@@ -133,20 +145,20 @@ export const TeamAnalytics = () => {
                               {TPI_TRANSLATION[category][key]}
                             </div>
                             <div className={classes.sentenceContent}>
-                              {map(fields, (field: any) => {
-                                const index = getSentenceIndex(
-                                  (tpi.detailsRanked[category][field] /
-                                    tpi.nbTeams) *
-                                    100
-                                );
-                                return (
-                                  <span>
-                                    {TPI[category][field]
-                                      ? TPI[category][field][index] + " "
-                                      : ""}
-                                  </span>
-                                );
-                              })}
+                              <span>
+                                {map(fields, (field: any, idx: number) => {
+                                  const index = getSentenceIndex(
+                                    100 -
+                                      (tpi.detailsRanked[category][field] /
+                                        tpi.nbTeams) *
+                                        100
+                                  );
+                                  console.log(index);
+                                  return TPI[category][field]
+                                    ? TPI[category][field][index]
+                                    : "";
+                                }).join(" et ")}
+                              </span>
                             </div>
                           </div>
                         );
