@@ -49,4 +49,32 @@ export class Team extends TeamseyesAuth {
     });
     return response.data;
   }
+
+  static async getTpiToPPi() {
+    const response = await axios.get(`/api/teams/tpi-ppi`, {
+      headers: {
+        ...Team.getAuthHeader(),
+      },
+    });
+
+    return response.data;
+  }
+
+  static async getPositionSuggestions(
+    playerId: number,
+    position: string,
+    targetRank: number
+  ) {
+    const response = await axios.post(
+      `/api/teams/player-suggestion`,
+      { position, targetRank, playerId },
+      {
+        headers: {
+          ...Team.getAuthHeader(),
+        },
+      }
+    );
+
+    return response.data;
+  }
 }

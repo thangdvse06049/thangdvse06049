@@ -5,7 +5,7 @@ export const useStyles = makeStyles((theme) => ({
   player: {
     display: "flex",
     alignItems: "center",
-    height: 50,
+    padding: 10,
     "&.grey": {
       background: "#F0F7F7",
     },
@@ -20,8 +20,7 @@ export const useStyles = makeStyles((theme) => ({
     margin: `0 ${theme.spacing(1)}px`,
   },
   playerName: {
-    flexGrow: 1,
-    padding: `0 ${theme.spacing(1)}px`,
+    fontWeight: "bold",
   },
   playerBudget: {
     padding: `0 ${theme.spacing(1)}px`,
@@ -29,5 +28,9 @@ export const useStyles = makeStyles((theme) => ({
   emptySuggestions: {
     padding: `${theme.spacing(2)}px`,
     textAlign: "center",
+  },
+  playerInfo: {
+    flexGrow: 1,
+    padding: `0 ${theme.spacing(1)}px`,
   },
 }));
