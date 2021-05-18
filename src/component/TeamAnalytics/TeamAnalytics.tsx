@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { isEmpty, map } from "lodash";
+import { isEmpty, kebabCase, map } from "lodash";
 import {
   TPI,
   TPI_SUMMARY,
@@ -39,34 +39,35 @@ const inverseValue = (category: any, key: any, value: any) =>
 
 const getColor = (category: any, key: any, v: any) => {
   if (v > 80) {
-    return "#00B0F0";
-  } else if (v > 60) {
-    return "#00B050";
-  } else if (v > 40) {
-    return "#7030A0";
-  } else if (v > 20) {
-    return "#ED7D31";
+    return "#4BAEEA";
+  } else if (v >= 60) {
+    return "#4BAC5B";
+  } else if (v >= 50) {
+    return "#68369A";
+  } else if (v >= 40) {
+    return "#726284";
+  } else if (v >= 20) {
+    return "#DF8244";
   } else {
-    return "#FF0000";
+    return "#EC3323";
   }
 };
 
 const getAdviceIndex = (category: any, key: any, value: any) => {
-  if (value > 80) return 0;
-  if (value > 60) return 1;
-  if (value > 50) return 2;
-  if (value > 40) return 3;
-  if (value > 20) return 4;
+  if (value >= 80) return 0;
+  if (value >= 60) return 1;
+  if (value >= 50) return 2;
+  if (value >= 40) return 3;
+  if (value >= 20) return 4;
   return 5;
 };
 
 const getSentenceIndex = (value: any) => {
-  console.log(value);
-  if (value > 80) return 0;
-  if (value > 60) return 1;
-  if (value > 50) return 2;
-  if (value > 40) return 3;
-  if (value > 20) return 4;
+  if (value >= 80) return 0;
+  if (value >= 60) return 1;
+  if (value >= 50) return 2;
+  if (value >= 40) return 3;
+  if (value >= 20) return 4;
   return 5;
 };
 
@@ -153,7 +154,6 @@ export const TeamAnalytics = () => {
                                         tpi.nbTeams) *
                                         100
                                   );
-                                  console.log(index);
                                   return TPI[category][field]
                                     ? TPI[category][field][index]
                                     : "";
@@ -181,13 +181,14 @@ export const TeamAnalytics = () => {
             TPI_ORDER_CHART,
             (value: any, category: any) => TPI_CATEGORY_LABEL[category]
           ),
+          pointLabelFontWeight: "bold",
           datasets: [
             {
               suggestedMax: 100,
-              labels: map(
-                TPI_ORDER_CHART,
-                (value, category) => TPI_CATEGORY_LABEL[category]
-              ),
+              // labels: map(
+              //   TPI_ORDER_CHART,
+              //   (value, category) => TPI_CATEGORY_LABEL[category]
+              // ),
               backgroundColor: "rgba(64,112,244, 0.5)",
               pointBackgroundColor: "#4070F4",
               data: map(TPI_ORDER_CHART, (value: any, category: any) => {
@@ -227,7 +228,10 @@ export const TeamAnalytics = () => {
           <div className={classes.chartLegend}>
             <div className={classes.chartItemLegend}>
               <div
-                className={classnames(classes.chartItemLegendBadge, "very-bad")}
+                className={classnames(
+                  classes.chartItemLegendBadge,
+                  kebabCase("very bad")
+                )}
               />
               <div className={classes.chartItemLegendText}>Faiblesse</div>
             </div>
@@ -239,7 +243,19 @@ export const TeamAnalytics = () => {
             </div>
             <div className={classes.chartItemLegend}>
               <div
-                className={classnames(classes.chartItemLegendBadge, "normal")}
+                className={classnames(
+                  classes.chartItemLegendBadge,
+                  kebabCase("average but bad")
+                )}
+              />
+              <div className={classes.chartItemLegendText}>Average</div>
+            </div>
+            <div className={classes.chartItemLegend}>
+              <div
+                className={classnames(
+                  classes.chartItemLegendBadge,
+                  kebabCase("average but good")
+                )}
               />
               <div className={classes.chartItemLegendText}>Moyen</div>
             </div>
@@ -253,7 +269,7 @@ export const TeamAnalytics = () => {
               <div
                 className={classnames(
                   classes.chartItemLegendBadge,
-                  "very-good"
+                  kebabCase("very good")
                 )}
               />
               <div className={classes.chartItemLegendText}>Excellent</div>

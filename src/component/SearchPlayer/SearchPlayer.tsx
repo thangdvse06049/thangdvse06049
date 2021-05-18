@@ -11,7 +11,16 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Accordion from "@material-ui/core/Accordion";
 import Typography from "@material-ui/core/Typography";
 import { Player } from "../../models/player";
-import { debounce, map, isEmpty, kebabCase, isNumber, isString } from "lodash";
+import {
+  debounce,
+  map,
+  isEmpty,
+  kebabCase,
+  isNumber,
+  isString,
+  forEach,
+  compact,
+} from "lodash";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { LINK, TRANSLATION } from "../../constants/footballGeneral";
 import clsx from "classnames";
@@ -46,28 +55,16 @@ export const SearchPlayer = () => {
   };
 
   const fetchPlayerData = async (players: any) => {
-    const data = await Promise.all(
-      map(players, async (p: any) => {
-        if (!p.competition || !p.team || !p.season) {
-          const playerInfor = await Player.getCompetionSeasonTeam({
-            playerId: p._id,
-            seasonId: p.seasonId,
-            teamId: p.currentTeamId,
-            competitionId: p.competitionId,
-          });
-          if (isEmpty(p?.birthDate)) return null;
+    console.log("vao fetch data", players);
 
-          const age = computeAge(playerInfor?.season, p?.birthDate);
-          p.competition = playerInfor?.competition;
-          p.team = playerInfor?.team;
-          p.age = age;
-        }
-
-        return p;
-      })
-    );
+    const data = forEach(players, async (p: any) => {
+      if (isEmpty(p?.birthDate)) return null;
+      const age = computeAge(p?.season, p?.birthDate);
+      p.age = age;
+      return p;
+    });
     if (isEmpty(data)) return;
-    setPlayerOption(data);
+    setPlayerOption(compact(data));
   };
 
   const fetchPlayerPPI = async (player: any) => {
@@ -82,6 +79,7 @@ export const SearchPlayer = () => {
   const onChangePlayer = async (event: any, option: any) => {
     setPlayer(null);
     setPlayerPPI(null);
+    setPlayerOption([]);
     if (isEmpty(option)) return;
     setPlayer(option);
     await fetchPlayerPPI(option);
@@ -98,6 +96,7 @@ export const SearchPlayer = () => {
       let listPlayer: any = [];
       listPlayer = await Player.playerSearch(value);
       await fetchPlayerData(listPlayer);
+      value = " ";
     } catch (e) {
       alert(e);
     }
@@ -264,7 +263,6 @@ export const SearchPlayer = () => {
                   renderOption={(option) => detailPlayer(option)}
                   renderInput={(params) => (
                     <TextField
-                      autoFocus
                       {...params}
                       label="Search Player"
                       inputProps={{

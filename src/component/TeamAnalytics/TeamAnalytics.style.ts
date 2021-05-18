@@ -128,19 +128,22 @@ export const useStyles = makeStyles((theme) => ({
     height: 16,
     marginRight: "1rem",
     "&.very-bad": {
-      background: "#FF0000",
+      background: "#EC3323",
     },
     "&.bad": {
-      background: "#ED7D31",
+      background: "#DF8244",
     },
-    "&.normal": {
-      background: "#7030A0",
+    "&.average-but-bad": {
+      background: "#726284",
+    },
+    "&.average-but-good": {
+      background: "#68369A",
     },
     "&.good": {
-      background: "#00B050",
+      background: "#4BAC5B",
     },
     "&.very-good": {
-      background: "#00B0F0",
+      background: "#4BAEEA",
     },
   },
   chartItemLegendText: {
