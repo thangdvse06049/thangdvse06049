@@ -198,4 +198,11 @@ export const useStyles = makeStyles((theme) => ({
     height: 500,
     maxHeight: "500px !important",
   },
+  noPlayerNoti: {
+    justifyContent: "center",
+    display: "flex",
+    height: "80%",
+    alignItems: "center",
+    fontSize: 20,
+  },
 }));

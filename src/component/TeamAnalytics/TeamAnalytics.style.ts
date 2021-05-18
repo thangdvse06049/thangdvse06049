@@ -4,7 +4,9 @@ export const useStyles = makeStyles((theme) => ({
   root: {},
   analyticPanel: {
     display: "flex",
-    padding: 16,
+    paddingTop: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
   },
   radarChart: {
     minWidth: "50%",
@@ -17,6 +19,9 @@ export const useStyles = makeStyles((theme) => ({
   sentenceContent: {},
   expandDetails: {
     marginLeft: "1rem",
+    height: 630,
+    maxHeight: 630,
+    overflowY: "scroll",
   },
   expandGroup: {
     width: "100%",

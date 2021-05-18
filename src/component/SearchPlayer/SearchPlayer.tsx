@@ -11,7 +11,7 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Accordion from "@material-ui/core/Accordion";
 import Typography from "@material-ui/core/Typography";
 import { Player } from "../../models/player";
-import { debounce, map, isEmpty, kebabCase, isNumber } from "lodash";
+import { debounce, map, isEmpty, kebabCase, isNumber, isString } from "lodash";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { LINK, TRANSLATION } from "../../constants/footballGeneral";
 import clsx from "classnames";
@@ -269,6 +269,7 @@ export const SearchPlayer = () => {
                   renderOption={(option) => detailPlayer(option)}
                   renderInput={(params) => (
                     <TextField
+                      autoFocus={true}
                       {...params}
                       label="Search Player"
                       inputProps={{
@@ -278,7 +279,7 @@ export const SearchPlayer = () => {
                   )}
                 />
               </div>
-              {player && (
+              {player && !isString(player) && (
                 <div className={classes.contentDisplay}>
                   <div>{detailPlayer(player)}</div>
                   <div className={classes.textInfor}>PPI: </div>
@@ -288,6 +289,11 @@ export const SearchPlayer = () => {
                       : "No data"}
                   </div>
                 </div>
+              )}
+              {isString(player) && (
+                <Typography className={classes.noPlayerNoti}>
+                  Could not be found!
+                </Typography>
               )}
             </div>
           </DialogContent>
