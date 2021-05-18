@@ -22,7 +22,6 @@ export const useStyles = makeStyles((theme) => ({
     transition: `transform 0.5s ease`,
   },
   categoryTitle: {
-    marginLeft: theme.spacing(0.5),
     fontWeight: 500,
     color: "rgba(12,21,46,1)",
     fontSize: 15,
@@ -38,6 +37,7 @@ export const useStyles = makeStyles((theme) => ({
   grade: {
     textTransform: "uppercase",
     background: "transparent",
+    marginLeft: theme.spacing(0.5),
     padding: 5,
     lineHeight: "10px",
     display: "inline-flex",
@@ -55,7 +55,7 @@ export const useStyles = makeStyles((theme) => ({
       background: "#68369A",
     },
     "&.average-but-bad": {
-      background: "#68369A",
+      background: "#726284",
     },
     "&.bad": {
       background: "#DF8244",

@@ -4,18 +4,13 @@ import { TETextFieldOutlined } from "../TETextFieldOutlined";
 import { useStyles } from "./FootballFieldHeader.style";
 import { FootballFieldCtx } from "../../context/FootballField";
 import { Formation } from "../../models/formation";
-import { map, maxBy } from "lodash";
+import { map, maxBy, sortBy } from "lodash";
 import { UserCtx } from "../../context/User";
 
 export const FootballFieldHeader = () => {
   const classes = useStyles();
-  const {
-    rank,
-    budget,
-    updateFormation,
-    updateFilters,
-    updatePlayer,
-  } = React.useContext<any>(FootballFieldCtx);
+  const { rank, budget, updateFormation, updateFilters, updatePlayer } =
+    React.useContext<any>(FootballFieldCtx);
 
   const { user } = React.useContext<any>(UserCtx);
   const [listFormations, setListFormations] = useState([] as any);
@@ -37,6 +32,7 @@ export const FootballFieldHeader = () => {
     Formation.list().then((response) => {
       const formations = map(response?.formations, (obj, scheme) => ({
         scheme,
+        percentUsed: Math.floor(obj.ratioUsed * 100),
         ...obj,
       }));
 
@@ -44,7 +40,8 @@ export const FootballFieldHeader = () => {
         o.ratioUsed > 0.17 ? o.ratioMatchesWon : 0
       );
       setLocalFormation(max);
-      setListFormations(formations);
+      const sortedByScheme = sortBy(formations, (o: any) => o.scheme.length);
+      setListFormations(sortedByScheme);
       loadScheme(max?.scheme);
     });
   }, [user.teamId, user.seasonId]);
@@ -93,11 +90,16 @@ export const FootballFieldHeader = () => {
       >
         {map(listFormations, (formation: any, i: number) => (
           <MenuItem key={i} value={formation.scheme}>
-            {formation.scheme}
+            {formation.scheme} ({formation.percentUsed}%)
           </MenuItem>
         ))}
       </TETextFieldOutlined>
-      <Button variant="contained" color="primary" fullWidth onClick={onApply}>
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.refreshBtn}
+        onClick={onApply}
+      >
         Refresh
       </Button>
     </div>

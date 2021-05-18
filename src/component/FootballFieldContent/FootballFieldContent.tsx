@@ -6,6 +6,8 @@ import clsx from "classnames";
 import { FORMATIONS } from "../../constants/formation";
 import { UserCtx } from "../../context/User";
 import { Team } from "../../models/team";
+import { Season } from "../../models/season";
+import { computeAge } from "../../constants/player_infor";
 
 export const FootballFieldContent = () => {
   const classes = useStyles();
@@ -15,8 +17,24 @@ export const FootballFieldContent = () => {
   const columns = FORMATIONS[formation.scheme];
   const formationByPosition = groupBy(formation.players, "position");
 
-  const onDetailsPlayer = (player: any) => {
-    updatePlayer(player);
+  const onDetailsPlayer = async (player: any) => {
+    const season = await Season.getSeasonById(player?.player.seasonId);
+    const age = computeAge(season, player?.player.birthDate);
+    updatePlayer({ ...player, age: age });
+  };
+
+  const listPlayerBottom = () => {
+    return (
+      <div className={classes.playerBottom}>
+        <div
+          className={classes.playerAvatarBottom}
+          style={{
+            backgroundImage: `url(${"https://via.placeholder.com/150"})`,
+          }}
+        />
+        <div className={classes.playerNameBottom}>Kevin Perard</div>
+      </div>
+    );
   };
 
   useEffect(() => {
@@ -48,7 +66,7 @@ export const FootballFieldContent = () => {
                     <div
                       key={i}
                       className={classes.formationPlayer}
-                      onClick={() => onDetailsPlayer(player)}
+                      onClick={async () => await onDetailsPlayer(player)}
                     >
                       <div className={classes.player}>
                         <div
@@ -61,7 +79,7 @@ export const FootballFieldContent = () => {
                           }}
                         />
                         <div className={classes.playerName}>
-                          {player?.performance?.playerName}
+                          {player?.player?.shortName}
                         </div>
                       </div>
                       <div
@@ -79,6 +97,18 @@ export const FootballFieldContent = () => {
         </div>
       </div>
       <img src="/football_field.svg" className={classes.footballField} alt="" />
+
+      <div className={classes.listPlayerBottom}>
+        <div className={classes.playerBottom}>
+          <div
+            className={classes.playerAvatarBottom}
+            style={{
+              backgroundImage: `url(${"https://via.placeholder.com/150"})`,
+            }}
+          />
+          <div className={classes.playerNameBottom}>Kevin Perard</div>
+        </div>
+      </div>
     </div>
   );
 };

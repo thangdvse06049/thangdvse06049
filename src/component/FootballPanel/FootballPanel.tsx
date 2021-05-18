@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "classnames";
 import {
   Dialog,
@@ -12,6 +12,8 @@ import { FootballPanelSuggestion } from "../FootballPanelSuggestion";
 import { FootballFieldCtx } from "../../context/FootballField";
 import { kebabCase } from "lodash";
 import { useStyles } from "./FootballPanel.style";
+import { Season } from "../../models/season";
+import { computeAge } from "../../constants/player_infor";
 
 const TABS = {
   GENERAL: 0,
@@ -23,7 +25,19 @@ export const FootballPanel = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [currentTab, setCurrentTab] = React.useState(TABS.GENERAL);
-  const { player } = React.useContext<any>(FootballFieldCtx);
+  const { player, updatePlayer } = React.useContext<any>(FootballFieldCtx);
+
+  useEffect(() => {
+    if (player.playerId && player.age === undefined) {
+      fetchPlayerAge(player);
+    }
+  }, [player]);
+
+  const fetchPlayerAge = async (player: any) => {
+    const season = await Season.getSeasonById(player?.player?.seasonId);
+    const age = computeAge(season, player?.player?.birthDate);
+    updatePlayer({ ...player, age: age });
+  };
 
   const renderPlayer = () => {
     return (
@@ -47,8 +61,8 @@ export const FootballPanel = () => {
             {player?.performance?.gradeLabel}
           </div>
           <Typography className={classes.name}>
-            {player?.performance?.playerName} ({player?.position?.toUpperCase()}
-            )
+            {player?.player?.shortName} ({player?.age}) - Match Played (
+            {player?.ppi?.nbMatches})
           </Typography>
         </div>
         <div className={classes.tabs}>
