@@ -11,12 +11,13 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Accordion from "@material-ui/core/Accordion";
 import Typography from "@material-ui/core/Typography";
 import { Player } from "../../models/player";
-import { debounce, map, isEmpty, kebabCase, isNumber } from "lodash";
+import { debounce, map, isEmpty, kebabCase, isNumber, isString } from "lodash";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { LINK, TRANSLATION } from "../../constants/footballGeneral";
 import clsx from "classnames";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import { Collapse } from "react-collapse";
+import { computeAge } from "../../constants/player_infor";
 
 export const SearchPlayer = () => {
   const classes = useStyles();
@@ -47,20 +48,25 @@ export const SearchPlayer = () => {
   const fetchPlayerData = async (players: any) => {
     const data = await Promise.all(
       map(players, async (p: any) => {
-        if (!p.competition || !p.team) {
+        if (!p.competition || !p.team || !p.season) {
           const playerInfor = await Player.getCompetionSeasonTeam({
+            playerId: p._id,
             seasonId: p.seasonId,
             teamId: p.currentTeamId,
             competitionId: p.competitionId,
           });
-          const age = computeAge(playerInfor.season, p.birthDate);
-          p.competition = playerInfor.competition;
-          p.team = playerInfor.team;
+          if (isEmpty(p?.birthDate)) return null;
+
+          const age = computeAge(playerInfor?.season, p?.birthDate);
+          p.competition = playerInfor?.competition;
+          p.team = playerInfor?.team;
           p.age = age;
         }
+
         return p;
       })
     );
+    if (isEmpty(data)) return;
     setPlayerOption(data);
   };
 
@@ -71,17 +77,6 @@ export const SearchPlayer = () => {
     });
     if (!ppi.length) return null;
     setPlayerPPI(ppi);
-  };
-
-  const computeAge = (season: any, birthDate: any) => {
-    const startDate = new Date(season.startDate);
-    const cvtBirthDate = new Date(birthDate);
-    let age = startDate.getFullYear() - cvtBirthDate.getFullYear();
-    var m = startDate.getMonth() - cvtBirthDate.getMonth();
-    if (m < 0 || (m === 0 && startDate.getDate() < cvtBirthDate.getDate())) {
-      age--;
-    }
-    return age;
   };
 
   const onChangePlayer = async (event: any, option: any) => {
@@ -223,13 +218,13 @@ export const SearchPlayer = () => {
                 className={classes.avatarTeam}
                 style={{
                   backgroundImage: `url(${
-                    player.team?.imageDataURL ||
+                    player?.team?.imageDataURL ||
                     "https://via.placeholder.com/150"
                   })`,
                 }}
               ></div>
               <div className={classes.teamName}>
-                {player.team?.name} - {player.competition?.name}
+                {player?.team?.name} - {player?.competition?.name}
               </div>
             </div>
           </div>
@@ -263,7 +258,7 @@ export const SearchPlayer = () => {
                   onInputChange={(e, v) => fetchSearch(e, v)}
                   autoHighlight
                   getOptionLabel={(option: any) =>
-                    `${option.firstName} ${option.lastName}`
+                    `${option?.firstName} ${option?.lastName}`
                   }
                   onChange={onChangePlayer}
                   renderOption={(option) => detailPlayer(option)}
@@ -279,7 +274,7 @@ export const SearchPlayer = () => {
                   )}
                 />
               </div>
-              {player && (
+              {player && !isString(player) && (
                 <div className={classes.contentDisplay}>
                   <div>{detailPlayer(player)}</div>
                   <div className={classes.textInfor}>PPI: </div>
@@ -289,6 +284,11 @@ export const SearchPlayer = () => {
                       : "No data"}
                   </div>
                 </div>
+              )}
+              {isString(player) && (
+                <Typography className={classes.noPlayerNoti}>
+                  Could not be found!
+                </Typography>
               )}
             </div>
           </DialogContent>
@@ -307,11 +307,11 @@ export const SearchPlayer = () => {
       <Autocomplete
         className={classes.backColor}
         options={playerOption.map((c: any) => ({
-          name: c.shortName,
-          _id: c._id,
-          avatar: c.imageDataURL,
-          currentTeamId: c.currentTeamId,
-          competitionId: c.competitionId,
+          name: c?.shortName,
+          _id: c?._id,
+          avatar: c?.imageDataURL,
+          currentTeamId: c?.currentTeamId,
+          competitionId: c?.competitionId,
         }))}
         onOpen={onSearch}
         getOptionLabel={(option: any) => option.name}

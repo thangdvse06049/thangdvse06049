@@ -35,6 +35,8 @@ export const FootballPanelGeneral = () => {
   const { formation, player } = React.useContext<any>(FootballFieldCtx);
   const [expanded, setExpanded] = React.useState<string | null>(null);
 
+  console.log(player);
+
   useEffect(() => {
     if (formation?.players?.length) {
       setExpanded(Object.keys(formation?.players[0].ppi?.details)[0]);
@@ -50,6 +52,8 @@ export const FootballPanelGeneral = () => {
         })}
       >
         <div className={classes.categoryInnerHeader}>
+          <div className={classes.categoryTitle}>{category}</div>
+
           <div
             className={clsx(
               classes.grade,
@@ -58,7 +62,6 @@ export const FootballPanelGeneral = () => {
           >
             {getGrade(player?.ppi?.summaryRanked[category])}
           </div>
-          <div className={classes.categoryTitle}>{category}</div>
         </div>
         <ArrowDropDownIcon className={classes.arrow} />
       </div>

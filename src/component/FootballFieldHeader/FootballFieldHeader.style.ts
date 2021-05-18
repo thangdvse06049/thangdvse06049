@@ -23,4 +23,7 @@ export const useStyles = makeStyles((theme) => ({
       transform: `translate(14px, -0px) scale(0.75)`,
     },
   },
+  refreshBtn: {
+    width: "35%",
+  },
 }));

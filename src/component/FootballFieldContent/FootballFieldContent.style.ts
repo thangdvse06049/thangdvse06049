@@ -84,7 +84,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   status: {
     width: "100%",
-    height: 5,
+    height: 10,
     borderBottomLeftRadius: 6,
     borderBottomRightRadius: 6,
     "&.excellent": {
@@ -94,10 +94,10 @@ export const useStyles = makeStyles((theme) => ({
       background: "#4BAC5B",
     },
     "&.average-but-good": {
-      background: "#4BAC5B",
+      background: "#68369A",
     },
     "&.average-but-bad": {
-      background: "#68369A",
+      background: "#726284",
     },
     "&.bad": {
       background: "#DF8244",
@@ -105,5 +105,51 @@ export const useStyles = makeStyles((theme) => ({
     "&.terrible": {
       background: "#EC3323",
     },
+  },
+  listPlayerBottom: {
+    position: "absolute",
+    top: "94%",
+    left: "7%",
+    right: "7%",
+    display: "flex",
+  },
+  playerAvatarBottom: {
+    minHeight: 38,
+    minWidth: 38,
+    maxHeight: 38,
+    maxWidth: 38,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundColor: "#fff",
+  },
+  playerBottom: {
+    borderTopLeftRadius: 6,
+    borderTopRightRadius: 6,
+    borderBottomLeftRadius: 6,
+    borderBottomRightRadius: 6,
+    background: "#0C152E",
+    color: "#fff",
+    fontWeight: 500,
+    height: 35,
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    position: "relative",
+    display: "flex",
+    width: "12%",
+    "&:hover, &.active": {
+      opacity: 0.6,
+      cursor: "pointer",
+    },
+  },
+  playerNameBottom: {
+    textTransform: "uppercase",
+    fontStyle: "italic",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    alignItems: "center",
+    verticalAlign: "middle",
+    padding: `${theme.spacing(1)}px`,
   },
 }));

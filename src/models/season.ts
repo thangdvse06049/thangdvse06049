@@ -10,4 +10,13 @@ export class Season extends TeamseyesAuth {
     });
     return response.data;
   }
+
+  static async getSeasonById(seasonId: any) {
+    const response = await axios.get(`/api/seasons/${seasonId}`, {
+      headers: {
+        ...Season.getAuthHeader(),
+      },
+    });
+    return response.data;
+  }
 }

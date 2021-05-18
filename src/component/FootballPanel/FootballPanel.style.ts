@@ -44,10 +44,10 @@ export const useStyles = makeStyles((theme) => ({
       background: "#4BAC5B",
     },
     "&.average-but-good": {
-      background: "#4BAC5B",
+      background: "#68369A",
     },
     "&.average-but-bad": {
-      background: "#68369A",
+      background: "#726284",
     },
     "&.bad": {
       background: "#DF8244",

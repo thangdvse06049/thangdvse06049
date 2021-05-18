@@ -150,7 +150,7 @@ export const useStyles = makeStyles((theme) => ({
       background: "#68369A",
     },
     "&.average-but-bad": {
-      background: "#68369A",
+      background: "#726284",
     },
     "&.bad": {
       background: "#DF8244",
@@ -197,5 +197,12 @@ export const useStyles = makeStyles((theme) => ({
   listbox: {
     height: 500,
     maxHeight: "500px !important",
+  },
+  noPlayerNoti: {
+    justifyContent: "center",
+    display: "flex",
+    height: "80%",
+    alignItems: "center",
+    fontSize: 20,
   },
 }));
