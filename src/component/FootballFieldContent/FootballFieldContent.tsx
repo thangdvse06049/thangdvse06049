@@ -45,15 +45,15 @@ export const FootballFieldContent = () => {
   const formationByPosition = groupBy(formation.players, "position");
 
   const getTop5WorstPlayers = (tpiToPpi: any) => {
-    const listCate = Object.keys(tpiToPpi.tpiCategories);
-    var min = tpiToPpi.tpiCategories[listCate[0]].score;
+    const listCate = Object.keys(tpiToPpi?.tpiCategories);
+    var min = tpiToPpi?.tpiCategories[listCate[0]].score;
     var i;
     let top5WorstPlayerOfWorstCate = [];
     for (i = 1; i < listCate.length; i++) {
-      var value = tpiToPpi.tpiCategories[listCate[i]].score;
+      var value = tpiToPpi?.tpiCategories[listCate[i]].score;
       if (value < min) {
         min = value;
-        top5WorstPlayerOfWorstCate = tpiToPpi.tpiCategories[
+        top5WorstPlayerOfWorstCate = tpiToPpi?.tpiCategories[
           listCate[i]
         ].players.slice(0, 5);
       }
@@ -124,7 +124,7 @@ export const FootballFieldContent = () => {
 
   const getTpiToPpiPlayer = (player: any) => {
     const data: any = [];
-    forEach(tpiToPpi.tpiCategories, (details, category) => {
+    forEach(tpiToPpi?.tpiCategories, (details, category) => {
       forEach(details.players, (p: any) => {
         if (player.playerId === p.playerId) {
           const res = {
@@ -223,7 +223,7 @@ export const FootballFieldContent = () => {
       <img src="/football_field.svg" className={classes.footballField} alt="" />
       {popOverRender(player)}
       <div className={classes.listPlayerBottom}>
-        {map(listPlayerPlayedTheMost.slice(0, 9), (player: any) =>
+        {map(listPlayerPlayedTheMost?.slice(0, 9), (player: any) =>
           listPlayerBottom(player)
         )}
       </div>
