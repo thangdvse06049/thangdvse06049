@@ -35,8 +35,6 @@ export const FootballPanelGeneral = () => {
   const { formation, player } = React.useContext<any>(FootballFieldCtx);
   const [expanded, setExpanded] = React.useState<string | null>(null);
 
-  console.log(player);
-
   useEffect(() => {
     if (formation?.players?.length) {
       setExpanded(Object.keys(formation?.players[0].ppi?.details)[0]);

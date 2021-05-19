@@ -40,9 +40,10 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   formationPlayer: {
-    overflow: "hidden",
+    overflow: "visible",
     background: "green",
     borderRadius: 6,
+    position: "relative",
   },
   playerName: {
     textTransform: "uppercase",
@@ -151,5 +152,31 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     verticalAlign: "middle",
     padding: `${theme.spacing(1)}px`,
+  },
+  worstPlayer: {
+    width: 20,
+    height: 20,
+    borderRadius: 90,
+    backgroundColor: "red",
+    position: "absolute",
+    top: 0,
+    marginRight: -7,
+    marginTop: -7,
+    right: 0,
+    zIndex: 999,
+  },
+  typography: {
+    padding: theme.spacing(2),
+  },
+  popOverRoot: {
+    width: 180,
+    height: 115,
+    overflowY: "scroll",
+  },
+  subTypo: {
+    fontSize: 15,
+  },
+  keyText: {
+    fontWeight: 500,
   },
 }));

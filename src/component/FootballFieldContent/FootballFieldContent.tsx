@@ -1,45 +1,124 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FootballFieldCtx } from "../../context/FootballField";
 import { useStyles } from "./FootballFieldContent.style";
-import { map, groupBy, kebabCase } from "lodash";
+import {
+  map,
+  groupBy,
+  kebabCase,
+  includes,
+  forEach,
+  keys,
+  values,
+  uniq,
+  uniqBy,
+  filter,
+} from "lodash";
 import clsx from "classnames";
 import { FORMATIONS } from "../../constants/formation";
 import { UserCtx } from "../../context/User";
 import { Team } from "../../models/team";
 import { Season } from "../../models/season";
 import { computeAge } from "../../constants/player_infor";
+import Popover from "@material-ui/core/Popover";
+import Typography from "@material-ui/core/Typography";
+import { Player } from "../../models/player";
 
 export const FootballFieldContent = () => {
   const classes = useStyles();
   const { user } = React.useContext<any>(UserCtx);
-  const { formation, updatePlayer } = React.useContext<any>(FootballFieldCtx);
+  const { formation, updatePlayer, player } =
+    React.useContext<any>(FootballFieldCtx);
+  const [topWorstPlayer, setTopWorstPlayer] = useState<any>([]); //top 5 Worst players of worst category
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [openPopup, setOpenPopUp] = React.useState(false);
+  const [tpiToPpi, setTpiToPpi] = React.useState<any>();
+  const [listPlayerPlayedTheMost, setListPlayerPlayedTheMost] =
+    React.useState<any>();
+
+  const onClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   const columns = FORMATIONS[formation.scheme];
   const formationByPosition = groupBy(formation.players, "position");
 
-  const onDetailsPlayer = async (player: any) => {
+  const getTop5WorstPlayers = (tpiToPpi: any) => {
+    const listCate = Object.keys(tpiToPpi.tpiCategories);
+    var min = tpiToPpi.tpiCategories[listCate[0]].score;
+    var i;
+    let top5WorstPlayerOfWorstCate = [];
+    for (i = 1; i < listCate.length; i++) {
+      var value = tpiToPpi.tpiCategories[listCate[i]].score;
+      if (value < min) {
+        min = value;
+        top5WorstPlayerOfWorstCate = tpiToPpi.tpiCategories[
+          listCate[i]
+        ].players.slice(0, 5);
+      }
+    }
+    return top5WorstPlayerOfWorstCate;
+  };
+
+  const onDetailsPlayer = async (player: any, event: any) => {
+    setAnchorEl(event.currentTarget);
+    setOpenPopUp(Boolean(anchorEl));
     const season = await Season.getSeasonById(player?.player.seasonId);
     const age = computeAge(season, player?.player.birthDate);
     updatePlayer({ ...player, age: age });
   };
 
-  const listPlayerBottom = () => {
+  const listPlayerBottom = (player: any) => {
     return (
       <div className={classes.playerBottom}>
         <div
           className={classes.playerAvatarBottom}
           style={{
-            backgroundImage: `url(${"https://via.placeholder.com/150"})`,
+            backgroundImage: `url(${
+              player?.player?.imageDataURL || "https://via.placeholder.com/150"
+            })`,
           }}
         />
-        <div className={classes.playerNameBottom}>Kevin Perard</div>
+        <div className={classes.playerNameBottom}>
+          {player?.player.shortName}
+        </div>
       </div>
     );
   };
 
+  const filterPlayer = (listPlayer: any) => {
+    console.log(listPlayer);
+    console.log(formation.players);
+    const listPlayerUniq: any = [];
+    forEach(listPlayer, (player1: any) => {
+      forEach(formation.players, (player2: any) => {
+        if (player1.playerId === player2.playerId) {
+          listPlayerUniq.push(player1);
+        }
+      });
+    });
+  };
+
   useEffect(() => {
     Team.getTpiToPPi()
-      .then((data) => {})
+      .then((data) => {
+        setTpiToPpi(data);
+        const worstPlayer = getTop5WorstPlayers(data);
+        setTopWorstPlayer(worstPlayer);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, [user.teamId, user.seasonId]);
+
+  useEffect(() => {
+    Player.getPlayerPlayedTheMost()
+      .then((data) => {
+        // filterPlayer(data);
+        setListPlayerPlayedTheMost(data);
+      })
       .catch((e) => {
         console.log(e);
       });
@@ -48,6 +127,52 @@ export const FootballFieldContent = () => {
   if (!formation) {
     return null;
   }
+
+  const getTpiToPpiPlayer = (player: any) => {
+    const data: any = [];
+    forEach(tpiToPpi.tpiCategories, (details, category) => {
+      forEach(details.players, (p: any) => {
+        if (player.playerId === p.playerId) {
+          const res = {
+            [category]: p.score,
+          };
+          data.push(res);
+        }
+      });
+    });
+    return data;
+  };
+
+  const popOverRender = (player: any) => {
+    const data = getTpiToPpiPlayer(player);
+    return (
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={onClose}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+      >
+        <Typography className={classes.typography}>
+          <div className={classes.popOverRoot}>
+            {map(data, (d: any) => (
+              <Typography className={classes.subTypo}>
+                <span className={classes.keyText}>{keys(d)}</span>:{" "}
+                {parseFloat(values(d).toString()).toFixed(4)}
+              </Typography>
+            ))}
+          </div>
+        </Typography>
+      </Popover>
+    );
+  };
 
   return (
     <div className={classes.root}>
@@ -62,12 +187,17 @@ export const FootballFieldContent = () => {
               >
                 {positions.map((position: any, i: number) => {
                   const [player] = formationByPosition[position] || [];
+                  const listPlayerId = map(topWorstPlayer, "playerId");
                   return (
                     <div
                       key={i}
                       className={classes.formationPlayer}
-                      onClick={async () => await onDetailsPlayer(player)}
+                      onClick={(ev) => onDetailsPlayer(player, ev)}
                     >
+                      {includes(listPlayerId, player.playerId) && (
+                        <div className={classes.worstPlayer}></div>
+                      )}
+
                       <div className={classes.player}>
                         <div
                           className={classes.playerAvatar}
@@ -97,17 +227,11 @@ export const FootballFieldContent = () => {
         </div>
       </div>
       <img src="/football_field.svg" className={classes.footballField} alt="" />
-
+      {popOverRender(player)}
       <div className={classes.listPlayerBottom}>
-        <div className={classes.playerBottom}>
-          <div
-            className={classes.playerAvatarBottom}
-            style={{
-              backgroundImage: `url(${"https://via.placeholder.com/150"})`,
-            }}
-          />
-          <div className={classes.playerNameBottom}>Kevin Perard</div>
-        </div>
+        {map(listPlayerPlayedTheMost, (player: any) =>
+          listPlayerBottom(player)
+        )}
       </div>
     </div>
   );
