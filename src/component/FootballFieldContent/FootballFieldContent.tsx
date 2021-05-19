@@ -9,9 +9,8 @@ import {
   forEach,
   keys,
   values,
-  uniq,
-  uniqBy,
-  filter,
+  find,
+  isEmpty,
 } from "lodash";
 import clsx from "classnames";
 import { FORMATIONS } from "../../constants/formation";
@@ -89,16 +88,12 @@ export const FootballFieldContent = () => {
   };
 
   const filterPlayer = (listPlayer: any) => {
-    console.log(listPlayer);
-    console.log(formation.players);
     const listPlayerUniq: any = [];
     forEach(listPlayer, (player1: any) => {
-      forEach(formation.players, (player2: any) => {
-        if (player1.playerId === player2.playerId) {
-          listPlayerUniq.push(player1);
-        }
-      });
+      const diff = find(formation.players, { playerId: player1.playerId });
+      if (isEmpty(diff)) listPlayerUniq.push(player1);
     });
+    setListPlayerPlayedTheMost(listPlayerUniq);
   };
 
   useEffect(() => {
@@ -116,8 +111,7 @@ export const FootballFieldContent = () => {
   useEffect(() => {
     Player.getPlayerPlayedTheMost()
       .then((data) => {
-        // filterPlayer(data);
-        setListPlayerPlayedTheMost(data);
+        filterPlayer(data);
       })
       .catch((e) => {
         console.log(e);
@@ -229,7 +223,7 @@ export const FootballFieldContent = () => {
       <img src="/football_field.svg" className={classes.footballField} alt="" />
       {popOverRender(player)}
       <div className={classes.listPlayerBottom}>
-        {map(listPlayerPlayedTheMost, (player: any) =>
+        {map(listPlayerPlayedTheMost.slice(0, 9), (player: any) =>
           listPlayerBottom(player)
         )}
       </div>
