@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { isEmpty, kebabCase, map } from "lodash";
+import { find, forEach, isEmpty, kebabCase, map, mean, values } from "lodash";
 import {
   TPI,
   TPI_SUMMARY,
@@ -20,6 +20,11 @@ import { LINK_SENTENCES } from "../../constants/link_sentences";
 import { useStyles } from "../TeamAnalytics/TeamAnalytics.style";
 import { Team } from "../../models/team";
 import { UserCtx } from "../../context/User";
+import SummaryBubble from "../SummaryBubble/SummaryBubble";
+import { Player } from "../../models/player";
+import { Autocomplete } from "@material-ui/lab";
+import TextField from "@material-ui/core/TextField";
+import { Season } from "../../models/season";
 
 const inverseValue = (category: any, key: any, value: any) =>
   ((category === "DANGER" ||
@@ -75,7 +80,17 @@ export const TeamAnalytics = () => {
   const classes = useStyles();
   const { user } = React.useContext<any>(UserCtx);
 
+  const [topWorstPlayer, setTopWorstPlayer] = React.useState<any>();
   const [tpi, setTpi] = useState({} as any);
+  const [tpiSeasonCompare, setTpiSeasonCompare] = useState({} as any);
+  const [seasonToCompare, setSeasonToCompare] = useState<any>();
+  const [seasonOption, setSeasonOption] = useState<any>([]);
+
+  const avgSummaryTpi = mean(values(tpi?.summary)) || 0;
+
+  const onChangeSeason = (event: any, option: any) => {
+    setSeasonToCompare(option);
+  };
 
   const fetchData = async () => {
     const competitions = await Team.getCompetitions();
@@ -84,9 +99,79 @@ export const TeamAnalytics = () => {
     setTpi(tpiApi);
   };
 
+  const getTop3WorstPlayerOfEachCate = (tpiToPpi: any) => {
+    const dataObj: any = {};
+    forEach(tpiToPpi?.tpiCategories, (details: any, category: any) => {
+      const res = details.players.slice(0, 3);
+      dataObj[category] = dataObj[category] || [];
+      dataObj[category].push(res);
+    });
+    return dataObj;
+  };
+
+  const getDataOfTop3Player = async (top3PlayerWithCate: any) => {
+    const playerInfor = await Player.getPlayerData(top3PlayerWithCate);
+    setTopWorstPlayer(playerInfor);
+  };
+
+  useEffect(() => {
+    Team.getTpiToPPi()
+      .then((data) => {
+        const objData = getTop3WorstPlayerOfEachCate(data);
+        getDataOfTop3Player(objData);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, [user.teamId, user.seasonId]);
+
   useEffect(() => {
     fetchData();
   }, [user.teamId, user.seasonId]);
+
+  useEffect(() => {
+    fetchTpiSeasonToCompare();
+  }, [seasonToCompare]);
+
+  useEffect(() => {
+    fetchSeason();
+  }, []);
+
+  const fetchTpiSeasonToCompare = async () => {
+    const competitions = await Team.getCompetitions();
+    const tpiSeasonToCompare = await Team.getTPI(
+      competitions[0]._id,
+      seasonToCompare?._id
+    );
+    setTpiSeasonCompare(tpiSeasonToCompare);
+  };
+
+  const fetchSeason = async () => {
+    const resSeason = await Season.getListSeasonByCompetitionId();
+    const season = find(resSeason, { _id: user.seasonId });
+    setSeasonOption(resSeason);
+    setSeasonToCompare(season);
+  };
+
+  const renderListPlayer = (category: any) => {
+    return (
+      <div className={classes.listWorstPlayer}>
+        {map(topWorstPlayer[category], (o: any) => (
+          <div className={classes.playerBottom}>
+            <div
+              className={classes.playerAvatar}
+              style={{
+                backgroundImage: `url(${
+                  o?.player?.imageDataURL || "https://via.placeholder.com/150"
+                })`,
+              }}
+            />
+            <div className={classes.playerName}>{o?.player.shortName}</div>
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   const renderDetailsPanel = () => {
     return (
@@ -123,6 +208,7 @@ export const TeamAnalytics = () => {
                     <Typography className={classes.heading}>
                       {TPI_CATEGORY_LABEL[category]}
                     </Typography>
+                    {topWorstPlayer && renderListPlayer(category)}
                   </AccordionSummary>
                   <AccordionDetails>
                     <div>
@@ -181,18 +267,24 @@ export const TeamAnalytics = () => {
             TPI_ORDER_CHART,
             (value: any, category: any) => TPI_CATEGORY_LABEL[category]
           ),
-          pointLabelFontWeight: "bold",
           datasets: [
             {
+              label: `${tpi?.name}`,
               suggestedMax: 100,
-              // labels: map(
-              //   TPI_ORDER_CHART,
-              //   (value, category) => TPI_CATEGORY_LABEL[category]
-              // ),
               backgroundColor: "rgba(64,112,244, 0.5)",
               pointBackgroundColor: "#4070F4",
               data: map(TPI_ORDER_CHART, (value: any, category: any) => {
                 if (!isEmpty(tpi)) return tpi.summary[category];
+              }).map((o: any) => o * 100),
+            },
+            {
+              label: `${tpiSeasonCompare?.name}`,
+              suggestedMax: 100,
+              backgroundColor: "rgba(111,33,94, 0.5)",
+              pointBackgroundColor: "#e4bd26",
+              data: map(TPI_ORDER_CHART, (value: any, category: any) => {
+                if (!isEmpty(tpiSeasonCompare))
+                  return tpiSeasonCompare?.summary[category];
               }).map((o: any) => o * 100),
             },
           ],
@@ -200,12 +292,12 @@ export const TeamAnalytics = () => {
         type="radar"
         options={{
           height: 250,
-          plugins: {
-            legend: {
-              display: false,
-            },
-          },
+          plugins: {},
           scale: {
+            pointLabels: {
+              fontSize: 200,
+              fontColor: "#ff0000",
+            },
             reverse: false,
             gridLines: {
               color: "#3D3D3D",
@@ -222,15 +314,45 @@ export const TeamAnalytics = () => {
 
   return (
     <div className={classes.root}>
+      <SummaryBubble></SummaryBubble>
       <div className={classes.analyticPanel}>
-        <div className={classes.radarChart}>{renderRadarChart()}</div>
+        <div className={classes.radarChart}>
+          <div className={classes.chartHeader}>
+            <div className={classes.autoCompleteSeason}>
+              <Autocomplete
+                className={classes.backColor}
+                options={seasonOption.map((c: any) => ({
+                  name: c.name,
+                  _id: c._id,
+                }))}
+                getOptionLabel={(option: any) => option.name}
+                id="auto-complete"
+                autoComplete
+                value={seasonToCompare ? seasonToCompare : null}
+                onChange={onChangeSeason}
+                includeInputInList
+                renderInput={(params: any) => (
+                  <TextField {...params} label="Season" margin="none" />
+                )}
+              />
+            </div>
+            <div className={classes.avgTpi}>
+              Average Tpi: {avgSummaryTpi.toFixed(4)}
+            </div>
+          </div>
+          {tpi && tpiSeasonCompare ? (
+            renderRadarChart()
+          ) : (
+            <span className={classes.noDataNoti}>No data</span>
+          )}
+        </div>
         <div className={classes.details}>
           <div className={classes.chartLegend}>
             <div className={classes.chartItemLegend}>
               <div
                 className={classnames(
                   classes.chartItemLegendBadge,
-                  kebabCase("very bad")
+                  kebabCase("terrible")
                 )}
               />
               <div className={classes.chartItemLegendText}>Faiblesse</div>

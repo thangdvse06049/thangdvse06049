@@ -44,7 +44,7 @@ export const FootballFieldHeader = () => {
       setListFormations(sortedByScheme);
       loadScheme(max?.scheme);
     });
-  }, [user.teamId, user.seasonId]);
+  }, [user]);
 
   const onChangeFormation = (event: React.ChangeEvent<HTMLInputElement>) => {
     const scheme = event.target.value;

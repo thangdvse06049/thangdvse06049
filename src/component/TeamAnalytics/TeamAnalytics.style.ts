@@ -127,17 +127,17 @@ export const useStyles = makeStyles((theme) => ({
     width: 16,
     height: 16,
     marginRight: "1rem",
-    "&.very-bad": {
-      background: "#EC3323",
+    "&.terrible": {
+      background: "#68369a",
     },
     "&.bad": {
-      background: "#DF8244",
+      background: "#ec3323",
     },
     "&.average-but-bad": {
-      background: "#726284",
+      background: "#df8244",
     },
     "&.average-but-good": {
-      background: "#68369A",
+      background: "#e4bd26",
     },
     "&.good": {
       background: "#4BAC5B",
@@ -159,5 +159,73 @@ export const useStyles = makeStyles((theme) => ({
   advice: {
     fontSize: 12,
     marginBottom: "0.5rem",
+  },
+  listWorstPlayer: {
+    display: "flex",
+  },
+  playerAvatar: {
+    minHeight: 38,
+    minWidth: 38,
+    maxHeight: 38,
+    maxWidth: 38,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundColor: "#fff",
+  },
+  playerName: {
+    textTransform: "uppercase",
+    fontStyle: "italic",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    alignItems: "center",
+    verticalAlign: "middle",
+    padding: `${theme.spacing(1)}px`,
+  },
+  playerBottom: {
+    marginLeft: 20,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 6,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 6,
+    background: "cadetblue",
+    color: "#fff",
+    fontWeight: 500,
+    height: 35,
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    position: "relative",
+    display: "flex",
+    width: "25%",
+  },
+  chartHeader: {
+    display: "flex",
+  },
+  avgTpi: {
+    width: "50%",
+    fontSize: 20,
+    fontWeight: 500,
+    textAlign: "center",
+    alignItems: "center",
+    display: "flex",
+    marginTop: 20,
+  },
+  autoCompleteSeason: { width: "95%" },
+  backColor: {
+    "& > div > div > input ": {
+      width: 170,
+      background: "none !important",
+      marginTop: 5,
+      caretColor: "black !important",
+    },
+    width: 200,
+    marginLeft: 20,
+  },
+  noDataNoti: {
+    // textAlign: "center",
+    // alignItems: "center",
+    // display: "flex",
+    marginLeft: 20,
   },
 }));

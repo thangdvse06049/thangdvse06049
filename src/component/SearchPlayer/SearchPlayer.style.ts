@@ -147,16 +147,16 @@ export const useStyles = makeStyles((theme) => ({
       background: "#4BAC5B",
     },
     "&.average-but-good": {
-      background: "#68369A",
+      background: "#e4bd26",
     },
     "&.average-but-bad": {
-      background: "#726284",
+      background: "#df8244",
     },
     "&.bad": {
-      background: "#DF8244",
+      background: "#ec3323",
     },
     "&.terrible": {
-      background: "#EC3323",
+      background: "#68369a",
     },
     "&.error": {
       color: "#EC3323",

@@ -32,8 +32,13 @@ export const InforSetting = (props: any) => {
   };
 
   const onApplySetting = async () => {
-    if (season?._id && team?._id) {
-      update({ ...user, seasonId: season._id, teamId: team._id });
+    if (season?._id || team?._id) {
+      update({
+        ...user,
+        teamName: team.teamName,
+        seasonId: season._id,
+        teamId: team._id,
+      });
       try {
         await User.updateUser({
           seasonId: season._id,
@@ -46,7 +51,6 @@ export const InforSetting = (props: any) => {
         console.log(e);
       }
     }
-
     setOpenSettings(false);
   };
 

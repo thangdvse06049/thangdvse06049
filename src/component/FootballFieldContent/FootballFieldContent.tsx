@@ -25,8 +25,9 @@ import { Player } from "../../models/player";
 export const FootballFieldContent = () => {
   const classes = useStyles();
   const { user } = React.useContext<any>(UserCtx);
-  const { formation, updatePlayer, player } =
+  const { formation, updatePlayer, player, budget, rank } =
     React.useContext<any>(FootballFieldCtx);
+
   const [topWorstPlayer, setTopWorstPlayer] = useState<any>([]); //top 5 Worst players of worst category
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openPopup, setOpenPopUp] = React.useState(false);
@@ -37,6 +38,25 @@ export const FootballFieldContent = () => {
   const onClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    Team.getTpiToPPi()
+      .then((data) => {
+        setTpiToPpi(data);
+        const worstPlayer = getTop5WorstPlayers(data);
+        setTopWorstPlayer(worstPlayer);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    Player.getPlayerPlayedTheMost()
+      .then((data) => {
+        filterPlayer(data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, [user, formation, budget, rank]);
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -64,59 +84,21 @@ export const FootballFieldContent = () => {
   const onDetailsPlayer = async (player: any, event: any) => {
     setAnchorEl(event.currentTarget);
     setOpenPopUp(Boolean(anchorEl));
-    const season = await Season.getSeasonById(player?.player.seasonId);
-    const age = computeAge(season, player?.player.birthDate);
+    const season = await Season.getSeasonById(player?.player?.seasonId);
+    const age = computeAge(season, player?.player?.birthDate);
     updatePlayer({ ...player, age: age });
   };
 
-  const listPlayerBottom = (player: any) => {
-    return (
-      <div className={classes.playerBottom}>
-        <div
-          className={classes.playerAvatarBottom}
-          style={{
-            backgroundImage: `url(${
-              player?.player?.imageDataURL || "https://via.placeholder.com/150"
-            })`,
-          }}
-        />
-        <div className={classes.playerNameBottom}>
-          {player?.player.shortName}
-        </div>
-      </div>
-    );
-  };
-
   const filterPlayer = (listPlayer: any) => {
+    //get list player who played the most to show in bottom, but not coincide with player show in football content
     const listPlayerUniq: any = [];
     forEach(listPlayer, (player1: any) => {
+      if (!player1) return;
       const diff = find(formation.players, { playerId: player1.playerId });
       if (isEmpty(diff)) listPlayerUniq.push(player1);
     });
     setListPlayerPlayedTheMost(listPlayerUniq);
   };
-
-  useEffect(() => {
-    Team.getTpiToPPi()
-      .then((data) => {
-        setTpiToPpi(data);
-        const worstPlayer = getTop5WorstPlayers(data);
-        setTopWorstPlayer(worstPlayer);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, [user.teamId, user.seasonId]);
-
-  useEffect(() => {
-    Player.getPlayerPlayedTheMost()
-      .then((data) => {
-        filterPlayer(data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, [user.teamId, user.seasonId]);
 
   if (!formation) {
     return null;
@@ -135,6 +117,24 @@ export const FootballFieldContent = () => {
       });
     });
     return data;
+  };
+
+  const listPlayerBottom = (player: any) => {
+    return (
+      <div className={classes.playerBottom}>
+        <div
+          className={classes.playerAvatarBottom}
+          style={{
+            backgroundImage: `url(${
+              player?.player?.imageDataURL || "https://via.placeholder.com/150"
+            })`,
+          }}
+        />
+        <div className={classes.playerNameBottom}>
+          {player?.player.shortName}
+        </div>
+      </div>
+    );
   };
 
   const popOverRender = (player: any) => {
@@ -188,7 +188,7 @@ export const FootballFieldContent = () => {
                       className={classes.formationPlayer}
                       onClick={(ev) => onDetailsPlayer(player, ev)}
                     >
-                      {includes(listPlayerId, player.playerId) && (
+                      {includes(listPlayerId, player?.playerId) && (
                         <div className={classes.worstPlayer}></div>
                       )}
 
@@ -223,9 +223,10 @@ export const FootballFieldContent = () => {
       <img src="/football_field.svg" className={classes.footballField} alt="" />
       {popOverRender(player)}
       <div className={classes.listPlayerBottom}>
-        {map(listPlayerPlayedTheMost?.slice(0, 9), (player: any) =>
-          listPlayerBottom(player)
-        )}
+        {listPlayerPlayedTheMost &&
+          map(listPlayerPlayedTheMost.slice(0, 9), (player: any) =>
+            listPlayerBottom(player)
+          )}
       </div>
     </div>
   );

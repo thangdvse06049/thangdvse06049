@@ -41,4 +41,17 @@ export class Player extends TeamseyesAuth {
     });
     return response.data;
   }
+
+  static async getPlayerData(objPlayer: any) {
+    const response = await axios.put(
+      `/api/player/playerData/worstPlayer`,
+      objPlayer,
+      {
+        headers: {
+          ...Player.getAuthHeader(),
+        },
+      }
+    );
+    return response.data;
+  }
 }
