@@ -25,22 +25,7 @@ import { Player } from "../../models/player";
 import { Autocomplete } from "@material-ui/lab";
 import TextField from "@material-ui/core/TextField";
 import { Season } from "../../models/season";
-
-const inverseValue = (category: any, key: any, value: any) =>
-  ((category === "DANGER" ||
-    category === "RECOVERY" ||
-    category === "BALL_LOSSE") &&
-    key === null) ||
-  (category === "DANGER" &&
-    [
-      "concededGoals",
-      "shotsAgainst",
-      "clearances",
-      "shotsBlocked",
-      "headShotsConfidence",
-    ].indexOf(key) !== -1)
-    ? 100 - value
-    : value;
+import { FootballFieldCtx } from "../../context/FootballField";
 
 const getColor = (category: any, key: any, v: any) => {
   if (v > 80) {
@@ -79,6 +64,7 @@ const getSentenceIndex = (value: any) => {
 export const TeamAnalytics = () => {
   const classes = useStyles();
   const { user } = React.useContext<any>(UserCtx);
+  const { tpiToPpi } = React.useContext<any>(FootballFieldCtx);
 
   const [topWorstPlayer, setTopWorstPlayer] = React.useState<any>();
   const [tpi, setTpi] = useState({} as any);
@@ -115,15 +101,9 @@ export const TeamAnalytics = () => {
   };
 
   useEffect(() => {
-    Team.getTpiToPPi()
-      .then((data) => {
-        const objData = getTop3WorstPlayerOfEachCate(data);
-        getDataOfTop3Player(objData);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, [user.teamId, user.seasonId]);
+    const objData = getTop3WorstPlayerOfEachCate(tpiToPpi);
+    getDataOfTop3Player(objData);
+  }, [tpiToPpi]);
 
   useEffect(() => {
     fetchData();
@@ -314,93 +294,99 @@ export const TeamAnalytics = () => {
 
   return (
     <div className={classes.root}>
-      <SummaryBubble></SummaryBubble>
-      <div className={classes.analyticPanel}>
-        <div className={classes.radarChart}>
-          <div className={classes.chartHeader}>
-            <div className={classes.autoCompleteSeason}>
-              <Autocomplete
-                className={classes.backColor}
-                options={seasonOption.map((c: any) => ({
-                  name: c.name,
-                  _id: c._id,
-                }))}
-                getOptionLabel={(option: any) => option.name}
-                id="auto-complete"
-                autoComplete
-                value={seasonToCompare ? seasonToCompare : null}
-                onChange={onChangeSeason}
-                includeInputInList
-                renderInput={(params: any) => (
-                  <TextField {...params} label="Season" margin="none" />
-                )}
-              />
+      <div>
+        <Typography className={classes.typo}>Summary: </Typography>
+        <SummaryBubble></SummaryBubble>
+      </div>
+      <div>
+        <Typography className={classes.typo}>Detail: </Typography>
+        <div className={classes.analyticPanel}>
+          <div className={classes.radarChart}>
+            <div className={classes.chartHeader}>
+              <div className={classes.autoCompleteSeason}>
+                <Autocomplete
+                  className={classes.backColor}
+                  options={seasonOption.map((c: any) => ({
+                    name: c.name,
+                    _id: c._id,
+                  }))}
+                  getOptionLabel={(option: any) => option.name}
+                  id="auto-complete"
+                  autoComplete
+                  value={seasonToCompare ? seasonToCompare : null}
+                  onChange={onChangeSeason}
+                  includeInputInList
+                  renderInput={(params: any) => (
+                    <TextField {...params} label="Season" margin="none" />
+                  )}
+                />
+              </div>
+              <div className={classes.avgTpi}>
+                Average Tpi: {avgSummaryTpi.toFixed(4)}
+              </div>
             </div>
-            <div className={classes.avgTpi}>
-              Average Tpi: {avgSummaryTpi.toFixed(4)}
-            </div>
+            {tpi && tpiSeasonCompare ? (
+              renderRadarChart()
+            ) : (
+              <span className={classes.noDataNoti}>No data</span>
+            )}
           </div>
-          {tpi && tpiSeasonCompare ? (
-            renderRadarChart()
-          ) : (
-            <span className={classes.noDataNoti}>No data</span>
-          )}
-        </div>
-        <div className={classes.details}>
-          <div className={classes.chartLegend}>
-            <div className={classes.chartItemLegend}>
-              <div
-                className={classnames(
-                  classes.chartItemLegendBadge,
-                  kebabCase("terrible")
-                )}
-              />
-              <div className={classes.chartItemLegendText}>Faiblesse</div>
+          <div className={classes.details}>
+            <div className={classes.chartLegend}>
+              <div className={classes.chartItemLegend}>
+                <div
+                  className={classnames(
+                    classes.chartItemLegendBadge,
+                    kebabCase("terrible")
+                  )}
+                />
+                <div className={classes.chartItemLegendText}>Faiblesse</div>
+              </div>
+              <div className={classes.chartItemLegend}>
+                <div
+                  className={classnames(classes.chartItemLegendBadge, "bad")}
+                />
+                <div className={classes.chartItemLegendText}>Mauvais</div>
+              </div>
+              <div className={classes.chartItemLegend}>
+                <div
+                  className={classnames(
+                    classes.chartItemLegendBadge,
+                    kebabCase("average but bad")
+                  )}
+                />
+                <div className={classes.chartItemLegendText}>Average</div>
+              </div>
+              <div className={classes.chartItemLegend}>
+                <div
+                  className={classnames(
+                    classes.chartItemLegendBadge,
+                    kebabCase("average but good")
+                  )}
+                />
+                <div className={classes.chartItemLegendText}>Moyen</div>
+              </div>
+              <div className={classes.chartItemLegend}>
+                <div
+                  className={classnames(classes.chartItemLegendBadge, "good")}
+                />
+                <div className={classes.chartItemLegendText}>Bon</div>
+              </div>
+              <div className={classes.chartItemLegend}>
+                <div
+                  className={classnames(
+                    classes.chartItemLegendBadge,
+                    kebabCase("very good")
+                  )}
+                />
+                <div className={classes.chartItemLegendText}>Excellent</div>
+              </div>
+              <div className={classes.chartItemNote}>
+                {/* Based on others teams results */}
+              </div>
             </div>
-            <div className={classes.chartItemLegend}>
-              <div
-                className={classnames(classes.chartItemLegendBadge, "bad")}
-              />
-              <div className={classes.chartItemLegendText}>Mauvais</div>
-            </div>
-            <div className={classes.chartItemLegend}>
-              <div
-                className={classnames(
-                  classes.chartItemLegendBadge,
-                  kebabCase("average but bad")
-                )}
-              />
-              <div className={classes.chartItemLegendText}>Average</div>
-            </div>
-            <div className={classes.chartItemLegend}>
-              <div
-                className={classnames(
-                  classes.chartItemLegendBadge,
-                  kebabCase("average but good")
-                )}
-              />
-              <div className={classes.chartItemLegendText}>Moyen</div>
-            </div>
-            <div className={classes.chartItemLegend}>
-              <div
-                className={classnames(classes.chartItemLegendBadge, "good")}
-              />
-              <div className={classes.chartItemLegendText}>Bon</div>
-            </div>
-            <div className={classes.chartItemLegend}>
-              <div
-                className={classnames(
-                  classes.chartItemLegendBadge,
-                  kebabCase("very good")
-                )}
-              />
-              <div className={classes.chartItemLegendText}>Excellent</div>
-            </div>
-            <div className={classes.chartItemNote}>
-              {/* Based on others teams results */}
-            </div>
+            {renderDetailsPanel()}
           </div>
-          {renderDetailsPanel()}
         </div>
       </div>
     </div>

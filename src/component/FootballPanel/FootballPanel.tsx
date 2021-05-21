@@ -58,11 +58,11 @@ export const FootballPanel = () => {
               kebabCase(player?.performance?.gradeLabel)
             )}
           >
-            {player?.performance?.gradeLabel}
+            {player?.performance?.gradeLabel || "Unknown"}
           </div>
           <Typography className={classes.name}>
-            {player?.player?.shortName} ({player?.age}) - Match Played (
-            {player?.ppi?.nbMatches})
+            {player?.player?.shortName || "Unknown"} ({player?.age || "Unknown"}
+            ) - Match Played ({player?.ppi?.nbMatches || "Unknown"})
           </Typography>
         </div>
         <div className={classes.tabs}>

@@ -197,7 +197,7 @@ export const useStyles = makeStyles((theme) => ({
     textOverflow: "ellipsis",
     position: "relative",
     display: "flex",
-    width: "25%",
+    width: 130,
   },
   chartHeader: {
     display: "flex",
@@ -223,9 +223,13 @@ export const useStyles = makeStyles((theme) => ({
     marginLeft: 20,
   },
   noDataNoti: {
-    // textAlign: "center",
-    // alignItems: "center",
-    // display: "flex",
+    marginLeft: 20,
+  },
+  typo: {
+    padding: 10,
+    fontSize: 22,
+    fontWeight: 500,
+    marginTop: 20,
     marginLeft: 20,
   },
 }));

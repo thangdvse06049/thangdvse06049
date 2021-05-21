@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 export const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    padding: "45px calc(20px - 0.5rem)",
+    padding: "0px calc(20px - 0.5rem)",
   },
   kpi: {
     margin: "0 0.5rem",

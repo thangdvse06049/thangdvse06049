@@ -12,11 +12,13 @@ import { Season } from "../../models/season";
 import { Team } from "../../models/team";
 import { User } from "../../models/user";
 import { find } from "lodash";
+import { FootballFieldCtx } from "../../context/FootballField";
 
 export const InforSetting = (props: any) => {
   const { openSettings, setOpenSettings } = props;
   const classes = useStyles();
   const { user, update, login } = React.useContext<any>(UserCtx);
+  const { updateTpiToPpi } = React.useContext<any>(FootballFieldCtx);
   const [season, setSeason] = useState<any>();
   const [team, setTeam] = useState<any>();
 
@@ -44,7 +46,6 @@ export const InforSetting = (props: any) => {
           seasonId: season._id,
           teamId: team._id,
         });
-
         const res = await User.refreshToken();
         login(res.data.token);
       } catch (e) {
@@ -54,9 +55,18 @@ export const InforSetting = (props: any) => {
     setOpenSettings(false);
   };
 
+  const fetchTpiToPpi = async () => {
+    const data = await Team.getTpiToPPi();
+    updateTpiToPpi(data);
+  };
+
   useEffect(() => {
     fetchSeason();
   }, []);
+
+  useEffect(() => {
+    fetchTpiToPpi();
+  }, [user]);
 
   useEffect(() => {
     if (season) {

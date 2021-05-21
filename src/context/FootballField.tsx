@@ -5,18 +5,20 @@ const DEFAULT_STATE = {
   budget: 10000000,
   rank: 5,
   player: {},
+  tpiToPpi: {},
 };
 
 const ACTIONS = {
   UPDATE_FILTERS: "UPDATE_FILTER",
   UPDATE_FORMATION: "UPDATE_FORMATION",
+  UPDATE_TPI_PPI: "UPDATE_TPI_PPI",
   UPDATE_PLAYER: "UPDATE_PLAYER",
 };
 
 export const FootballFieldCtx = React.createContext({ ...DEFAULT_STATE });
 
 const reducer = (state: any, action: any) => {
-  const { formation, budget, rank, player } = action;
+  const { formation, budget, rank, player, tpiToPpi } = action;
   switch (action.type) {
     case ACTIONS.UPDATE_FILTERS:
       return {
@@ -28,6 +30,11 @@ const reducer = (state: any, action: any) => {
       return {
         ...state,
         formation,
+      };
+    case ACTIONS.UPDATE_TPI_PPI:
+      return {
+        ...state,
+        tpiToPpi,
       };
     case ACTIONS.UPDATE_PLAYER:
       return {
@@ -53,6 +60,10 @@ const updatePlayer = (dispatch: any, player: any) => {
   dispatch({ type: ACTIONS.UPDATE_PLAYER, player });
 };
 
+const updateTpiToPpi = (dispatch: any, tpiToPpi: any) => {
+  dispatch({ type: ACTIONS.UPDATE_TPI_PPI, tpiToPpi });
+};
+
 export const FootballFieldProvider = ({ children }: any) => {
   const [state, dispatch] = React.useReducer(reducer, {
     ...DEFAULT_STATE,
@@ -64,11 +75,12 @@ export const FootballFieldProvider = ({ children }: any) => {
     updateFormation: (formation: string) =>
       updateFormation(dispatch, formation),
     updatePlayer: (player: any) => updatePlayer(dispatch, player),
+    updateTpiToPpi: (tpiToPpi: any) => updateTpiToPpi(dispatch, tpiToPpi),
   };
 
-  const value = { ...state, ...setter };
+  // const value = ;
   return (
-    <FootballFieldCtx.Provider value={value}>
+    <FootballFieldCtx.Provider value={{ ...setter, ...state }}>
       {children}
     </FootballFieldCtx.Provider>
   );

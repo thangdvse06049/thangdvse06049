@@ -2,16 +2,12 @@ import React, { useEffect } from "react";
 import { useStyles } from "./FootballPanelSuggestion.style";
 import clsx from "classnames";
 import { FootballFieldCtx } from "../../context/FootballField";
-import { Formation } from "../../models/formation";
 import { capitalize, map } from "lodash";
 import { Team } from "../../models/team";
 
-const currencyFormatter = require("currency-formatter");
-
 export const FootballPanelSuggestion = () => {
   const classes = useStyles();
-  const { player, formation, budget, rank } =
-    React.useContext<any>(FootballFieldCtx);
+  const { player, formation, rank } = React.useContext<any>(FootballFieldCtx);
 
   const [suggestions, setSuggestions] = React.useState(null as any);
 

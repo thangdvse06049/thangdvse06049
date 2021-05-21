@@ -55,8 +55,6 @@ export const SearchPlayer = () => {
   };
 
   const fetchPlayerData = async (players: any) => {
-    console.log("vao fetch data", players);
-
     const data = forEach(players, async (p: any) => {
       if (isEmpty(p?.birthDate)) return null;
       const age = computeAge(p?.season, p?.birthDate);

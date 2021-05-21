@@ -15,7 +15,6 @@ import {
 import clsx from "classnames";
 import { FORMATIONS } from "../../constants/formation";
 import { UserCtx } from "../../context/User";
-import { Team } from "../../models/team";
 import { Season } from "../../models/season";
 import { computeAge } from "../../constants/player_infor";
 import Popover from "@material-ui/core/Popover";
@@ -25,13 +24,11 @@ import { Player } from "../../models/player";
 export const FootballFieldContent = () => {
   const classes = useStyles();
   const { user } = React.useContext<any>(UserCtx);
-  const { formation, updatePlayer, player, budget, rank } =
+  const { formation, updatePlayer, player, budget, rank, tpiToPpi } =
     React.useContext<any>(FootballFieldCtx);
 
   const [topWorstPlayer, setTopWorstPlayer] = useState<any>([]); //top 5 Worst players of worst category
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [openPopup, setOpenPopUp] = React.useState(false);
-  const [tpiToPpi, setTpiToPpi] = React.useState<any>();
   const [listPlayerPlayedTheMost, setListPlayerPlayedTheMost] =
     React.useState<any>();
 
@@ -40,15 +37,6 @@ export const FootballFieldContent = () => {
   };
 
   useEffect(() => {
-    Team.getTpiToPPi()
-      .then((data) => {
-        setTpiToPpi(data);
-        const worstPlayer = getTop5WorstPlayers(data);
-        setTopWorstPlayer(worstPlayer);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
     Player.getPlayerPlayedTheMost()
       .then((data) => {
         filterPlayer(data);
@@ -58,6 +46,11 @@ export const FootballFieldContent = () => {
       });
   }, [user, formation, budget, rank]);
 
+  useEffect(() => {
+    const worstPlayer = getTop5WorstPlayers(tpiToPpi);
+    setTopWorstPlayer(worstPlayer);
+  }, [tpiToPpi]);
+
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
@@ -65,6 +58,7 @@ export const FootballFieldContent = () => {
   const formationByPosition = groupBy(formation.players, "position");
 
   const getTop5WorstPlayers = (tpiToPpi: any) => {
+    if (isEmpty(tpiToPpi)) return;
     const listCate = Object.keys(tpiToPpi?.tpiCategories);
     var min = tpiToPpi?.tpiCategories[listCate[0]].score;
     var i;
@@ -83,7 +77,6 @@ export const FootballFieldContent = () => {
 
   const onDetailsPlayer = async (player: any, event: any) => {
     setAnchorEl(event.currentTarget);
-    setOpenPopUp(Boolean(anchorEl));
     const season = await Season.getSeasonById(player?.player?.seasonId);
     const age = computeAge(season, player?.player?.birthDate);
     updatePlayer({ ...player, age: age });
@@ -203,7 +196,7 @@ export const FootballFieldContent = () => {
                           }}
                         />
                         <div className={classes.playerName}>
-                          {player?.player?.shortName}
+                          {player?.player?.shortName || "Unknown"}
                         </div>
                       </div>
                       <div
