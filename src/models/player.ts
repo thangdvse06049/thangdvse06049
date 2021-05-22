@@ -20,7 +20,7 @@ export class Player extends TeamseyesAuth {
     return response.data;
   }
 
-  static async getCompetionSeasonTeam(objPlayer: any) {
+  static async getSeasonTeam(objPlayer: any) {
     const response = await axios.put(
       `/api/player/playerInformation`,
       objPlayer,

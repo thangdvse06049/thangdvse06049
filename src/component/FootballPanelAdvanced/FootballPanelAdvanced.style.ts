@@ -11,6 +11,7 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
     textTransform: "uppercase",
     marginBottom: theme.spacing(1),
+    display: "flex",
   },
   grade: {
     display: "inline-flex",
@@ -74,5 +75,9 @@ export const useStyles = makeStyles((theme) => ({
   },
   gradeValue: {
     padding: "5px 2px",
+  },
+  teamSeasonInfor: {
+    marginLeft: "auto",
+    fontWeight: 400,
   },
 }));

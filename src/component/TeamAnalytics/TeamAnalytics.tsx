@@ -33,13 +33,13 @@ const getColor = (category: any, key: any, v: any) => {
   } else if (v >= 60) {
     return "#4BAC5B";
   } else if (v >= 50) {
-    return "#68369A";
+    return "#e4bd26";
   } else if (v >= 40) {
-    return "#726284";
+    return "#df8244";
   } else if (v >= 20) {
-    return "#DF8244";
+    return "#ec3323";
   } else {
-    return "#EC3323";
+    return "#68369a";
   }
 };
 
@@ -138,15 +138,9 @@ export const TeamAnalytics = () => {
       <div className={classes.listWorstPlayer}>
         {map(topWorstPlayer[category], (o: any) => (
           <div className={classes.playerBottom}>
-            <div
-              className={classes.playerAvatar}
-              style={{
-                backgroundImage: `url(${
-                  o?.player?.imageDataURL || "https://via.placeholder.com/150"
-                })`,
-              }}
-            />
-            <div className={classes.playerName}>{o?.player.shortName}</div>
+            <div className={classes.playerName}>
+              {o?.player.firstName} {o?.player.lastName}
+            </div>
           </div>
         ))}
       </div>
@@ -183,7 +177,9 @@ export const TeamAnalytics = () => {
                             categoryNormalizedValue
                           )}`,
                         }}
-                      >{`${categoryValue}`}</div>
+                      >
+                        {`${categoryValue}`}
+                      </div>
                     </div>
                     <Typography className={classes.heading}>
                       {TPI_CATEGORY_LABEL[category]}
@@ -355,7 +351,7 @@ export const TeamAnalytics = () => {
                     kebabCase("average but bad")
                   )}
                 />
-                <div className={classes.chartItemLegendText}>Average</div>
+                <div className={classes.chartItemLegendText}>Pénalisant</div>
               </div>
               <div className={classes.chartItemLegend}>
                 <div
@@ -364,7 +360,7 @@ export const TeamAnalytics = () => {
                     kebabCase("average but good")
                   )}
                 />
-                <div className={classes.chartItemLegendText}>Moyen</div>
+                <div className={classes.chartItemLegendText}>Acceptable</div>
               </div>
               <div className={classes.chartItemLegend}>
                 <div

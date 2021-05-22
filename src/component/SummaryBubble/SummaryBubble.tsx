@@ -37,6 +37,7 @@ export const SummaryBubble = () => {
   useEffect(() => {
     fetchData();
   }, [user.teamId, user.seasonId]);
+  console.log(tpi);
 
   return (
     <div className={classes.root}>
@@ -48,9 +49,12 @@ export const SummaryBubble = () => {
 
           const strengths = values.slice(0, 2);
           const weaknesses = values.reverse().slice(0, 2);
-          const categoryVal: any =
+
+          console.log(strengths);
+
+          const cateNormalValue: any =
             100 - (tpi.summaryRanked[key] / tpi.nbTeams) * 100;
-          const categoryNormalizedValue = parseInt(categoryVal, 10);
+          const categoryNormalizedValue = parseInt(cateNormalValue, 10);
 
           return (
             <div className={classes.kpi}>
@@ -70,13 +74,13 @@ export const SummaryBubble = () => {
                 <div className={classes.kpiDetailsTitle}>Strengths</div>
                 {strengths.map((o) => (
                   <div className={classes.kpiDetailsRow}>
-                    {TPI_TRANSLATION[key][o[0]]}
+                    {TPI_TRANSLATION[key][o[0]] || o[0]}
                   </div>
                 ))}
                 <div className={classes.kpiDetailsTitle}>Weaknesses</div>
                 {weaknesses.map((o) => (
                   <div className={classes.kpiDetailsRow}>
-                    {TPI_TRANSLATION[key][o[0]]}
+                    {TPI_TRANSLATION[key][o[0]] || o[0]}
                   </div>
                 ))}
               </div>

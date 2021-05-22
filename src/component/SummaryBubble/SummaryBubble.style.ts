@@ -41,6 +41,7 @@ export const useStyles = makeStyles((theme) => ({
     border: "1px solid #E1E3EB",
     borderRadius: 6,
     background: "#F5F7FA",
+    height: 160,
   },
   kpiDetailsTitle: {
     fontWeight: "bold",

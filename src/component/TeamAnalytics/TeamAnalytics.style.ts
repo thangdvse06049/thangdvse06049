@@ -183,10 +183,10 @@ export const useStyles = makeStyles((theme) => ({
     padding: `${theme.spacing(1)}px`,
   },
   playerBottom: {
-    marginLeft: 20,
-    borderTopLeftRadius: 0,
+    marginLeft: 10,
+    borderTopLeftRadius: 6,
     borderTopRightRadius: 6,
-    borderBottomLeftRadius: 0,
+    borderBottomLeftRadius: 6,
     borderBottomRightRadius: 6,
     background: "cadetblue",
     color: "#fff",
@@ -197,7 +197,7 @@ export const useStyles = makeStyles((theme) => ({
     textOverflow: "ellipsis",
     position: "relative",
     display: "flex",
-    width: 130,
+    width: 140,
   },
   chartHeader: {
     display: "flex",

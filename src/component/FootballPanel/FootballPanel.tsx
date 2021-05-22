@@ -62,7 +62,7 @@ export const FootballPanel = () => {
           </div>
           <Typography className={classes.name}>
             {player?.player?.shortName || "Unknown"} ({player?.age || "Unknown"}
-            ) - Match Played ({player?.ppi?.nbMatches || "Unknown"})
+            ) - Match Played ({player?.count || "Unknown"})
           </Typography>
         </div>
         <div className={classes.tabs}>

@@ -113,6 +113,7 @@ export const useStyles = makeStyles((theme) => ({
     left: "7%",
     right: "7%",
     display: "flex",
+    placeContent: "center",
   },
   playerAvatarBottom: {
     minHeight: 38,
@@ -137,7 +138,7 @@ export const useStyles = makeStyles((theme) => ({
     textOverflow: "ellipsis",
     position: "relative",
     display: "flex",
-    width: "12%",
+    width: "17%",
   },
   playerNameBottom: {
     textTransform: "uppercase",

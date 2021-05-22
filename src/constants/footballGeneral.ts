@@ -610,6 +610,11 @@ export const LINK = {
     freeKicksOnTarget: ["freeKicksOnTarget"],
     corners: ["corners"],
   },
+  GOALKEEPER: {
+    gkAerialDuels: ["gkAerialDuels"],
+    gkGoalKicks: ["gkGoalKicks"],
+    gkSaves: ["gkSaves"],
+  },
 };
 
 export const TRANSLATION: any = {
