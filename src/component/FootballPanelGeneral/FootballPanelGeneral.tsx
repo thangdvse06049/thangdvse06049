@@ -5,9 +5,9 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import clsx from "classnames";
 import { Collapse } from "react-collapse";
 import { FootballFieldCtx } from "../../context/FootballField";
-import { LINK, TRANSLATION } from "../../constants/footballGeneral";
+import { LINK } from "../../constants/footballGeneral";
 
-let links: any, translations: any;
+let links: any;
 
 const getGrade = (value: number) => {
   if (!isNumber(value)) return "error";
@@ -29,7 +29,6 @@ const getGrade = (value: number) => {
 
 export const FootballPanelGeneral = () => {
   links = LINK;
-  translations = TRANSLATION;
   const classes = useStyles();
 
   const { formation, player } = React.useContext<any>(FootballFieldCtx);
@@ -78,9 +77,7 @@ export const FootballPanelGeneral = () => {
             return (
               <div className={classes.contentRow}>
                 <div className={classes.contentValue}>
-                  <div className={classes.contentKey}>
-                    {translations[key] || key}
-                  </div>
+                  <div className={classes.contentKey}>{key}</div>
                   <div>
                     <div
                       className={clsx(
@@ -105,7 +102,22 @@ export const FootballPanelGeneral = () => {
       {map(links, (details: any, category: string) => {
         return (
           <div className={classes.category}>
-            {renderCategoryHeader(category)}
+            {category !== "GOALKEEPER" ? (
+              renderCategoryHeader(category)
+            ) : (
+              <div className={classes.categoryInnerHeaderGK}>
+                <div className={classes.categoryTitle}>{category}</div>
+
+                <div
+                  className={clsx(
+                    classes.grade,
+                    kebabCase(getGrade(player?.ppi?.summaryRanked[category]))
+                  )}
+                >
+                  {getGrade(player?.ppi?.summaryRanked[category])}
+                </div>
+              </div>
+            )}
             {renderDetails(category, details)}
             <div className={classes.categoryContent}> </div>
           </div>

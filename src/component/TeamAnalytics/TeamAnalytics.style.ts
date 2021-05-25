@@ -232,4 +232,14 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: 20,
     marginLeft: 20,
   },
+  radarChartLeft: {
+    marginTop: 10,
+  },
+  circular: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 }));

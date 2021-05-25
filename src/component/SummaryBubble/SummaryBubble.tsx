@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useStyles } from "../SummaryBubble/SummaryBubble.style";
 import { Team } from "../../models/team";
 import { UserCtx } from "../../context/User";
-import { map } from "lodash";
-import { TPI_TRANSLATION } from "../../constants/team-tpi";
+import { isEmpty, map, toArray } from "lodash";
+import { SENTENCE_SUMMARY } from "../../constants/team-tpi";
 import classnames from "classnames";
+import { CircularProgress } from "@material-ui/core";
 
 const getColorRank = (v: any) => {
   if (v > 80) {
@@ -37,20 +38,28 @@ export const SummaryBubble = () => {
   useEffect(() => {
     fetchData();
   }, [user.teamId, user.seasonId]);
-  console.log(tpi);
 
   return (
     <div className={classes.root}>
-      {tpi &&
+      {isEmpty(tpi) || !tpi ? (
+        <div className={classes.circular}>
+          <CircularProgress size={60} />
+        </div>
+      ) : (
         map(tpi.summary, (value, key) => {
           const entries = Object.entries(tpi.detailsRanked[key]);
 
           const values = entries.sort((a: any, b: any) => a[1] - b[1]);
 
-          const strengths = values.slice(0, 2);
-          const weaknesses = values.reverse().slice(0, 2);
-
-          console.log(strengths);
+          let strengths: any;
+          let weaknesses: any;
+          if (values.length >= 4) {
+            strengths = values.slice(0, 2);
+            weaknesses = values.reverse().slice(0, 2);
+          } else {
+            strengths = values.slice(0, 2);
+            weaknesses = [];
+          }
 
           const cateNormalValue: any =
             100 - (tpi.summaryRanked[key] / tpi.nbTeams) * 100;
@@ -72,21 +81,24 @@ export const SummaryBubble = () => {
               </div>
               <div className={classes.kpiDetails}>
                 <div className={classes.kpiDetailsTitle}>Strengths</div>
-                {strengths.map((o) => (
-                  <div className={classes.kpiDetailsRow}>
-                    {TPI_TRANSLATION[key][o[0]] || o[0]}
-                  </div>
-                ))}
+                {strengths &&
+                  strengths.map((o: any) => (
+                    <div className={classes.kpiDetailsRow}>
+                      - {toArray(SENTENCE_SUMMARY[o[0]])[0] || o[0]}
+                    </div>
+                  ))}
                 <div className={classes.kpiDetailsTitle}>Weaknesses</div>
-                {weaknesses.map((o) => (
-                  <div className={classes.kpiDetailsRow}>
-                    {TPI_TRANSLATION[key][o[0]] || o[0]}
-                  </div>
-                ))}
+                {weaknesses &&
+                  weaknesses.map((o: any) => (
+                    <div className={classes.kpiDetailsRow}>
+                      - {toArray(SENTENCE_SUMMARY[o[0]])[0] || o[0]}
+                    </div>
+                  ))}
               </div>
             </div>
           );
-        })}
+        })
+      )}
     </div>
   );
 };

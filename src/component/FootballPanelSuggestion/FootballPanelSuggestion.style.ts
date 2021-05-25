@@ -33,4 +33,10 @@ export const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: `0 ${theme.spacing(1)}px`,
   },
+  circular: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 30,
+  },
 }));

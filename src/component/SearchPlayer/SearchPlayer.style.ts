@@ -20,7 +20,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   content: {
     width: 550,
-    height: 535,
+    height: 640,
     display: "block",
   },
   contentSearch: {
@@ -36,7 +36,7 @@ export const useStyles = makeStyles((theme) => ({
     display: "block",
     padding: 10,
     width: "100%",
-    height: "75%",
+    height: "100%",
     overflowY: "scroll",
   },
   avatarPlayer: {
@@ -204,5 +204,9 @@ export const useStyles = makeStyles((theme) => ({
     height: "80%",
     alignItems: "center",
     fontSize: 20,
+  },
+  radarChart: {
+    width: 300,
+    height: 300,
   },
 }));

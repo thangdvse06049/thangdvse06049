@@ -37,9 +37,9 @@ export const InforSetting = (props: any) => {
     if (season?._id || team?._id) {
       update({
         ...user,
-        teamName: team.teamName,
-        seasonId: season._id,
-        teamId: team._id,
+        teamName: team?.teamName,
+        seasonId: season?._id,
+        teamId: team?._id,
       });
       try {
         await User.updateUser({

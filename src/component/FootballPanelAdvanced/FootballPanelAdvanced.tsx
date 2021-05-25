@@ -55,12 +55,11 @@ export const FootballPanelAdvanced = () => {
   const classes = useStyles();
   const { player, updatePlayer } = React.useContext<any>(FootballFieldCtx);
 
-  console.log(player);
-
   useEffect(() => {
     if (player.playerId && player.seasonTeamData === undefined) {
       fetchSeasonTeamOfPlayer(player);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [player]);
 
   const fetchSeasonTeamOfPlayer = async (player: any) => {
@@ -74,9 +73,7 @@ export const FootballPanelAdvanced = () => {
   return (
     <div className={classes.root}>
       <div className={classes.category}>
-        <div className={classes.categoryTitle}>
-          Age ({player?.performance?.age})
-        </div>
+        <div className={classes.categoryTitle}>Age ({player?.age})</div>
         <div>
           {map(BMIAGE_KEYS, (key) => {
             const value = player?.bmiAge[key]?.age;
@@ -96,9 +93,7 @@ export const FootballPanelAdvanced = () => {
         </div>
       </div>
       <div className={classes.category}>
-        <div className={classes.categoryTitle}>
-          Age + 1 ({player?.performance?.age + 1})
-        </div>
+        <div className={classes.categoryTitle}>Age + 1 ({player?.age + 1})</div>
         <div>
           {map(BMIAGE_KEYS, (key) => {
             const value = player?.bmiAge[key]?.nextAge;

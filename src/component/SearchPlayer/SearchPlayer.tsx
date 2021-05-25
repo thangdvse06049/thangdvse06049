@@ -27,6 +27,10 @@ import clsx from "classnames";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import { Collapse } from "react-collapse";
 import { computeAge } from "../../constants/player_infor";
+import { Radar } from "react-chartjs-2";
+import { PPI_CATEGORY_LABEL } from "../../constants/ppi";
+import { EmptyScreen } from "../EmptyScreen";
+import { CircularProgress } from "@material-ui/core";
 
 export const SearchPlayer = () => {
   const classes = useStyles();
@@ -54,6 +58,61 @@ export const SearchPlayer = () => {
     }
   };
 
+  const renderRadarChart = () => {
+    return (
+      <Radar
+        data={{
+          labels: map(
+            PPI_CATEGORY_LABEL,
+            (value: any, category: any) => PPI_CATEGORY_LABEL[category]
+          ),
+          datasets: [
+            {
+              label: `${playerPPI?.seasonPpi} - ${playerPPI?.playerPpi[0]?.positions}`,
+              suggestedMax: 100,
+              backgroundColor: "rgba(64,112,244, 0.5)",
+              pointBackgroundColor: "#4070F4",
+              data: map(PPI_CATEGORY_LABEL, (value: any, category: any) => {
+                if (!isEmpty(playerPPI))
+                  return playerPPI.playerPpi[0]?.summary[category];
+              }).map((o: any) => o * 100),
+            },
+            {
+              label: `${playerPPI?.seasonPpiHistory} - ${playerPPI?.playerPpiHistory[0]?.positions}`,
+              suggestedMax: 100,
+              backgroundColor: "rgba(111,33,94, 0.5)",
+              pointBackgroundColor: "#4070F4",
+              data: map(PPI_CATEGORY_LABEL, (value: any, category: any) => {
+                if (!isEmpty(playerPPI))
+                  return playerPPI.playerPpiHistory[0]?.summary[category];
+              }).map((o: any) => o * 100),
+            },
+          ],
+        }}
+        type="radar"
+        options={{
+          height: 350,
+          weight: 350,
+          plugins: {},
+          scale: {
+            pointLabels: {
+              fontSize: 200,
+              fontColor: "#ff0000",
+            },
+            reverse: false,
+            gridLines: {
+              color: "#3D3D3D",
+            },
+            ticks: {
+              beginAtZero: true,
+              suggestedMax: 100,
+            },
+          },
+        }}
+      />
+    );
+  };
+
   const fetchPlayerData = async (players: any) => {
     const data = forEach(players, async (p: any) => {
       if (isEmpty(p?.birthDate)) return null;
@@ -70,7 +129,6 @@ export const SearchPlayer = () => {
       _id: player._id,
       seasonId: player.seasonId,
     });
-    if (!ppi.length) return null;
     setPlayerPPI(ppi);
   };
 
@@ -93,6 +151,7 @@ export const SearchPlayer = () => {
       if (isEmpty(value)) return;
       let listPlayer: any = [];
       listPlayer = await Player.playerSearch(value);
+
       await fetchPlayerData(listPlayer);
       value = " ";
     } catch (e) {
@@ -258,7 +317,13 @@ export const SearchPlayer = () => {
                     `${option?.firstName} ${option?.lastName}`
                   }
                   onChange={onChangePlayer}
-                  renderOption={(option) => detailPlayer(option)}
+                  renderOption={(option) =>
+                    !isEmpty(option) ? (
+                      detailPlayer(option)
+                    ) : (
+                      <CircularProgress></CircularProgress>
+                    )
+                  }
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -273,12 +338,17 @@ export const SearchPlayer = () => {
               {player && !isString(player) && (
                 <div className={classes.contentDisplay}>
                   <div>{detailPlayer(player)}</div>
-                  <div className={classes.textInfor}>PPI: </div>
-                  <div className={classes.listPlayerInfor}>
-                    {playerPPI
-                      ? map(playerPPI, (p: any) => detailPPI(p))
-                      : "No data"}
-                  </div>
+                  {!isEmpty(playerPPI?.playerPpi) ? (
+                    <>
+                      <div className={classes.textInfor}>PPI: </div>
+                      <div className={classes.listPlayerInfor}>
+                        {map(playerPPI?.playerPpi, (p: any) => detailPPI(p))}
+                        {renderRadarChart()}
+                      </div>
+                    </>
+                  ) : (
+                    <EmptyScreen></EmptyScreen>
+                  )}
                 </div>
               )}
               {isString(player) && (

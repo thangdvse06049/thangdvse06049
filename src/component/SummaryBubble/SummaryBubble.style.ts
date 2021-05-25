@@ -37,11 +37,12 @@ export const useStyles = makeStyles((theme) => ({
   },
   kpiDetails: {
     width: "100%",
-    padding: "23px 5px",
+    padding: "10px 5px",
     border: "1px solid #E1E3EB",
     borderRadius: 6,
     background: "#F5F7FA",
     height: 160,
+    overflowY: "scroll",
   },
   kpiDetailsTitle: {
     fontWeight: "bold",
@@ -80,5 +81,12 @@ export const useStyles = makeStyles((theme) => ({
     "&.terrible": {
       background: "#68369a",
     },
+  },
+  circular: {
+    width: "100%",
+    height: 50,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 }));

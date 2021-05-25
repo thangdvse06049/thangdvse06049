@@ -26,6 +26,8 @@ import { Autocomplete } from "@material-ui/lab";
 import TextField from "@material-ui/core/TextField";
 import { Season } from "../../models/season";
 import { FootballFieldCtx } from "../../context/FootballField";
+import { EmptyScreen } from "../EmptyScreen";
+import { CircularProgress } from "@material-ui/core";
 
 const getColor = (category: any, key: any, v: any) => {
   if (v > 80) {
@@ -322,9 +324,9 @@ export const TeamAnalytics = () => {
               </div>
             </div>
             {tpi && tpiSeasonCompare ? (
-              renderRadarChart()
+              <div className={classes.radarChartLeft}>{renderRadarChart()}</div>
             ) : (
-              <span className={classes.noDataNoti}>No data</span>
+              <EmptyScreen></EmptyScreen>
             )}
           </div>
           <div className={classes.details}>
@@ -381,7 +383,13 @@ export const TeamAnalytics = () => {
                 {/* Based on others teams results */}
               </div>
             </div>
-            {renderDetailsPanel()}
+            {isEmpty(tpi) ? (
+              <div className={classes.circular}>
+                <CircularProgress size={60} />
+              </div>
+            ) : (
+              renderDetailsPanel()
+            )}
           </div>
         </div>
       </div>

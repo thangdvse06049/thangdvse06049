@@ -28,6 +28,9 @@ export const FootballFieldContent = () => {
     React.useContext<any>(FootballFieldCtx);
 
   const [topWorstPlayer, setTopWorstPlayer] = useState<any>([]); //top 5 Worst players of worst category
+
+  const [season, setSeason] = useState<any>();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [listPlayerPlayedTheMost, setListPlayerPlayedTheMost] =
     React.useState<any>();
@@ -39,11 +42,13 @@ export const FootballFieldContent = () => {
   useEffect(() => {
     Player.getPlayerPlayedTheMost()
       .then((data) => {
-        filterPlayer(data);
+        setSeason(data.season);
+        filterPlayer(data.players);
       })
       .catch((e) => {
         console.log(e);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, formation, budget, rank]);
 
   useEffect(() => {
@@ -82,12 +87,33 @@ export const FootballFieldContent = () => {
     updatePlayer({ ...player, age: age });
   };
 
+  const divisionSeason = (seasonName: any) => {
+    const listSeason = [
+      "2008/2009",
+      "2009/2010",
+      "2010/2011",
+      "2011/2012",
+      "2012/2013",
+      "2013/2014",
+      "2014/2015",
+      "2015/2016",
+      "2016/2017",
+      "2017/2018",
+      "2018/2019",
+      "2019/2020",
+    ];
+    if (listSeason.indexOf(seasonName) !== -1) {
+      return false;
+    }
+    return true;
+  };
+
   const filterPlayer = (listPlayer: any) => {
     //get list player who played the most to show in bottom, but not coincide with player show in football content
     const listPlayerUniq: any = [];
     forEach(listPlayer, (player1: any) => {
       if (!player1) return;
-      const diff = find(formation.players, { playerId: player1.playerId });
+      const diff = find(formation.players, { playerId: player1._id });
       if (isEmpty(diff)) listPlayerUniq.push(player1);
     });
     setListPlayerPlayedTheMost(listPlayerUniq);
@@ -119,13 +145,11 @@ export const FootballFieldContent = () => {
           className={classes.playerAvatarBottom}
           style={{
             backgroundImage: `url(${
-              player?.player?.imageDataURL || "https://via.placeholder.com/150"
+              player?.imageDataURL || "https://via.placeholder.com/150"
             })`,
           }}
         />
-        <div className={classes.playerNameBottom}>
-          {player?.player.shortName}
-        </div>
+        <div className={classes.playerNameBottom}>{player?.shortName}</div>
       </div>
     );
   };
@@ -216,10 +240,13 @@ export const FootballFieldContent = () => {
       <img src="/football_field.svg" className={classes.footballField} alt="" />
       {popOverRender(player)}
       <div className={classes.listPlayerBottom}>
-        {listPlayerPlayedTheMost &&
-          map(listPlayerPlayedTheMost.slice(0, 9), (player: any) =>
-            listPlayerBottom(player)
-          )}
+        {listPlayerPlayedTheMost && divisionSeason(season.name)
+          ? map(listPlayerPlayedTheMost?.slice(0, 9), (player: any) =>
+              listPlayerBottom(player)
+            )
+          : map(listPlayerPlayedTheMost?.slice(0, 7), (player: any) =>
+              listPlayerBottom(player)
+            )}
       </div>
     </div>
   );

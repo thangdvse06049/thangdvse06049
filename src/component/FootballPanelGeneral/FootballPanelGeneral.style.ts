@@ -77,4 +77,9 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
   },
+  categoryInnerHeaderGK: {
+    display: "flex",
+    alignItems: "center",
+    marginTop: 5,
+  },
 }));
