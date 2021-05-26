@@ -102,22 +102,7 @@ export const FootballPanelGeneral = () => {
       {map(links, (details: any, category: string) => {
         return (
           <div className={classes.category}>
-            {category !== "GOALKEEPER" ? (
-              renderCategoryHeader(category)
-            ) : (
-              <div className={classes.categoryInnerHeaderGK}>
-                <div className={classes.categoryTitle}>{category}</div>
-
-                <div
-                  className={clsx(
-                    classes.grade,
-                    kebabCase(getGrade(player?.ppi?.summaryRanked[category]))
-                  )}
-                >
-                  {getGrade(player?.ppi?.summaryRanked[category])}
-                </div>
-              </div>
-            )}
+            {renderCategoryHeader(category)}
             {renderDetails(category, details)}
             <div className={classes.categoryContent}> </div>
           </div>

@@ -16,7 +16,6 @@ export const FootballFieldHeader = () => {
   const [listFormations, setListFormations] = useState([] as any);
   const [localFormation, setLocalFormation] = useState(null as any);
   const [localRank, setLocalRank] = useState(rank);
-  const [formationPlayedTheMost, setformationPlayedTheMost] = useState<any>();
 
   const loadScheme = async (scheme: string) => {
     const players = await Formation.getScheme(scheme);
@@ -28,7 +27,7 @@ export const FootballFieldHeader = () => {
 
     updateFormation(formation);
     updateFilters(localRank, budget);
-    updatePlayer(formation.players[0]);
+    updatePlayer(formation.players[1]);
   };
 
   useEffect(() => {
@@ -39,15 +38,7 @@ export const FootballFieldHeader = () => {
         ...obj,
       }));
 
-      const formationUsedTheMost = maxBy(
-        formations,
-        (o: any) => o?.countMatches
-      );
-      setformationPlayedTheMost(formationUsedTheMost);
-
-      const max = maxBy(formations, (o) =>
-        o.ratioUsed > 0.17 ? o.ratioMatchesWon : 0
-      );
+      const max = maxBy(formations, (o) => o.percentUsed);
 
       setLocalFormation(max);
       const sortedByScheme = sortBy(formations, (o: any) => o.scheme.length);
@@ -101,9 +92,8 @@ export const FootballFieldHeader = () => {
       >
         {map(listFormations, (formation: any, i: number) => (
           <MenuItem key={i} value={formation.scheme}>
-            {formation.scheme === formationPlayedTheMost.scheme
-              ? `${formation.scheme} (${formation.percentUsed}%) - count: ${formation.countMatches}`
-              : `${formation.scheme} (${formation.percentUsed}%)`}
+            {formation.scheme &&
+              `${formation.scheme} (${formation.percentUsed}%) - ${formation.countMatches} times`}
           </MenuItem>
         ))}
       </TETextFieldOutlined>

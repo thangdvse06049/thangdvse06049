@@ -187,6 +187,7 @@ export const FootballFieldContent = () => {
 
   return (
     <div className={classes.root}>
+      {isEmpty(formation)}
       <div className={classes.formationLayout}>
         <div className={classes.formation}>
           {map(columns, (positions, index) => {
@@ -200,36 +201,62 @@ export const FootballFieldContent = () => {
                   const [player] = formationByPosition[position] || [];
                   const listPlayerId = map(topWorstPlayer, "playerId");
                   return (
-                    <div
-                      key={i}
-                      className={classes.formationPlayer}
-                      onClick={(ev) => onDetailsPlayer(player, ev)}
-                    >
-                      {includes(listPlayerId, player?.playerId) && (
-                        <div className={classes.worstPlayer}></div>
-                      )}
+                    <>
+                      {player.position === "gk" ? (
+                        <div key={i} className={classes.formationPlayer}>
+                          {includes(listPlayerId, player?.playerId) && (
+                            <div className={classes.worstPlayer}></div>
+                          )}
+                          <div className={classes.playerGK}>
+                            <div
+                              className={classes.playerAvatar}
+                              style={{
+                                backgroundImage: `url(${
+                                  player?.player?.imageDataURL ||
+                                  "https://via.placeholder.com/150"
+                                })`,
+                              }}
+                            />
+                            <div className={classes.playerName}>
+                              {player?.player?.shortName || "Unknown"}
+                            </div>
+                          </div>
 
-                      <div className={classes.player}>
-                        <div
-                          className={classes.playerAvatar}
-                          style={{
-                            backgroundImage: `url(${
-                              player?.player?.imageDataURL ||
-                              "https://via.placeholder.com/150"
-                            })`,
-                          }}
-                        />
-                        <div className={classes.playerName}>
-                          {player?.player?.shortName || "Unknown"}
+                          <div className={classes.statusGK} />
                         </div>
-                      </div>
-                      <div
-                        className={clsx(
-                          classes.status,
-                          kebabCase(player?.performance?.gradeLabel)
-                        )}
-                      />
-                    </div>
+                      ) : (
+                        <div
+                          key={i}
+                          className={classes.formationPlayer}
+                          onClick={(ev) => onDetailsPlayer(player, ev)}
+                        >
+                          {includes(listPlayerId, player?.playerId) && (
+                            <div className={classes.worstPlayer}></div>
+                          )}
+                          <div className={classes.player}>
+                            <div
+                              className={classes.playerAvatar}
+                              style={{
+                                backgroundImage: `url(${
+                                  player?.player?.imageDataURL ||
+                                  "https://via.placeholder.com/150"
+                                })`,
+                              }}
+                            />
+                            <div className={classes.playerName}>
+                              {player?.player?.shortName || "Unknown"}
+                            </div>
+                          </div>
+
+                          <div
+                            className={clsx(
+                              classes.status,
+                              kebabCase(player?.performance?.gradeLabel)
+                            )}
+                          />
+                        </div>
+                      )}
+                    </>
                   );
                 })}
               </div>
