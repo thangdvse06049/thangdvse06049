@@ -6,6 +6,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   footballField: {
     position: "relative",
+    transform: "translate(41%, 0)",
   },
   footballFieldImg: {
     display: "block",

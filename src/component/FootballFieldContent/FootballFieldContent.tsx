@@ -24,7 +24,7 @@ import { Player } from "../../models/player";
 export const FootballFieldContent = () => {
   const classes = useStyles();
   const { user } = React.useContext<any>(UserCtx);
-  const { formation, updatePlayer, player, budget, rank, tpiToPpi } =
+  const { formation, updatePlayer, player, tpiToPpi } =
     React.useContext<any>(FootballFieldCtx);
 
   const [topWorstPlayer, setTopWorstPlayer] = useState<any>([]); //top 5 Worst players of worst category
@@ -49,7 +49,7 @@ export const FootballFieldContent = () => {
         console.log(e);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, formation, budget, rank]);
+  }, [user, formation]);
 
   useEffect(() => {
     const worstPlayer = getTop5WorstPlayers(tpiToPpi);
@@ -113,7 +113,9 @@ export const FootballFieldContent = () => {
     const listPlayerUniq: any = [];
     forEach(listPlayer, (player1: any) => {
       if (!player1) return;
-      const diff = find(formation.players, { playerId: player1._id });
+      const diff = find(formation.players, {
+        playerId: player1?.playerData?._id,
+      });
       if (isEmpty(diff)) listPlayerUniq.push(player1);
     });
     setListPlayerPlayedTheMost(listPlayerUniq);
@@ -140,16 +142,28 @@ export const FootballFieldContent = () => {
 
   const listPlayerBottom = (player: any) => {
     return (
-      <div className={classes.playerBottom}>
+      <div className={classes.formationPlayerBottom}>
+        <div className={classes.playerBottom}>
+          <div
+            className={classes.playerAvatarBottom}
+            style={{
+              backgroundImage: `url(${
+                player?.playerData?.imageDataURL ||
+                "https://via.placeholder.com/150"
+              })`,
+            }}
+          />
+          <div className={classes.playerNameBottom}>
+            {player?.playerData?.shortName || "Unknown"}
+          </div>
+        </div>
+
         <div
-          className={classes.playerAvatarBottom}
-          style={{
-            backgroundImage: `url(${
-              player?.imageDataURL || "https://via.placeholder.com/150"
-            })`,
-          }}
+          className={clsx(
+            classes.statusBottom,
+            kebabCase(player?.performance?.gradeLabel)
+          )}
         />
-        <div className={classes.playerNameBottom}>{player?.shortName}</div>
       </div>
     );
   };

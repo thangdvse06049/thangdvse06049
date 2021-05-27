@@ -188,27 +188,28 @@ export const FootballFieldBalance = (props: any) => {
             <img src={FootballFieldImg} className={classes.footballFieldImg} />
           </div>
         </div>
-
-        <div className={classes.titleBalance}>Defensive Balance</div>
-        <div className={classes.footballField}>
-          <div className={classes.arrowsContainer}>
-            {ArrowSvg(
-              ((footballMidHeight * defensive.leftFlankAttacks) / 100) * 2,
-              defensive.leftFlankAttacks
-            )}
-            {ArrowSvg(
-              ((footballMidHeight * defensive.centerAttacks) / 100) * 2,
-              defensive.centerAttacks
-            )}
-            {ArrowSvg(
-              ((footballMidHeight * defensive.rightFlankAttacks) / 100) * 2,
-              defensive.rightFlankAttacks
-            )}
+        <div className={classes.offensiveBalance}>
+          <div className={classes.titleBalance}>Defensive Balance</div>
+          <div className={classes.footballField}>
+            <div className={classes.arrowsContainer}>
+              {ArrowSvg(
+                ((footballMidHeight * defensive.leftFlankAttacks) / 100) * 2,
+                defensive.leftFlankAttacks
+              )}
+              {ArrowSvg(
+                ((footballMidHeight * defensive.centerAttacks) / 100) * 2,
+                defensive.centerAttacks
+              )}
+              {ArrowSvg(
+                ((footballMidHeight * defensive.rightFlankAttacks) / 100) * 2,
+                defensive.rightFlankAttacks
+              )}
+            </div>
+            <div className={classes.arrowsHorizontalContainer}>
+              {BalanceArrowSVG(356, defensive.crossLeft, defensive.crossRight)}
+            </div>
+            <img src={FootballFieldImg} className={classes.footballFieldImg} />
           </div>
-          <div className={classes.arrowsHorizontalContainer}>
-            {BalanceArrowSVG(356, defensive.crossLeft, defensive.crossRight)}
-          </div>
-          <img src={FootballFieldImg} className={classes.footballFieldImg} />
         </div>
       </div>
     </div>

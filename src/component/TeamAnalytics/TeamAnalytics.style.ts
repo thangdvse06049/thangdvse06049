@@ -203,7 +203,7 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   avgTpi: {
-    width: "50%",
+    width: "30%",
     fontSize: 20,
     fontWeight: 500,
     textAlign: "center",

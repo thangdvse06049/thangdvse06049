@@ -76,6 +76,7 @@ export const FootballFieldHeader = () => {
         id="input-rank"
         label="Rank"
         type="number"
+        inputProps={{ min: 0 }}
         onChange={onChangeRank}
         defaultValue={localRank}
         fullWidth

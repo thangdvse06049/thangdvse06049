@@ -304,17 +304,8 @@ export const TeamAnalytics = () => {
     <div className={classes.root}>
       <div>
         <div className={classes.headingBubble}>
-          <Typography className={classes.typo}>
-            Championship Year: (2017/2017){" "}
-          </Typography>
-          <Typography className={classes.typo}>
-            Position in the ranking: 5
-          </Typography>
-          <Typography className={classes.typo}>Victories: 6</Typography>
-          <Typography className={classes.typo}>Lose: 13</Typography>
-          <Typography className={classes.typo}>Draw: 3</Typography>
+          <SummaryBubble></SummaryBubble>
         </div>
-        <SummaryBubble></SummaryBubble>
       </div>
       <div>
         <div className={classes.analyticPanel}>

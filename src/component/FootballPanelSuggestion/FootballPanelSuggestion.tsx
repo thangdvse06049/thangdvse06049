@@ -52,7 +52,7 @@ export const FootballPanelSuggestion = () => {
               <div className={classes.playerInfo}>
                 <div className={classes.playerName}>
                   {player?.playerName} (
-                  {capitalize(player?.player.passportArea.name)})
+                  {capitalize(player?.player?.passportArea?.name) || "Unknown"})
                 </div>
                 <div>
                   Competition: {capitalize(player?.competitionCountry)}
