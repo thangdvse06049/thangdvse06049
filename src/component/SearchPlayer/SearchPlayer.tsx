@@ -227,10 +227,17 @@ export const SearchPlayer = () => {
             id="panel1a-header"
             className={classes.accordionSum}
           >
-            <Typography className={classes.heading}>
-              <span className={classes.positionTxt}>position: </span>
-              {ppi?.positions.join(", ")}
-            </Typography>
+            <div className={classes.itemContent}>
+              <Typography className={classes.heading}>
+                <span className={classes.positionTxt}>position: </span>
+                {ppi?.positions.join(", ")}
+              </Typography>
+              <Typography
+                className={clsx(classes.gradeLabel, kebabCase(ppi?.gradeLabel))}
+              >
+                {ppi?.gradeLabel}
+              </Typography>
+            </div>
           </AccordionSummary>
           <AccordionDetails className={classes.accordionDetail}>
             <Typography>
@@ -340,7 +347,6 @@ export const SearchPlayer = () => {
                   <div>{detailPlayer(player)}</div>
                   {!isEmpty(playerPPI?.playerPpi) ? (
                     <>
-                      <div className={classes.textInfor}>PPI: </div>
                       <div className={classes.listPlayerInfor}>
                         {map(playerPPI?.playerPpi, (p: any) => detailPPI(p))}
                         {renderRadarChart()}

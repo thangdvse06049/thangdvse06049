@@ -226,11 +226,9 @@ export const useStyles = makeStyles((theme) => ({
     marginLeft: 20,
   },
   typo: {
-    padding: 10,
-    fontSize: 22,
+    padding: 5,
+    fontSize: 15,
     fontWeight: 500,
-    marginTop: 20,
-    marginLeft: 20,
   },
   radarChartLeft: {
     marginTop: 10,
@@ -241,5 +239,25 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+  },
+  summaryBubble: {
+    marginTop: 30,
+  },
+  headingBubble: {
+    display: "flex",
+    width: "100%",
+    padding: 20,
+    alignItems: "center",
+    justifyContent: "flex-End",
+  },
+  playerAvatarBottom: {
+    minHeight: 38,
+    minWidth: 40,
+    maxHeight: 38,
+    maxWidth: 40,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundColor: "#fff",
+    marginLeft: 20,
   },
 }));

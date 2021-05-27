@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 export const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
+    paddingLeft: 5,
   },
   category: {},
   categoryHeader: {
@@ -26,6 +27,14 @@ export const useStyles = makeStyles((theme) => ({
     color: "rgba(12,21,46,1)",
     fontSize: 15,
     textTransform: "uppercase",
+    marginLeft: 5,
+  },
+  categoryTitleNotStar: {
+    fontWeight: 500,
+    color: "rgba(12,21,46,1)",
+    fontSize: 15,
+    textTransform: "uppercase",
+    marginLeft: 30,
   },
   categoryInnerHeader: {
     display: "flex",
@@ -45,22 +54,22 @@ export const useStyles = makeStyles((theme) => ({
     color: "white",
     fontSize: 10,
     fontWeight: 600,
-    "&.excellent": {
+    "&.Excellent": {
       background: "#4BAEEA",
     },
-    "&.good": {
+    "&.Bon": {
       background: "#4BAC5B",
     },
-    "&.average-but-good": {
+    "&.Acceptable": {
       background: "#e4bd26",
     },
-    "&.average-but-bad": {
+    "&.Pénalisant": {
       background: "#df8244",
     },
-    "&.bad": {
+    "&.Mauvais": {
       background: "#ec3323",
     },
-    "&.terrible": {
+    "&.Terrible": {
       background: "#68369a",
     },
     "&.error": {
@@ -72,6 +81,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   contentKey: {
     textTransform: "uppercase",
+    marginLeft: 22,
   },
   contentValue: {
     display: "flex",

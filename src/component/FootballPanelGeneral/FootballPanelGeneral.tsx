@@ -5,7 +5,14 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import clsx from "classnames";
 import { Collapse } from "react-collapse";
 import { FootballFieldCtx } from "../../context/FootballField";
-import { LINK } from "../../constants/footballGeneral";
+import {
+  getGroupPosition,
+  LINK,
+  TRANSLATION,
+  PONDERATION,
+} from "../../constants/footballGeneral";
+import StarIcon from "@material-ui/icons/Star";
+import { yellow } from "@material-ui/core/colors";
 
 let links: any;
 
@@ -13,17 +20,17 @@ const getGrade = (value: number) => {
   if (!isNumber(value)) return "error";
 
   if (value > 0.8) {
-    return "excellent";
+    return "Excellent";
   } else if (value >= 0.6) {
-    return "good";
+    return "Bon";
   } else if (value >= 0.5) {
-    return "average but good";
+    return "Acceptable";
   } else if (value >= 0.4) {
-    return "average but bad";
+    return "Pénalisant";
   } else if (value >= 0.2) {
-    return "bad";
+    return "Mauvais";
   } else {
-    return "terrible";
+    return "Terrible";
   }
 };
 
@@ -41,6 +48,8 @@ export const FootballPanelGeneral = () => {
   }, [formation]);
 
   const renderCategoryHeader = (category: string) => {
+    const playerGroupPosition = getGroupPosition(player.position);
+
     return (
       <div
         onClick={() => setExpanded(category === expanded ? null : category)}
@@ -49,12 +58,26 @@ export const FootballPanelGeneral = () => {
         })}
       >
         <div className={classes.categoryInnerHeader}>
-          <div className={classes.categoryTitle}>{category}</div>
-
+          {map(PONDERATION, (cateObj: any, groupPosition: any) => {
+            if (groupPosition === playerGroupPosition) {
+              if (cateObj[category] !== 0) {
+                return (
+                  <>
+                    <StarIcon style={{ color: yellow[800] }}></StarIcon>
+                    <div className={classes.categoryTitle}>{category}</div>
+                  </>
+                );
+              } else {
+                return (
+                  <div className={classes.categoryTitleNotStar}>{category}</div>
+                );
+              }
+            }
+          })}
           <div
             className={clsx(
               classes.grade,
-              kebabCase(getGrade(player?.ppi?.summaryRanked[category]))
+              getGrade(player?.ppi?.summaryRanked[category])
             )}
           >
             {getGrade(player?.ppi?.summaryRanked[category])}
@@ -77,7 +100,9 @@ export const FootballPanelGeneral = () => {
             return (
               <div className={classes.contentRow}>
                 <div className={classes.contentValue}>
-                  <div className={classes.contentKey}>{key}</div>
+                  <div className={classes.contentKey}>
+                    {TRANSLATION[key] || key}
+                  </div>
                   <div>
                     <div
                       className={clsx(

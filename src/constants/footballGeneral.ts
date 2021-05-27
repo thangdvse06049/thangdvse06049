@@ -1,3 +1,5 @@
+import { find } from "lodash";
+
 export const SENTENCES = {
   FINITION: [
     "La finition est très bien représentée dans ses compétences technique !",
@@ -587,7 +589,6 @@ export const LINK = {
     groupLooseBallDuels: ["looseBallDuels"],
     groupOffensiveDuels: ["OffensiveDuels"],
     groupSlidingTackles: ["slidingTackles"],
-    newDuelsWon: ["newDuelsWon"],
   },
   POSSESSION: {
     interceptions: ["interceptions"],
@@ -601,7 +602,7 @@ export const LINK = {
     counterpressingRecoveries: ["counterpressingRecoveries"],
   },
   PERCUSSION: {
-    groupDribbles: ["dribblesRatio"],
+    groupDribbles2: ["dribblesRatio"],
     accelerations: ["accelerations"],
     progressiveRun: ["progressiveRun"],
   },
@@ -609,11 +610,6 @@ export const LINK = {
     directFreeKicksOnTarget: ["directFreeKicksOnTarget"],
     freeKicksOnTarget: ["freeKicksOnTarget"],
     corners: ["corners"],
-  },
-  GOALKEEPER: {
-    gkAerialDuels: ["gkAerialDuels"],
-    gkGoalKicks: ["gkGoalKicks"],
-    gkSaves: ["gkSaves"],
   },
 };
 
@@ -671,4 +667,131 @@ export const TRANSLATION: any = {
   directFreeKicksOnTarget: "Coups Francs Directs",
   freeKicksOnTarget: "Coups Francs Indirects",
   corners: "Corners",
+};
+
+export const PONDERATION = {
+  ATTAQUANTS: {
+    FINITION: 4,
+    CREATION: 1,
+    DISTRIBUTION: 0,
+    PERCUSSION: 0,
+    POSSESSION: 0,
+    DUELS: 0,
+    SET_PIECES: 0,
+  },
+  ATTAQUANTSLEFT: {
+    FINITION: 4,
+    CREATION: 1,
+    DISTRIBUTION: 0,
+    PERCUSSION: 0,
+    POSSESSION: 0,
+    DUELS: 0,
+    SET_PIECES: 0,
+  },
+  ATTAQUANTSRIGHT: {
+    FINITION: 4,
+    CREATION: 1,
+    DISTRIBUTION: 0,
+    PERCUSSION: 0,
+    POSSESSION: 0,
+    DUELS: 0,
+    SET_PIECES: 0,
+  },
+  AILLIERSLEFT: {
+    FINITION: 3,
+    CREATION: 3,
+    DISTRIBUTION: 2,
+    PERCUSSION: 2,
+    POSSESSION: 2,
+    DUELS: 1,
+    SET_PIECES: 0,
+  },
+  AILLIERSRIGHT: {
+    FINITION: 3,
+    CREATION: 3,
+    DISTRIBUTION: 2,
+    PERCUSSION: 2,
+    POSSESSION: 2,
+    DUELS: 1,
+    SET_PIECES: 0,
+  },
+  MILIEUXOFFENSIF: {
+    FINITION: 3,
+    CREATION: 3,
+    DISTRIBUTION: 3,
+    PERCUSSION: 2,
+    POSSESSION: 2,
+    DUELS: 1,
+    SET_PIECES: 0,
+  },
+  MILIEUXRELAYEUR: {
+    FINITION: 3,
+    CREATION: 3,
+    DISTRIBUTION: 3,
+    PERCUSSION: 2,
+    POSSESSION: 3,
+    DUELS: 2,
+    SET_PIECES: 0,
+  },
+  MILIEUXDEFENSIF: {
+    FINITION: 2,
+    CREATION: 2,
+    DISTRIBUTION: 3,
+    PERCUSSION: 1,
+    POSSESSION: 3,
+    DUELS: 3,
+    SET_PIECES: 0,
+  },
+  DEFENSEURSCENTRAUX: {
+    FINITION: 2,
+    CREATION: 2,
+    DISTRIBUTION: 4,
+    PERCUSSION: 0,
+    POSSESSION: 4,
+    DUELS: 4,
+    SET_PIECES: 0,
+  },
+  DEFENSEURSLATERAUXLEFT: {
+    FINITION: 3,
+    CREATION: 3,
+    DISTRIBUTION: 2,
+    PERCUSSION: 3,
+    POSSESSION: 2,
+    DUELS: 2,
+    SET_PIECES: 0,
+  },
+  DEFENSEURSLATERAUXRIGHT: {
+    FINITION: 3,
+    CREATION: 3,
+    DISTRIBUTION: 2,
+    PERCUSSION: 3,
+    POSSESSION: 2,
+    DUELS: 2,
+    SET_PIECES: 0,
+  },
+};
+
+export const POSITIONS = {
+  GOALKEEPERS: ["gk"],
+  DEFENSEURSLATERAUXLEFT: ["lb", "lb5", "lwb"],
+  DEFENSEURSLATERAUXRIGHT: ["rb", "rb5", "rwb"],
+  DEFENSEURSCENTRAUX: ["cb", "lcb", "lcb3", "rcb", "rcb3"],
+  MILIEUXDEFENSIF: ["dmf", "rdmf", "ldmf"],
+  MILIEUXRELAYEUR: ["lcmf", "lcmf3", "rcmf", "rcmf3"],
+  MILIEUXOFFENSIF: ["amf", "ramf", "lamf"],
+  AILLIERSRIGHT: ["rw"],
+  AILLIERSLEFT: ["lw"],
+  ATTAQUANTS: ["cf", "ss"],
+  ATTAQUANTSLEFT: ["lwf"],
+  ATTAQUANTSRIGHT: ["rwf"],
+};
+
+export const POSITIONS_KEYS = Object.entries(POSITIONS);
+
+export const getGroupPosition = (position: any) => {
+  if (!position) return;
+  const groupPositions: any = find(POSITIONS_KEYS, ([groupKey, positions]) =>
+    positions.includes(position)
+  );
+  return groupPositions[0];
 };

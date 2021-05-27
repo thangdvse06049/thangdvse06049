@@ -209,4 +209,37 @@ export const useStyles = makeStyles((theme) => ({
     width: 300,
     height: 300,
   },
+  gradeLabel: {
+    color: "white",
+    padding: 5,
+    fontSize: 10,
+    fontWeight: 600,
+    marginLeft: 4,
+    borderRadius: 6,
+    textTransform: "uppercase",
+    height: 25,
+    "&.excellent": {
+      background: "#4BAEEA",
+    },
+    "&.good": {
+      background: "#4BAC5B",
+    },
+    "&.average-but-good": {
+      background: "#e4bd26",
+    },
+    "&.average-but-bad": {
+      background: "#df8244",
+    },
+    "&.bad": {
+      background: "#ec3323",
+    },
+    "&.terrible": {
+      background: "#68369a",
+    },
+  },
+  itemContent: {
+    display: "flex",
+    justifyContent: "space-between",
+    width: "100%",
+  },
 }));

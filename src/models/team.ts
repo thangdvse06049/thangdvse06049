@@ -60,6 +60,20 @@ export class Team extends TeamseyesAuth {
     return response.data;
   }
 
+  static async getPerformances(competitionId: any, seasonId: any) {
+    const response = await axios.post(
+      `/api/teams/performances/getPerformance`,
+      { competitionId, seasonId },
+      {
+        headers: {
+          ...Team.getAuthHeader(),
+        },
+      }
+    );
+
+    return response.data;
+  }
+
   static async getPositionSuggestions(
     playerId: number,
     position: string,

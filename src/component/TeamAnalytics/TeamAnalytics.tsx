@@ -28,6 +28,8 @@ import { Season } from "../../models/season";
 import { FootballFieldCtx } from "../../context/FootballField";
 import { EmptyScreen } from "../EmptyScreen";
 import { CircularProgress } from "@material-ui/core";
+import Tooltip from "@material-ui/core/Tooltip";
+import { FootballFieldBalance } from "../FootballFieldBalance";
 
 const getColor = (category: any, key: any, v: any) => {
   if (v > 80) {
@@ -139,11 +141,19 @@ export const TeamAnalytics = () => {
     return (
       <div className={classes.listWorstPlayer}>
         {map(topWorstPlayer[category], (o: any) => (
-          <div className={classes.playerBottom}>
-            <div className={classes.playerName}>
-              {o?.player.firstName} {o?.player.lastName}
-            </div>
-          </div>
+          <Tooltip
+            title={`${o?.player?.firstName} ${o?.player?.lastName}`}
+            placement="top"
+          >
+            <div
+              className={classes.playerAvatarBottom}
+              style={{
+                backgroundImage: `url(${
+                  o?.player?.imageDataURL || "https://via.placeholder.com/150"
+                })`,
+              }}
+            />
+          </Tooltip>
         ))}
       </div>
     );
@@ -293,11 +303,20 @@ export const TeamAnalytics = () => {
   return (
     <div className={classes.root}>
       <div>
-        <Typography className={classes.typo}>Summary: </Typography>
+        <div className={classes.headingBubble}>
+          <Typography className={classes.typo}>
+            Championship Year: (2017/2017){" "}
+          </Typography>
+          <Typography className={classes.typo}>
+            Position in the ranking: 5
+          </Typography>
+          <Typography className={classes.typo}>Victories: 6</Typography>
+          <Typography className={classes.typo}>Lose: 13</Typography>
+          <Typography className={classes.typo}>Draw: 3</Typography>
+        </div>
         <SummaryBubble></SummaryBubble>
       </div>
       <div>
-        <Typography className={classes.typo}>Detail: </Typography>
         <div className={classes.analyticPanel}>
           <div className={classes.radarChart}>
             <div className={classes.chartHeader}>
@@ -320,13 +339,18 @@ export const TeamAnalytics = () => {
                 />
               </div>
               <div className={classes.avgTpi}>
-                Average Tpi: {avgSummaryTpi.toFixed(4)}
+                Average Tpi: {(avgSummaryTpi * 100).toFixed(0)}
               </div>
             </div>
             {tpi && tpiSeasonCompare ? (
               <div className={classes.radarChartLeft}>{renderRadarChart()}</div>
             ) : (
               <EmptyScreen></EmptyScreen>
+            )}
+            {tpi && (
+              <div>
+                <FootballFieldBalance tpi={tpi} />
+              </div>
             )}
           </div>
           <div className={classes.details}>
@@ -338,7 +362,7 @@ export const TeamAnalytics = () => {
                     kebabCase("terrible")
                   )}
                 />
-                <div className={classes.chartItemLegendText}>Faiblesse</div>
+                <div className={classes.chartItemLegendText}>Terrible</div>
               </div>
               <div className={classes.chartItemLegend}>
                 <div

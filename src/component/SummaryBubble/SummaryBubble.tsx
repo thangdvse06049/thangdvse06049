@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useStyles } from "../SummaryBubble/SummaryBubble.style";
 import { Team } from "../../models/team";
 import { UserCtx } from "../../context/User";
-import { isEmpty, map, toArray } from "lodash";
+import { isEmpty, map, pick, toArray } from "lodash";
 import { SENTENCE_SUMMARY } from "../../constants/team-tpi";
 import classnames from "classnames";
 import { CircularProgress } from "@material-ui/core";
@@ -47,19 +47,14 @@ export const SummaryBubble = () => {
         </div>
       ) : (
         map(tpi.summary, (value, key) => {
-          const entries = Object.entries(tpi.detailsRanked[key]);
+          const fieldList = Object.keys(SENTENCE_SUMMARY);
 
+          const pickc = pick(tpi.detailsRanked[key], fieldList);
+          const entries = Object.entries(pickc);
           const values = entries.sort((a: any, b: any) => a[1] - b[1]);
 
-          let strengths: any;
-          let weaknesses: any;
-          if (values.length >= 4) {
-            strengths = values.slice(0, 2);
-            weaknesses = values.reverse().slice(0, 2);
-          } else {
-            strengths = values.slice(0, 2);
-            weaknesses = [];
-          }
+          const strengths = values.slice(0, 2);
+          const weaknesses = values.reverse().slice(0, 2);
 
           const cateNormalValue: any =
             100 - (tpi.summaryRanked[key] / tpi.nbTeams) * 100;
