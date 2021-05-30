@@ -3,7 +3,7 @@ import { useStyles } from "../SummaryBubble/SummaryBubble.style";
 import { Team } from "../../models/team";
 import { UserCtx } from "../../context/User";
 import { isEmpty, map, pick, toArray } from "lodash";
-import { SENTENCE_SUMMARY } from "../../constants/team-tpi";
+import { SENTENCE_SUMMARY, TPI_CATEGORY_LABEL } from "../../constants/team-tpi";
 import classnames from "classnames";
 import { CircularProgress } from "@material-ui/core";
 
@@ -62,7 +62,7 @@ export const SummaryBubble = () => {
 
           return (
             <div className={classes.kpi}>
-              <div className={classes.kpiTitle}>{key}</div>
+              <div className={classes.kpiTitle}>{TPI_CATEGORY_LABEL[key]}</div>
               <div
                 className={classnames(
                   classes.kpiRank,

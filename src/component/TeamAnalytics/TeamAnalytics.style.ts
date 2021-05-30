@@ -235,7 +235,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   circular: {
     width: "100%",
-    height: "100%",
+    height: 500,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -248,7 +248,7 @@ export const useStyles = makeStyles((theme) => ({
     width: "100%",
     padding: 20,
     alignItems: "center",
-    justifyContent: "flex-End",
+    justifyContent: "center",
   },
   playerAvatarBottom: {
     minHeight: 38,
@@ -259,5 +259,8 @@ export const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     backgroundColor: "#fff",
     marginLeft: 20,
+  },
+  footballBalance: {
+    padding: 20,
   },
 }));

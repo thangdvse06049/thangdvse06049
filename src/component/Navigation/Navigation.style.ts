@@ -95,4 +95,14 @@ export const useStyles = makeStyles((theme) => ({
     borderLeft: "1px solid #E1E3EB",
     borderRight: "1px solid #E1E3EB",
   },
+  teamInFor: {
+    display: "flex",
+    alignItems: "center",
+  },
+  number: {
+    display: "block",
+  },
+  text: {
+    marginRight: 15,
+  },
 }));

@@ -27,7 +27,7 @@ export const FootballFieldHeader = () => {
 
     updateFormation(formation);
     updateFilters(localRank, budget);
-    updatePlayer(formation.players[1]);
+    updatePlayer(formation.players[2]);
   };
 
   useEffect(() => {

@@ -66,6 +66,17 @@ export const Navigation = () => {
             <div className={classes.verticalBar} />
             <div className={classes.flexGrow} />
 
+            <div className={classes.teamInFor}>
+              <div className={classes.text}>Competition Year: 2018/2019</div>
+              <div className={classes.text}>Rank: 5</div>
+              <div className={classes.number}>
+                <div>Wins: 18</div>
+                <div>Loses: 9</div>
+                <div>Draws: 4</div>
+              </div>
+            </div>
+            <div className={classes.flexGrow} />
+
             <div className={classes.teamInfor}>
               <TeamInformation />
             </div>

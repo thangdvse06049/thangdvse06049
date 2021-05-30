@@ -83,7 +83,10 @@ export const FootballFieldContent = () => {
   const onDetailsPlayer = async (player: any, event: any) => {
     setAnchorEl(event.currentTarget);
     const season = await Season.getSeasonById(player?.player?.seasonId);
-    const age = computeAge(season, player?.player?.birthDate);
+    const age = computeAge(
+      season,
+      player?.player?.birthDate || player?.player?.player?.birthDate
+    );
     updatePlayer({ ...player, age: age });
   };
 
@@ -232,7 +235,9 @@ export const FootballFieldContent = () => {
                               }}
                             />
                             <div className={classes.playerName}>
-                              {player?.player?.shortName || "Unknown"}
+                              {player?.player?.shortName ||
+                                player?.player?.player?.shortName ||
+                                "Unknown"}
                             </div>
                           </div>
 
@@ -258,7 +263,9 @@ export const FootballFieldContent = () => {
                               }}
                             />
                             <div className={classes.playerName}>
-                              {player?.player?.shortName || "Unknown"}
+                              {player?.player?.shortName ||
+                                player?.player?.player?.shortName ||
+                                "Unknown"}
                             </div>
                           </div>
 

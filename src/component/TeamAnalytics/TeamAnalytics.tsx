@@ -138,11 +138,14 @@ export const TeamAnalytics = () => {
   };
 
   const renderListPlayer = (category: any) => {
+    console.log(topWorstPlayer);
     return (
       <div className={classes.listWorstPlayer}>
         {map(topWorstPlayer[category], (o: any) => (
           <Tooltip
-            title={`${o?.player?.firstName} ${o?.player?.lastName}`}
+            title={`${o?.player?.firstName} ${o?.player?.lastName} - ${
+              o?.positions || "Unknown"
+            }`}
             placement="top"
           >
             <div
@@ -338,11 +341,11 @@ export const TeamAnalytics = () => {
             ) : (
               <EmptyScreen></EmptyScreen>
             )}
-            {tpi && (
+            {/* {tpi && (
               <div>
                 <FootballFieldBalance tpi={tpi} />
               </div>
-            )}
+            )} */}
           </div>
           <div className={classes.details}>
             <div className={classes.chartLegend}>
@@ -406,6 +409,13 @@ export const TeamAnalytics = () => {
               renderDetailsPanel()
             )}
           </div>
+        </div>
+        <div className={classes.footballBalance}>
+          {tpi && (
+            <div>
+              <FootballFieldBalance tpi={tpi} />
+            </div>
+          )}
         </div>
       </div>
     </div>

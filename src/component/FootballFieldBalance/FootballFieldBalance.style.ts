@@ -6,7 +6,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   footballField: {
     position: "relative",
-    transform: "translate(41%, 0)",
+    // transform: "translate(41%, 0)",
   },
   footballFieldImg: {
     display: "block",
@@ -27,7 +27,8 @@ export const useStyles = makeStyles((theme) => ({
     right: 12,
   },
   footballBalance: {
-    display: "block",
+    display: "flex",
+    width: "100%",
   },
   titleBalance: {
     color: "#364E65",
@@ -36,10 +37,12 @@ export const useStyles = makeStyles((theme) => ({
     fontFamily: "SVN-Gilroy, Helvetica, Arial, sans-serif",
     fontWeight: "bold",
     lineHeight: "103.8%",
-    marginBottom: 10,
+    marginBottom: 20,
     marginTop: 20,
+    textAlign: "center",
   },
   offensiveBalance: {
     display: "block",
+    margin: "auto",
   },
 }));

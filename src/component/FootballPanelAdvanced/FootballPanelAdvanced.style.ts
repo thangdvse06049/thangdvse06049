@@ -23,45 +23,45 @@ export const useStyles = makeStyles((theme) => ({
     marginRight: 2,
     marginBottom: 2,
     "&.excellent": {
-      border: "1px solid green",
+      border: "1px solid #4BAEEA",
       "& $gradeKey": {
-        borderLeft: "1px solid green",
-        background: "green",
+        borderLeft: "1px solid #4BAEEA",
+        background: "#4BAEEA",
       },
     },
     "&.good": {
-      border: "1px solid blue",
+      border: "1px solid #4BAC5B",
       "& $gradeKey": {
-        borderLeft: "1px solid blue",
-        background: "blue",
+        borderLeft: "1px solid #4BAC5B",
+        background: "#4BAC5B",
       },
     },
     "&.ok": {
-      border: "1px solid teal",
+      border: "1px solid #e4bd26",
       "& $gradeKey": {
-        borderLeft: "1px solid teal",
-        background: "teal",
+        borderLeft: "1px solid #e4bd26",
+        background: "#e4bd26",
       },
     },
     "&.average": {
-      border: "1px solid #ff9800",
+      border: "1px solid #df8244",
       "& $gradeKey": {
-        borderLeft: "1px solid #ff9800",
-        background: "#ff9800",
+        borderLeft: "1px solid #df8244",
+        background: "#df8244",
       },
     },
     "&.bad": {
-      border: "1px solid orange",
+      border: "1px solid #ec3323",
       "& $gradeKey": {
-        borderLeft: "1px solid orange",
-        background: "orange",
+        borderLeft: "1px solid #ec3323",
+        background: "#ec3323",
       },
     },
     "&.terrible": {
-      border: "1px solid red",
+      border: "1px solid #68369a",
       "& $gradeKey": {
-        borderLeft: "1px solid red",
-        background: "red",
+        borderLeft: "1px solid #68369a",
+        background: "#68369a",
       },
     },
   },
