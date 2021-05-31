@@ -111,7 +111,7 @@ export const TeamAnalytics = () => {
 
   useEffect(() => {
     fetchData();
-  }, [user.teamId, user.seasonId]);
+  }, [user]);
 
   useEffect(() => {
     fetchTpiSeasonToCompare();
@@ -138,7 +138,6 @@ export const TeamAnalytics = () => {
   };
 
   const renderListPlayer = (category: any) => {
-    console.log(topWorstPlayer);
     return (
       <div className={classes.listWorstPlayer}>
         {map(topWorstPlayer[category], (o: any) => (
@@ -336,16 +335,18 @@ export const TeamAnalytics = () => {
                 Average Tpi: {(avgSummaryTpi * 100).toFixed(0)}
               </div>
             </div>
-            {tpi && tpiSeasonCompare ? (
-              <div className={classes.radarChartLeft}>{renderRadarChart()}</div>
+            {tpi || tpiSeasonCompare ? (
+              <>
+                <div className={classes.radarChartLeft}>
+                  {renderRadarChart()}
+                </div>
+                <div>
+                  <FootballFieldBalance tpi={tpi} />
+                </div>
+              </>
             ) : (
               <EmptyScreen></EmptyScreen>
             )}
-            {/* {tpi && (
-              <div>
-                <FootballFieldBalance tpi={tpi} />
-              </div>
-            )} */}
           </div>
           <div className={classes.details}>
             <div className={classes.chartLegend}>
@@ -410,13 +411,13 @@ export const TeamAnalytics = () => {
             )}
           </div>
         </div>
-        <div className={classes.footballBalance}>
+        {/* <div className={classes.footballBalance}>
           {tpi && (
             <div>
               <FootballFieldBalance tpi={tpi} />
             </div>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

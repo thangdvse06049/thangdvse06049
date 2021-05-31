@@ -37,7 +37,7 @@ export const SummaryBubble = () => {
 
   useEffect(() => {
     fetchData();
-  }, [user.teamId, user.seasonId]);
+  }, [user?.teamId, user?.seasonId]);
 
   return (
     <div className={classes.root}>
@@ -57,7 +57,7 @@ export const SummaryBubble = () => {
           const weaknesses = values.reverse().slice(0, 2);
 
           const cateNormalValue: any =
-            100 - (tpi.summaryRanked[key] / tpi.nbTeams) * 100;
+            100 - (tpi?.summaryRanked[key] / tpi?.nbTeams) * 100;
           const categoryNormalizedValue = parseInt(cateNormalValue, 10);
 
           return (

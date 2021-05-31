@@ -6,14 +6,14 @@ export const useStyles = makeStyles((theme) => ({
   },
   footballField: {
     position: "relative",
-    // transform: "translate(41%, 0)",
   },
   footballFieldImg: {
     display: "block",
+    width: 315,
   },
   arrowsContainer: {
     position: "absolute",
-    bottom: 32,
+    bottom: 25,
     display: "flex",
     justifyContent: "space-between",
     alignItems: "flex-end",
@@ -29,6 +29,7 @@ export const useStyles = makeStyles((theme) => ({
   footballBalance: {
     display: "flex",
     width: "100%",
+    marginBottom: 20,
   },
   titleBalance: {
     color: "#364E65",

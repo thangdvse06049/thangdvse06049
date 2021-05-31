@@ -969,12 +969,12 @@ export const TPI: any = {
   },
   DISTRIBUTION: {
     passes: [
-      "Globalement l'équipe réalise un nombre de passes beaucoup plus important que ses adversaires",
+      "Globalement l'équipe réalise un nombre de passes beaucoup moins important que ses adversaires",
       "Globalement l'équipe réalise un nombre de passes plus important que ses adversaires",
       "Globalement l'équipe réalise un nombre de passes un peu plus important que ses adversaires",
       "Globalement l'équipe réalise un nombre de passes un peu moins important que ses adversaires",
       "Globalement l'équipe réalise un nombre de passes moins important que ses adversaires",
-      "Globalement l'équipe réalise un nombre de passes beaucoup moins important que ses adversaires",
+      "Globalement l'équipe réalise un nombre de passes beaucoup plus important que ses adversaires",
     ],
     passesRatio: [
       "elles sont très souvent mieux ajustées.",

@@ -103,6 +103,6 @@ export const useStyles = makeStyles((theme) => ({
     display: "block",
   },
   text: {
-    marginRight: 15,
+    marginRight: 25,
   },
 }));

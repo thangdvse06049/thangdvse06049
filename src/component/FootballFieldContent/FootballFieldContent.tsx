@@ -219,7 +219,7 @@ export const FootballFieldContent = () => {
                   const listPlayerId = map(topWorstPlayer, "playerId");
                   return (
                     <>
-                      {player.position === "gk" ? (
+                      {player?.position === "gk" ? (
                         <div key={i} className={classes.formationPlayer}>
                           {includes(listPlayerId, player?.playerId) && (
                             <div className={classes.worstPlayer}></div>

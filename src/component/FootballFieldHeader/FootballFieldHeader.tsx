@@ -15,7 +15,7 @@ export const FootballFieldHeader = () => {
   const { user } = React.useContext<any>(UserCtx);
   const [listFormations, setListFormations] = useState([] as any);
   const [localFormation, setLocalFormation] = useState(null as any);
-  const [localRank, setLocalRank] = useState(rank);
+  const [localRank, setLocalRank] = useState<any>(rank);
 
   const loadScheme = async (scheme: string) => {
     const players = await Formation.getScheme(scheme);
@@ -24,11 +24,13 @@ export const FootballFieldHeader = () => {
       scheme,
       players,
     };
-
     updateFormation(formation);
-    updateFilters(localRank, budget);
     updatePlayer(formation.players[2]);
   };
+
+  useEffect(() => {
+    setLocalRank(rank);
+  }, [rank]);
 
   useEffect(() => {
     Formation.list().then((response) => {
@@ -37,7 +39,6 @@ export const FootballFieldHeader = () => {
         percentUsed: Math.floor(obj.ratioUsed * 100),
         ...obj,
       }));
-
       const max = maxBy(formations, (o) => o.percentUsed);
 
       setLocalFormation(max);
@@ -55,12 +56,12 @@ export const FootballFieldHeader = () => {
   };
 
   const onChangeRank = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const rank = event.target.value;
-    setLocalRank(rank);
+    setLocalRank(event.target.value);
   };
 
   const onApply = async () => {
     loadScheme(localFormation.scheme);
+    updateFilters(localRank);
   };
 
   return (
@@ -78,7 +79,7 @@ export const FootballFieldHeader = () => {
         type="number"
         inputProps={{ min: 0 }}
         onChange={onChangeRank}
-        defaultValue={localRank}
+        value={localRank}
         fullWidth
       />
       <TETextFieldOutlined

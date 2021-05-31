@@ -14,7 +14,8 @@ export const useStyles = makeStyles((theme) => ({
   },
   details: {
     borderLeft: "1px solid #E1E3EB",
-    width: "100%",
+    width: "50%",
+    minWidth: "50%",
   },
   sentenceContent: {},
   expandDetails: {
@@ -262,5 +263,6 @@ export const useStyles = makeStyles((theme) => ({
   },
   footballBalance: {
     padding: 20,
+    // marginBottom: 20,
   },
 }));

@@ -77,7 +77,26 @@ export const useStyles = makeStyles((theme) => ({
     padding: "5px 2px",
   },
   teamSeasonInfor: {
-    marginLeft: "auto",
+    marginLeft: 30,
     fontWeight: 400,
+  },
+  backColor: {
+    "& > div > div > input ": {
+      width: 170,
+      background: "none !important",
+      marginTop: 5,
+      caretColor: "black !important",
+    },
+    width: 150,
+    marginLeft: 25,
+    marginBottom: 20,
+  },
+  autoComp: {},
+  textFieldSeason: {
+    fontSize: 10,
+  },
+  setSize: {
+    height: 10,
+    fontSize: 13,
   },
 }));

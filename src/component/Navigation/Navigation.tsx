@@ -1,17 +1,31 @@
 import { AppBar, Toolbar } from "@material-ui/core";
-import React from "react";
+import React, { useEffect } from "react";
 import { useStyles } from "./Navigation.style";
 import { useHistory } from "react-router-dom";
 import clsx from "classnames";
 import { UserCtx } from "../../context/User";
 import { TeamInformation } from "../TeamInformation";
 import { InforSetting } from "../InforSetting/InforSetting";
+import { Season } from "../../models/season";
+import { FootballFieldCtx } from "../../context/FootballField";
 
 export const Navigation = () => {
   const classes = useStyles();
   const history = useHistory();
-  const { logout }: any = React.useContext(UserCtx);
+  const { logout, user }: any = React.useContext(UserCtx);
+  const { updateFilters, budget } = React.useContext<any>(FootballFieldCtx);
   const [openSettings, setOpenSettings] = React.useState(false);
+  const [rankTeamInfor, setRankTeamInfor] = React.useState<any>();
+
+  const fetchTeamRank = async () => {
+    const seasonCareer = await Season.getRankSeasonCareer();
+    updateFilters(seasonCareer[0]?.rank, budget);
+    setRankTeamInfor(seasonCareer[0]);
+  };
+
+  useEffect(() => {
+    fetchTeamRank();
+  }, [user]);
 
   const onClickLogout = () => {
     logout();
@@ -67,12 +81,14 @@ export const Navigation = () => {
             <div className={classes.flexGrow} />
 
             <div className={classes.teamInFor}>
-              <div className={classes.text}>Competition Year: 2018/2019</div>
-              <div className={classes.text}>Rank: 5</div>
+              <div className={classes.text}>
+                Competition Year: {rankTeamInfor?.season?.name}
+              </div>
+              <div className={classes.text}>Rank: {rankTeamInfor?.rank}</div>
               <div className={classes.number}>
-                <div>Wins: 18</div>
-                <div>Loses: 9</div>
-                <div>Draws: 4</div>
+                <div>Wins: {rankTeamInfor?.gameWon}</div>
+                <div>Loses: {rankTeamInfor?.gameLost}</div>
+                <div>Draws: {rankTeamInfor?.gameDraw}</div>
               </div>
             </div>
             <div className={classes.flexGrow} />

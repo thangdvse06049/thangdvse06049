@@ -19,4 +19,13 @@ export class Season extends TeamseyesAuth {
     });
     return response.data;
   }
+
+  static async getRankSeasonCareer() {
+    const response = await axios.get(`/api/seasons/rank/teamRank`, {
+      headers: {
+        ...Season.getAuthHeader(),
+      },
+    });
+    return response.data;
+  }
 }

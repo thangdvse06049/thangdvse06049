@@ -9,7 +9,7 @@ export const TeamInformation = () => {
   const { user } = React.useContext<any>(UserCtx);
 
   useEffect(() => {
-    Team.teamFormation(user.teamId).then((response) => {
+    Team.teamFormation(user?.teamId).then((response) => {
       setTeamInfor(response);
     });
   }, [user.teamId]);

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from "react";
 import { useStyles } from "./FootballFieldBalance.style";
 import FootballFieldImg from "./assets/football-field.png";
@@ -188,6 +189,7 @@ export const FootballFieldBalance = (props: any) => {
             <img src={FootballFieldImg} className={classes.footballFieldImg} />
           </div>
         </div>
+
         <div className={classes.offensiveBalance}>
           <div className={classes.titleBalance}>Defensive Balance</div>
           <div className={classes.footballField}>
