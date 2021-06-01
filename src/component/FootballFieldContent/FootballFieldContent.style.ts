@@ -211,7 +211,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   popOverRoot: {
     width: 140,
-    height: 115,
+    height: "20%",
     overflowY: "scroll",
   },
   subTypo: {

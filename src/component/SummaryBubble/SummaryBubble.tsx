@@ -52,9 +52,18 @@ export const SummaryBubble = () => {
           const pickc = pick(tpi.detailsRanked[key], fieldList);
           const entries = Object.entries(pickc);
           const values = entries.sort((a: any, b: any) => a[1] - b[1]);
+          console.log(key, values);
 
-          const strengths = values.slice(0, 2);
-          const weaknesses = values.reverse().slice(0, 2);
+          let strengths: any;
+          let weaknesses: any;
+
+          if (values.length < 4) {
+            strengths = values.slice(0, 2);
+            weaknesses = values.reverse().slice(0, 1);
+          } else {
+            strengths = values.slice(0, 2);
+            weaknesses = values.reverse().slice(0, 2);
+          }
 
           const cateNormalValue: any =
             100 - (tpi?.summaryRanked[key] / tpi?.nbTeams) * 100;

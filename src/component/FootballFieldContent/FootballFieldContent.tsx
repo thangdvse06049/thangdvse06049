@@ -63,6 +63,8 @@ export const FootballFieldContent = () => {
   const formationByPosition = groupBy(formation.players, "position");
 
   const getTop5WorstPlayers = (tpiToPpi: any) => {
+    console.log(tpiToPpi);
+
     if (isEmpty(tpiToPpi)) return;
     const listCate = Object.keys(tpiToPpi?.tpiCategories);
     var min = tpiToPpi?.tpiCategories[listCate[0]].score;
@@ -173,6 +175,11 @@ export const FootballFieldContent = () => {
 
   const popOverRender = (player: any) => {
     const data = getTpiToPpiPlayer(player);
+
+    const parse = (value: any) => {
+      return parseFloat(values(value).toString()).toFixed(4);
+    };
+
     return (
       <Popover
         id={id}
@@ -192,8 +199,14 @@ export const FootballFieldContent = () => {
           <div className={classes.popOverRoot}>
             {map(data, (d: any) => (
               <Typography className={classes.subTypo}>
-                <span className={classes.keyText}>{keys(d)}</span>:{" "}
-                {parseFloat(values(d).toString()).toFixed(4)}
+                {values(d)[0] !== 0 && (
+                  <>
+                    <span className={classes.keyText}>{keys(d)}</span> :{" "}
+                    {parse(values(d))}{" "}
+                  </>
+                )}
+                {/* <span className={classes.keyText}>{keys(d)}</span>:{" "}
+                {parse(values(d))} */}
               </Typography>
             ))}
           </div>

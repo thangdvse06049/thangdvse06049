@@ -260,6 +260,7 @@ export const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     backgroundColor: "#fff",
     marginLeft: 20,
+    border: "1px solid #dcd1d0",
   },
   footballBalance: {
     padding: 20,

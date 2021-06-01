@@ -79,6 +79,7 @@ export const FootballPanelAdvanced = () => {
 
   useEffect(() => {
     setPPI(player?.ppi);
+    fetchSeason();
   }, [player]);
 
   useEffect(() => {
@@ -99,6 +100,7 @@ export const FootballPanelAdvanced = () => {
   const fetchSeason = async () => {
     const resSeason = await Season.getListSeasonByCompetitionId();
     const season = find(resSeason, { _id: user.seasonId });
+
     setSeasonOption(resSeason);
     setSeason(season);
   };
@@ -179,12 +181,11 @@ export const FootballPanelAdvanced = () => {
           <div className={classes.autoComp}>
             <Autocomplete
               className={classes.backColor}
-              options={seasonOption.map((c: any) => ({
-                name: c.name,
-                _id: c._id,
-              }))}
+              options={seasonOption}
               classes={{ input: classes.setSize }}
-              getOptionLabel={(option: any) => option.name}
+              getOptionLabel={(option: any) =>
+                `${option?.name} ${ppi?.gradeScore}`
+              }
               id="auto-complete"
               autoComplete
               value={season ? season : null}

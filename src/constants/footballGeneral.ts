@@ -580,7 +580,6 @@ export const LINK = {
     groupKeyPasses: ["keyPasses"],
   },
   DUELS: {
-    duels: ["duels"],
     fouls: ["fouls"],
     groupAerialDuels: ["aerialDuels"],
     groupDefensiveDuels: ["defensiveDuels"],
@@ -592,14 +591,10 @@ export const LINK = {
   },
   POSSESSION: {
     interceptions: ["interceptions"],
-    recoveries: ["recoveries"],
-    opponentHalfRecoveries: ["opponentHalfRecoveries"],
-    dangerousOpponentHalfRecoveries: ["dangerousOpponentHalfRecoveries"],
-    losses: ["losses"],
-    ownHalfLosses: ["ownHalfLosses"],
-    dangerousOwnHalfLosses: ["dangerousOwnHalfLosses"],
     pressingDuels: ["pressingDuels"],
     counterpressingRecoveries: ["counterpressingRecoveries"],
+    groupLosses: ["groupLosses"],
+    groupRecoveries: ["groupRecoveries"],
   },
   PERCUSSION: {
     groupDribbles2: ["dribblesRatio"],

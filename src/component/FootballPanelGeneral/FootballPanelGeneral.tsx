@@ -8,8 +8,8 @@ import { FootballFieldCtx } from "../../context/FootballField";
 import {
   getGroupPosition,
   LINK,
-  TRANSLATION,
   PONDERATION,
+  TRANSLATION,
 } from "../../constants/footballGeneral";
 import StarIcon from "@material-ui/icons/Star";
 import { yellow } from "@material-ui/core/colors";

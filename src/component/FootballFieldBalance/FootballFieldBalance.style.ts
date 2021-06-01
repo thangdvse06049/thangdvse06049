@@ -20,9 +20,24 @@ export const useStyles = makeStyles((theme) => ({
     left: 20,
     right: 20,
   },
-  arrowsHorizontalContainer: {
+  arrowsContainerDefensive: {
+    position: "absolute",
+    bottom: 250,
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    left: 20,
+    right: 20,
+  },
+  arrowsHorizontalContainerOffensive: {
     position: "absolute",
     top: "25%",
+    left: 12,
+    right: 12,
+  },
+  arrowsHorizontalContainerDeffensive: {
+    position: "absolute",
+    top: "64%",
     left: 12,
     right: 12,
   },
