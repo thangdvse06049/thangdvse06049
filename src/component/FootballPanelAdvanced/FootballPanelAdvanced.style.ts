@@ -30,10 +30,10 @@ export const useStyles = makeStyles((theme) => ({
       },
     },
     "&.good": {
-      border: "1px solid #4BAC5B",
+      border: "1px solid #3b7144",
       "& $gradeKey": {
-        borderLeft: "1px solid #4BAC5B",
-        background: "#4BAC5B",
+        borderLeft: "1px solid #3b7144",
+        background: "#3b7144",
       },
     },
     "&.ok": {

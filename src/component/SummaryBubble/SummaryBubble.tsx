@@ -49,17 +49,22 @@ export const SummaryBubble = () => {
         map(tpi.summary, (value, key) => {
           const fieldList = Object.keys(SENTENCE_SUMMARY);
 
-          const pickc = pick(tpi.detailsRanked[key], fieldList);
-          const entries = Object.entries(pickc);
+          const pickField = pick(tpi.detailsRanked[key], fieldList);
+          const entries = Object.entries(pickField);
           const values = entries.sort((a: any, b: any) => a[1] - b[1]);
-          console.log(key, values);
 
           let strengths: any;
           let weaknesses: any;
 
-          if (values.length < 4) {
+          if (values.length === 3) {
             strengths = values.slice(0, 2);
             weaknesses = values.reverse().slice(0, 1);
+          } else if (values.length === 2) {
+            strengths = values.slice(0, 1);
+            weaknesses = values.reverse().slice(0, 1);
+          } else if (values.length === 1) {
+            strengths = values.slice(0, 1);
+            weaknesses = null;
           } else {
             strengths = values.slice(0, 2);
             weaknesses = values.reverse().slice(0, 2);

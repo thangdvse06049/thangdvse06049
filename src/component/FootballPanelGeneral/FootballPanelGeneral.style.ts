@@ -58,7 +58,7 @@ export const useStyles = makeStyles((theme) => ({
       background: "#4BAEEA",
     },
     "&.Bon": {
-      background: "#4BAC5B",
+      background: "#3b7144",
     },
     "&.Acceptable": {
       background: "#e4bd26",
@@ -82,6 +82,8 @@ export const useStyles = makeStyles((theme) => ({
   contentKey: {
     textTransform: "uppercase",
     marginLeft: 22,
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
   contentValue: {
     display: "flex",

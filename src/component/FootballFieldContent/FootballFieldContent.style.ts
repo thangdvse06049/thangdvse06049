@@ -70,8 +70,8 @@ export const useStyles = makeStyles((theme) => ({
   player: {
     borderTopLeftRadius: 6,
     borderTopRightRadius: 6,
-    background: "#0C152E",
-    color: "#fff",
+    background: "#fff",
+    color: "#0C152E",
     fontWeight: 500,
     height: 50,
     overflow: "hidden",
@@ -88,8 +88,8 @@ export const useStyles = makeStyles((theme) => ({
   playerBottom: {
     borderTopLeftRadius: 6,
     borderTopRightRadius: 6,
-    background: "#0C152E",
-    color: "#fff",
+    background: "#fff",
+    color: "#0C152E",
     fontWeight: 500,
     height: 30,
     overflow: "hidden",
@@ -102,8 +102,8 @@ export const useStyles = makeStyles((theme) => ({
   playerGK: {
     borderTopLeftRadius: 6,
     borderTopRightRadius: 6,
-    background: "#0C152E",
-    color: "#fff",
+    background: "#fff",
+    color: "#0C152E",
     fontWeight: 500,
     height: 50,
     overflow: "hidden",
@@ -129,7 +129,7 @@ export const useStyles = makeStyles((theme) => ({
       background: "#4BAEEA",
     },
     "&.good": {
-      background: "#4BAC5B",
+      background: "#3b7144",
     },
     "&.average-but-good": {
       background: "#e4bd26",
@@ -153,7 +153,7 @@ export const useStyles = makeStyles((theme) => ({
       background: "#4BAEEA",
     },
     "&.good": {
-      background: "#4BAC5B",
+      background: "#3b7144",
     },
     "&.average-but-good": {
       background: "#e4bd26",
@@ -205,6 +205,22 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: -7,
     right: 0,
     zIndex: 999,
+  },
+  changePlayerIcon: {
+    position: "absolute",
+    color: "white",
+    bottom: -10,
+    marginRight: -7,
+    marginTop: -7,
+    right: -4,
+    zIndex: 999,
+    cursor: "pointer",
+  },
+  icon: {
+    width: 25,
+    height: 25,
+    backgroundColor: "white",
+    borderRadius: "50%",
   },
   typography: {
     padding: theme.spacing(2),

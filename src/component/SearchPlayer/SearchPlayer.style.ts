@@ -144,7 +144,7 @@ export const useStyles = makeStyles((theme) => ({
       background: "#4BAEEA",
     },
     "&.good": {
-      background: "#4BAC5B",
+      background: "#3b7144",
     },
     "&.average-but-good": {
       background: "#e4bd26",
@@ -222,7 +222,7 @@ export const useStyles = makeStyles((theme) => ({
       background: "#4BAEEA",
     },
     "&.good": {
-      background: "#4BAC5B",
+      background: "#3b7144",
     },
     "&.average-but-good": {
       background: "#e4bd26",

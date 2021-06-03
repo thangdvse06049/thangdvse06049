@@ -35,7 +35,7 @@ const getColor = (category: any, key: any, v: any) => {
   if (v > 80) {
     return "#4BAEEA";
   } else if (v >= 60) {
-    return "#4BAC5B";
+    return "#3b7144";
   } else if (v >= 50) {
     return "#e4bd26";
   } else if (v >= 40) {
@@ -137,18 +137,24 @@ export const TeamAnalytics = () => {
     setSeasonToCompare(season);
   };
 
+  const getPlayerName = (o: any) => {
+    if (o.player?.firstName) {
+      return `${o?.player?.firstName} ${o?.player?.lastName} - ${o?.positions}`;
+    } else {
+      return `${o?.player?.player?.firstName} ${o?.player?.player?.lastName} - ${o?.positions}`;
+    }
+  };
+
   const renderListPlayer = (category: any) => {
     return (
       <div className={classes.listWorstPlayer}>
         {map(topWorstPlayer[category], (o: any) => (
-          <Tooltip
-            title={`${o?.player?.firstName} ${o?.player?.lastName} - ${
-              o?.positions || "Unknown"
-            }`}
-            placement="top"
-          >
+          <Tooltip title={getPlayerName(o)} placement="top">
             <div
-              className={classes.playerAvatarBottom}
+              className={classnames(
+                classes.playerAvatarBottom,
+                kebabCase(`${o?.playerPPI?.gradeLabel || "error"}`)
+              )}
               style={{
                 backgroundImage: `url(${
                   o?.player?.imageDataURL || "https://via.placeholder.com/150"
@@ -331,8 +337,11 @@ export const TeamAnalytics = () => {
                   )}
                 />
               </div>
-              <div className={classes.avgTpi}>
-                Average Tpi: {(avgSummaryTpi * 100).toFixed(0)}
+              <div className={classes.tpi}>
+                <div className={classes.tpiPercent}>10%</div>
+                <div className={classes.avgTpi}>
+                  Average Tpi: {(avgSummaryTpi * 100).toFixed(0)}
+                </div>
               </div>
             </div>
             {tpi || tpiSeasonCompare ? (
@@ -411,13 +420,6 @@ export const TeamAnalytics = () => {
             )}
           </div>
         </div>
-        {/* <div className={classes.footballBalance}>
-          {tpi && (
-            <div>
-              <FootballFieldBalance tpi={tpi} />
-            </div>
-          )}
-        </div> */}
       </div>
     </div>
   );

@@ -20,6 +20,7 @@ import { computeAge } from "../../constants/player_infor";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
 import { Player } from "../../models/player";
+import transferPlayer from "./assets/transferPlayer.png";
 
 export const FootballFieldContent = () => {
   const classes = useStyles();
@@ -63,8 +64,6 @@ export const FootballFieldContent = () => {
   const formationByPosition = groupBy(formation.players, "position");
 
   const getTop5WorstPlayers = (tpiToPpi: any) => {
-    console.log(tpiToPpi);
-
     if (isEmpty(tpiToPpi)) return;
     const listCate = Object.keys(tpiToPpi?.tpiCategories);
     var min = tpiToPpi?.tpiCategories[listCate[0]].score;
@@ -215,6 +214,8 @@ export const FootballFieldContent = () => {
     );
   };
 
+  const onChangePlayerTransfer = () => {};
+
   return (
     <div className={classes.root}>
       {isEmpty(formation)}
@@ -265,6 +266,14 @@ export const FootballFieldContent = () => {
                           {includes(listPlayerId, player?.playerId) && (
                             <div className={classes.worstPlayer}></div>
                           )}
+                          <div className={classes.changePlayerIcon}>
+                            <img
+                              onClick={onChangePlayerTransfer}
+                              src={transferPlayer}
+                              className={classes.icon}
+                            />
+                          </div>
+
                           <div className={classes.player}>
                             <div
                               className={classes.playerAvatar}

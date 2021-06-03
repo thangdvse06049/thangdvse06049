@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useStyles } from "./FootballPanelGeneral.style";
-import { isNumber, kebabCase, map } from "lodash";
+import { filter, isNumber, kebabCase, keys, map, flattenDeep } from "lodash";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import clsx from "classnames";
 import { Collapse } from "react-collapse";
@@ -88,7 +88,27 @@ export const FootballPanelGeneral = () => {
     );
   };
 
+  const getFullDetailPossession = (category: string) => {
+    const allKeys = keys(player?.ppi?.detailsRanked[category]);
+    const missingKeys = filter(allKeys, (o: any) => o.includes("_"));
+    const dataByMissingKeys = map(missingKeys, (key: string) => {
+      const dataByKey = player?.ppi?.detailsRanked[category][key];
+      return dataByKey;
+    });
+
+    return dataByMissingKeys;
+  };
+
+  let _data: any;
+
   const renderDetails = (category: string, details: any) => {
+    if (category === "POSSESSION") {
+      const dataByMissingKeys = getFullDetailPossession(category);
+      _data =
+        dataByMissingKeys.length > 0
+          ? Object.assign(dataByMissingKeys[0], dataByMissingKeys[1])
+          : null;
+    }
     return (
       <Collapse isOpened={expanded === category} key={category}>
         <div
@@ -117,6 +137,20 @@ export const FootballPanelGeneral = () => {
               </div>
             );
           })}
+          {map(_data, (subValue, subKey) => (
+            <div className={classes.contentRow}>
+              <div className={classes.contentValue}>
+                <div className={classes.contentKey}>
+                  {TRANSLATION[subKey] || subKey}
+                </div>
+                <div>
+                  <div className={clsx(classes.grade, getGrade(subValue))}>
+                    {getGrade(subValue)}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </Collapse>
     );

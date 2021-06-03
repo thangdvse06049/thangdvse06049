@@ -141,7 +141,7 @@ export const useStyles = makeStyles((theme) => ({
       background: "#e4bd26",
     },
     "&.good": {
-      background: "#4BAC5B",
+      background: "#3b7144",
     },
     "&.very-good": {
       background: "#4BAEEA",
@@ -204,7 +204,6 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   avgTpi: {
-    width: "30%",
     fontSize: 20,
     fontWeight: 500,
     textAlign: "center",
@@ -212,7 +211,7 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     marginTop: 20,
   },
-  autoCompleteSeason: { width: "95%" },
+  autoCompleteSeason: { width: "75%" },
   backColor: {
     "& > div > div > input ": {
       width: 170,
@@ -260,10 +259,48 @@ export const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     backgroundColor: "#fff",
     marginLeft: 20,
-    border: "1px solid #dcd1d0",
+    "&.terrible": {
+      border: "4px solid #68369a",
+    },
+    "&.bad": {
+      border: "4px solid #ec3323",
+    },
+    "&.average-but-bad": {
+      border: "4px solid #df8244",
+    },
+    "&.average-but-good": {
+      border: "4px solid #e4bd26",
+    },
+    "&.good": {
+      border: "4px solid #3b7144",
+    },
+    "&.excellent": {
+      border: "4px solid #4BAEEA",
+    },
+    "&.error": {
+      border: "1px solid grey",
+    },
   },
   footballBalance: {
     padding: 20,
     // marginBottom: 20,
+  },
+  tpiPercent: {
+    width: 35,
+    height: 35,
+    position: "absolute",
+    top: -4,
+    right: -30,
+    backgroundColor: "#8cb5c5",
+    borderRadius: "50%",
+    fontWeight: 700,
+    color: "white",
+    display: "flex",
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  tpi: {
+    position: "relative",
   },
 }));

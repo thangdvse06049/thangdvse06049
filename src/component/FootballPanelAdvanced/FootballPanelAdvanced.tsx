@@ -44,7 +44,7 @@ const getColor = (v: any) => {
   if (v > 80) {
     return "#4BAEEA";
   } else if (v >= 60) {
-    return "#4BAC5B";
+    return "#3b7144";
   } else if (v >= 50) {
     return "#e4bd26";
   } else if (v >= 40) {
@@ -61,6 +61,7 @@ export const FootballPanelAdvanced = () => {
   const { player, updatePlayer } = React.useContext<any>(FootballFieldCtx);
   const { user } = React.useContext<any>(UserCtx);
   const [ppi, setPPI] = useState<any>();
+  const [seasonName, setSeasonName] = useState<any>();
 
   const [season, setSeason] = useState<any>();
   const [seasonOption, setSeasonOption] = useState<any>([]);
@@ -74,13 +75,8 @@ export const FootballPanelAdvanced = () => {
       _id: player?.playerId,
       seasonId: season?._id,
     });
-    setPPI(ppiChart?.playerPpi[0]);
+    setPPI(ppiChart);
   };
-
-  useEffect(() => {
-    setPPI(player?.ppi);
-    fetchSeason();
-  }, [player]);
 
   useEffect(() => {
     fetchPPI();
@@ -100,7 +96,7 @@ export const FootballPanelAdvanced = () => {
   const fetchSeason = async () => {
     const resSeason = await Season.getListSeasonByCompetitionId();
     const season = find(resSeason, { _id: user.seasonId });
-
+    setSeasonName(season?.name);
     setSeasonOption(resSeason);
     setSeason(season);
   };
@@ -183,9 +179,7 @@ export const FootballPanelAdvanced = () => {
               className={classes.backColor}
               options={seasonOption}
               classes={{ input: classes.setSize }}
-              getOptionLabel={(option: any) =>
-                `${option?.name} ${ppi?.gradeScore}`
-              }
+              getOptionLabel={(option: any) => `${option?.name}`}
               id="auto-complete"
               autoComplete
               value={season ? season : null}
@@ -209,7 +203,7 @@ export const FootballPanelAdvanced = () => {
           </div>
         </div>
         <div>
-          {ppi ? (
+          {player ? (
             <Bar
               data={{
                 labels: map(
@@ -218,18 +212,39 @@ export const FootballPanelAdvanced = () => {
                 ),
                 datasets: [
                   {
-                    label: "Summary",
+                    label: `${seasonName}`,
                     data: map(
                       PPI_CATEGORY_LABEL,
                       (value: any, category: any) => {
-                        if (!isEmpty(player)) return ppi?.summary[category];
+                        if (!isEmpty(player))
+                          return player?.ppi?.summary[category];
                       }
                     ).map((o: any) => o * 100),
                     backgroundColor: map(
                       PPI_CATEGORY_LABEL,
                       (value: any, category: any) => {
                         if (!isEmpty(player))
-                          return getColor(ppi?.summary[category] * 100);
+                          return getColor(player?.ppi?.summary[category] * 100);
+                      }
+                    ),
+                    borderWidth: 1,
+                  },
+                  {
+                    label: `${ppi?.seasonPpi}`,
+                    data: map(
+                      PPI_CATEGORY_LABEL,
+                      (value: any, category: any) => {
+                        if (!isEmpty(ppi))
+                          return ppi?.playerPpi[0]?.summary[category];
+                      }
+                    ).map((o: any) => o * 100),
+                    backgroundColor: map(
+                      PPI_CATEGORY_LABEL,
+                      (value: any, category: any) => {
+                        if (!isEmpty(ppi))
+                          return getColor(
+                            ppi?.playerPpi[0]?.summary[category] * 100
+                          );
                       }
                     ),
                     borderWidth: 1,
