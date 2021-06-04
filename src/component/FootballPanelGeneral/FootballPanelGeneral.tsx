@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useStyles } from "./FootballPanelGeneral.style";
-import { filter, isNumber, kebabCase, keys, map, flattenDeep } from "lodash";
+import { filter, isNumber, keys, map } from "lodash";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import clsx from "classnames";
 import { Collapse } from "react-collapse";

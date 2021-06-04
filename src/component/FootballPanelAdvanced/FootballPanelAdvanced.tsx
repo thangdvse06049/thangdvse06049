@@ -40,6 +40,23 @@ const getGradeFromKey = (key: string) => {
   }
 };
 
+const getGradeFromKeyNextAge = (key: string) => {
+  switch (key) {
+    case "Excellent":
+      return "probability";
+    case "Good":
+      return "probability";
+    case "Average but good":
+      return "ok";
+    case "Average but bad":
+      return "average";
+    case "Bad":
+      return "bad";
+    case "Terrible":
+      return "terrible";
+  }
+};
+
 const getColor = (v: any) => {
   if (v > 80) {
     return "#4BAEEA";
@@ -112,6 +129,26 @@ export const FootballPanelAdvanced = () => {
   return (
     <div className={classes.root}>
       <div className={classes.category}>
+        <div className={classes.categoryTitle}>Age - 1 ({player?.age - 1})</div>
+        <div>
+          {map(BMIAGE_KEYS, (key: any) => {
+            const value = player?.bmiAge[key]?.previousAge;
+            if (value <= 0) return;
+            return (
+              <div
+                className={clsx(classes.grade, getGradeFromKey(key))}
+                key={key}
+              >
+                <div className={classes.gradeValue}>
+                  {Math.round(value * 100)}%
+                </div>
+                <div className={classes.gradeKey}>{key}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className={classes.category}>
         <div className={classes.categoryTitle}>Age ({player?.age})</div>
         <div>
           {map(BMIAGE_KEYS, (key: any) => {
@@ -145,7 +182,11 @@ export const FootballPanelAdvanced = () => {
                 <div className={classes.gradeValue}>
                   {Math.round(value * 100)}%
                 </div>
-                <div className={classes.gradeKey}>{key}</div>
+                {key === "Excellent" || key === "Good" ? (
+                  <div className={classes.gradeKey}>PROBABILITY</div>
+                ) : (
+                  <div className={classes.gradeKey}>{key}</div>
+                )}
               </div>
             );
           })}

@@ -593,8 +593,6 @@ export const LINK = {
     interceptions: ["interceptions"],
     pressingDuels: ["pressingDuels"],
     counterpressingRecoveries: ["counterpressingRecoveries"],
-    groupLosses: ["groupLosses"],
-    groupRecoveries: ["groupRecoveries"],
   },
   PERCUSSION: {
     groupDribbles2: ["dribblesRatio"],

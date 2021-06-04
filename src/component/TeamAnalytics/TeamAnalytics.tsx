@@ -338,7 +338,6 @@ export const TeamAnalytics = () => {
                 />
               </div>
               <div className={classes.tpi}>
-                <div className={classes.tpiPercent}>10%</div>
                 <div className={classes.avgTpi}>
                   Average Tpi: {(avgSummaryTpi * 100).toFixed(0)}
                 </div>
