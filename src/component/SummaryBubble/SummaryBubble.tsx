@@ -36,8 +36,10 @@ export const SummaryBubble = () => {
   };
 
   useEffect(() => {
-    fetchData();
-  }, [user?.teamId, user?.seasonId]);
+    if (user) {
+      fetchData();
+    }
+  }, [user]);
 
   return (
     <div className={classes.root}>

@@ -86,17 +86,17 @@ export const FootballPanelAdvanced = () => {
   const onChangeSeason = (event: any, option: any) => {
     setSeason(option);
   };
-
   const fetchPPI = async () => {
-    const ppiChart = await Player.getPlayerPPI({
+    const ppiChart = await Player.getPlayerPPIHistory({
       _id: player?.playerId,
       seasonId: season?._id,
     });
-    setPPI(ppiChart);
+    if (!ppiChart) return null;
+    setPPI(ppiChart?.playerPpiCompare[0]?.summary);
   };
 
   useEffect(() => {
-    fetchPPI();
+    season && fetchPPI();
   }, [season]);
 
   useEffect(() => {
@@ -271,21 +271,17 @@ export const FootballPanelAdvanced = () => {
                     borderWidth: 1,
                   },
                   {
-                    label: `${ppi?.seasonPpi}`,
+                    label: `${ppi?.seasonPpiCompare}`,
                     data: map(
                       PPI_CATEGORY_LABEL,
                       (value: any, category: any) => {
-                        if (!isEmpty(ppi))
-                          return ppi?.playerPpi[0]?.summary[category];
+                        if (!isEmpty(ppi)) return ppi[category];
                       }
                     ).map((o: any) => o * 100),
                     backgroundColor: map(
                       PPI_CATEGORY_LABEL,
                       (value: any, category: any) => {
-                        if (!isEmpty(ppi))
-                          return getColor(
-                            ppi?.playerPpi[0]?.summary[category] * 100
-                          );
+                        if (!isEmpty(ppi)) return getColor(ppi[category] * 100);
                       }
                     ),
                     borderWidth: 1,

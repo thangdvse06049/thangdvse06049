@@ -137,20 +137,21 @@ export const FootballPanelGeneral = () => {
               </div>
             );
           })}
-          {map(_data, (subValue, subKey) => (
-            <div className={classes.contentRow}>
-              <div className={classes.contentValue}>
-                <div className={classes.contentKey}>
-                  {TRANSLATION[subKey] || subKey}
-                </div>
-                <div>
-                  <div className={clsx(classes.grade, getGrade(subValue))}>
-                    {getGrade(subValue)}
+          {category === "POSSESSION" &&
+            map(_data, (subValue, subKey) => (
+              <div className={classes.contentRow}>
+                <div className={classes.contentValue}>
+                  <div className={classes.contentKey}>
+                    {TRANSLATION[subKey] || subKey}
+                  </div>
+                  <div>
+                    <div className={clsx(classes.grade, getGrade(subValue))}>
+                      {getGrade(subValue)}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </Collapse>
     );

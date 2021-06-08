@@ -225,6 +225,7 @@ export const useStyles = makeStyles((theme) => ({
   typography: {
     padding: theme.spacing(2),
   },
+  typographySuggest: {},
   popOverRoot: {
     width: 140,
     height: "20%",
@@ -241,5 +242,23 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 30,
+  },
+  playerNamePopOver: {
+    marginLeft: 10,
+  },
+  infor: {
+    display: "flex",
+    marginBottom: 10,
+    alignItems: "center",
+    "&:hover": {
+      background: "#80808038",
+    },
+    cursor: "pointer",
+    padding: 5,
+  },
+  popOverRootSuggest: {
+    width: 200,
+    height: "20%",
+    overflowY: "scroll",
   },
 }));

@@ -20,6 +20,28 @@ export class Player extends TeamseyesAuth {
     return response.data;
   }
 
+  static async getListPlayerSuggestion(objPlayer: any) {
+    const response = await axios.put(
+      `/api/player/suggest/listPlayer`,
+      objPlayer,
+      {
+        headers: {
+          ...Player.getAuthHeader(),
+        },
+      }
+    );
+    return response.data;
+  }
+
+  static async getPlayerPPIHistory(objPlayer: any) {
+    const response = await axios.put(`/api/player/ppiChart/getPPI`, objPlayer, {
+      headers: {
+        ...Player.getAuthHeader(),
+      },
+    });
+    return response.data;
+  }
+
   static async getSeasonTeam(objPlayer: any) {
     const response = await axios.put(
       `/api/player/playerInformation`,

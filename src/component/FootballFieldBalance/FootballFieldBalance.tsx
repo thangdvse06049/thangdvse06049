@@ -81,21 +81,14 @@ const ArrowSvg = (height: any, value: any) => {
 
 const ArrowSvgDefensive = (height: any, value: any) => {
   height = height || 200;
-  console.log(height);
-
   return (
     <svg height={height} width="80">
       <path
-        d={`M40 0
-            L80 ${height * 0.15}
-            L60 ${height * 0.15}
-            
-            L60 ${height}
-            L20 ${height}
-
-            L20 ${height * 0.15}
-            L0 ${height * 0.15}
-            Z`}
+        d={`M40 0 L80 ${height * 0.15} L60 ${
+          height * 0.15
+        } L60 ${height} L20 ${height} L20 ${height * 0.15} L0 ${
+          height * 0.15
+        } Z`}
         fill="#FFCB3A"
       />
       <text
@@ -160,7 +153,7 @@ export const FootballFieldBalance = (props: any) => {
   };
 
   useEffect(() => {
-    fetchPerformance();
+    tpi && fetchPerformance();
   }, [tpi]);
 
   const offensive = {

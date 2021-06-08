@@ -105,16 +105,18 @@ export const TeamAnalytics = () => {
   };
 
   useEffect(() => {
-    const objData = getTop3WorstPlayerOfEachCate(tpiToPpi);
-    getDataOfTop3Player(objData);
+    if (tpiToPpi) {
+      const objData = getTop3WorstPlayerOfEachCate(tpiToPpi);
+      getDataOfTop3Player(objData);
+    }
   }, [tpiToPpi]);
 
   useEffect(() => {
-    fetchData();
+    user && fetchData();
   }, [user]);
 
   useEffect(() => {
-    fetchTpiSeasonToCompare();
+    seasonToCompare && fetchTpiSeasonToCompare();
   }, [seasonToCompare]);
 
   useEffect(() => {

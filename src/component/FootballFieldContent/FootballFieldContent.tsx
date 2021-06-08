@@ -29,6 +29,7 @@ export const FootballFieldContent = () => {
     React.useContext<any>(FootballFieldCtx);
 
   const [topWorstPlayer, setTopWorstPlayer] = useState<any>([]); //top 5 Worst players of worst category
+  const [listPlayerSuggestion, setListPlayerSuggestion] = useState<any>([]);
 
   const [season, setSeason] = useState<any>();
 
@@ -40,21 +41,38 @@ export const FootballFieldContent = () => {
     setAnchorEl(null);
   };
 
+  const fetchListPlayerSuggestion = async () => {
+    const listSuggestion = await Player.getListPlayerSuggestion(player);
+    console.log("res: ", listSuggestion);
+
+    setListPlayerSuggestion(listSuggestion);
+  };
+
+  // useEffect(() => {
+  //   if (player) {
+  //     fetchListPlayerSuggestion();
+  //   }
+  // }, [player]);
+
   useEffect(() => {
-    Player.getPlayerPlayedTheMost()
-      .then((data) => {
-        setSeason(data.season);
-        filterPlayer(data.players);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    if (formation && user) {
+      Player.getPlayerPlayedTheMost()
+        .then((data) => {
+          setSeason(data.season);
+          filterPlayer(data.players);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, formation]);
 
   useEffect(() => {
-    const worstPlayer = getTop5WorstPlayers(tpiToPpi);
-    setTopWorstPlayer(worstPlayer);
+    if (tpiToPpi) {
+      const worstPlayer = getTop5WorstPlayers(tpiToPpi);
+      setTopWorstPlayer(worstPlayer);
+    }
   }, [tpiToPpi]);
 
   const open = Boolean(anchorEl);
@@ -82,6 +100,8 @@ export const FootballFieldContent = () => {
   };
 
   const onDetailsPlayer = async (player: any, event: any) => {
+    event.preventDefault();
+    event.stopPropagation();
     setAnchorEl(event.currentTarget);
     const season = await Season.getSeasonById(player?.player?.seasonId);
     const age = computeAge(
@@ -172,7 +192,7 @@ export const FootballFieldContent = () => {
     );
   };
 
-  const popOverRender = (player: any) => {
+  const popOverDetailSummaryRender = (player: any) => {
     const data = getTpiToPpiPlayer(player);
 
     const parse = (value: any) => {
@@ -214,7 +234,53 @@ export const FootballFieldContent = () => {
     );
   };
 
-  const onChangePlayerTransfer = () => {};
+  const popOverListPlayerSuggestionRender = () => {
+    return (
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={onClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+      >
+        <div className={classes.typographySuggest}>
+          <div className={classes.popOverRootSuggest}>
+            {map(listPlayerSuggestion, (player: any) => {
+              return (
+                <div className={classes.infor}>
+                  <div
+                    className={classes.playerAvatar}
+                    style={{
+                      backgroundImage: `url(${
+                        player?.playerAvatar?.imageDataURL ||
+                        "https://via.placeholder.com/150"
+                      })`,
+                    }}
+                  />
+                  <div className={classes.playerNamePopOver}>
+                    {player?.playerName?.player?.shortName}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </Popover>
+    );
+  };
+
+  const onChangePlayerSuggestion = async (e: any) => {
+    e.preventDefault();
+    // e.stopPropagation();
+    await fetchListPlayerSuggestion();
+  };
 
   return (
     <div className={classes.root}>
@@ -268,9 +334,10 @@ export const FootballFieldContent = () => {
                           )}
                           <div className={classes.changePlayerIcon}>
                             <img
-                              onClick={onChangePlayerTransfer}
+                              onClick={onChangePlayerSuggestion}
                               src={transferPlayer}
                               className={classes.icon}
+                              alt=""
                             />
                           </div>
 
@@ -308,7 +375,8 @@ export const FootballFieldContent = () => {
         </div>
       </div>
       <img src="/football_field.svg" className={classes.footballField} alt="" />
-      {popOverRender(player)}
+      {popOverDetailSummaryRender(player)}
+      {listPlayerSuggestion && popOverListPlayerSuggestionRender()}
       <div className={classes.listPlayerBottom}>
         {listPlayerPlayedTheMost && divisionSeason(season.name)
           ? map(listPlayerPlayedTheMost?.slice(0, 9), (player: any) =>

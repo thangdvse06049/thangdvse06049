@@ -65,7 +65,7 @@ export const InforSetting = (props: any) => {
   }, []);
 
   useEffect(() => {
-    fetchTpiToPpi();
+    user && fetchTpiToPpi();
   }, [user]);
 
   useEffect(() => {

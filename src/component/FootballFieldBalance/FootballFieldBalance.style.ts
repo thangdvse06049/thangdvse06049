@@ -37,7 +37,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   arrowsHorizontalContainerDeffensive: {
     position: "absolute",
-    top: "64%",
+    top: "60%",
     left: 12,
     right: 12,
   },

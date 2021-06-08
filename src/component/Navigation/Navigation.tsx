@@ -24,7 +24,7 @@ export const Navigation = () => {
   };
 
   useEffect(() => {
-    fetchTeamRank();
+    user && fetchTeamRank();
   }, [user]);
 
   const onClickLogout = () => {

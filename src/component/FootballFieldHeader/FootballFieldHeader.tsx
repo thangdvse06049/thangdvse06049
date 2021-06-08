@@ -29,23 +29,25 @@ export const FootballFieldHeader = () => {
   };
 
   useEffect(() => {
-    setLocalRank(rank);
+    rank && setLocalRank(rank);
   }, [rank]);
 
   useEffect(() => {
-    Formation.list().then((response) => {
-      const formations = map(response?.formations, (obj, scheme) => ({
-        scheme,
-        percentUsed: Math.floor(obj.ratioUsed * 100),
-        ...obj,
-      }));
-      const max = maxBy(formations, (o) => o.percentUsed);
+    if (user) {
+      Formation.list().then((response) => {
+        const formations = map(response?.formations, (obj, scheme) => ({
+          scheme,
+          percentUsed: Math.floor(obj.ratioUsed * 100),
+          ...obj,
+        }));
+        const max = maxBy(formations, (o) => o.percentUsed);
 
-      setLocalFormation(max);
-      const sortedByScheme = sortBy(formations, (o: any) => o.scheme.length);
-      setListFormations(sortedByScheme);
-      loadScheme(max?.scheme);
-    });
+        setLocalFormation(max);
+        const sortedByScheme = sortBy(formations, (o: any) => o.scheme.length);
+        setListFormations(sortedByScheme);
+        loadScheme(max?.scheme);
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
