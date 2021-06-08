@@ -249,6 +249,7 @@ export const useStyles = makeStyles((theme) => ({
   infor: {
     display: "flex",
     marginBottom: 10,
+    marginTop: 10,
     alignItems: "center",
     "&:hover": {
       background: "#80808038",
@@ -258,7 +259,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   popOverRootSuggest: {
     width: 200,
-    height: "20%",
     overflowY: "scroll",
   },
+  popOverSuggest: {},
 }));

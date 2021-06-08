@@ -91,8 +91,9 @@ export const FootballPanelAdvanced = () => {
       _id: player?.playerId,
       seasonId: season?._id,
     });
+
     if (!ppiChart) return null;
-    setPPI(ppiChart?.playerPpiCompare[0]?.summary);
+    setPPI(ppiChart);
   };
 
   useEffect(() => {
@@ -114,8 +115,13 @@ export const FootballPanelAdvanced = () => {
     const resSeason = await Season.getListSeasonByCompetitionId();
     const season = find(resSeason, { _id: user.seasonId });
     setSeasonName(season?.name);
+    const averagePPI = {
+      _id: 1,
+      name: "Average PPI",
+    };
+    resSeason.push(averagePPI);
     setSeasonOption(resSeason);
-    setSeason(season);
+    setSeason(resSeason[resSeason.length - 1]);
   };
 
   const fetchSeasonTeamOfPlayer = async (player: any) => {
@@ -244,49 +250,102 @@ export const FootballPanelAdvanced = () => {
           </div>
         </div>
         <div>
-          {player ? (
+          {player && ppi ? (
             <Bar
               data={{
                 labels: map(
                   PPI_CATEGORY_LABEL,
                   (value, category) => PPI_CATEGORY_LABEL[category]
                 ),
-                datasets: [
-                  {
-                    label: `${seasonName}`,
-                    data: map(
-                      PPI_CATEGORY_LABEL,
-                      (value: any, category: any) => {
-                        if (!isEmpty(player))
-                          return player?.ppi?.summary[category];
-                      }
-                    ).map((o: any) => o * 100),
-                    backgroundColor: map(
-                      PPI_CATEGORY_LABEL,
-                      (value: any, category: any) => {
-                        if (!isEmpty(player))
-                          return getColor(player?.ppi?.summary[category] * 100);
-                      }
-                    ),
-                    borderWidth: 1,
-                  },
-                  {
-                    label: `${ppi?.seasonPpiCompare}`,
-                    data: map(
-                      PPI_CATEGORY_LABEL,
-                      (value: any, category: any) => {
-                        if (!isEmpty(ppi)) return ppi[category];
-                      }
-                    ).map((o: any) => o * 100),
-                    backgroundColor: map(
-                      PPI_CATEGORY_LABEL,
-                      (value: any, category: any) => {
-                        if (!isEmpty(ppi)) return getColor(ppi[category] * 100);
-                      }
-                    ),
-                    borderWidth: 1,
-                  },
-                ],
+                datasets:
+                  season._id !== 1
+                    ? [
+                        {
+                          label: `${seasonName}`,
+                          data: map(
+                            PPI_CATEGORY_LABEL,
+                            (value: any, category: any) => {
+                              if (!isEmpty(player))
+                                return player?.ppi?.summary[category];
+                            }
+                          ).map((o: any) => o * 100),
+                          backgroundColor: map(
+                            PPI_CATEGORY_LABEL,
+                            (value: any, category: any) => {
+                              if (!isEmpty(player))
+                                return getColor(
+                                  player?.ppi?.summary[category] * 100
+                                );
+                            }
+                          ),
+                          borderWidth: 1,
+                        },
+                        {
+                          label: `${ppi?.seasonPpiCompare}`,
+                          data: map(
+                            PPI_CATEGORY_LABEL,
+                            (value: any, category: any) => {
+                              if (!isEmpty(ppi))
+                                return ppi?.playerPpiCompare[0]?.summary[
+                                  category
+                                ];
+                            }
+                          ).map((o: any) => o * 100),
+                          backgroundColor: map(
+                            PPI_CATEGORY_LABEL,
+                            (value: any, category: any) => {
+                              if (!isEmpty(ppi))
+                                return getColor(
+                                  ppi?.playerPpiCompare[0]?.summary[category] *
+                                    100
+                                );
+                            }
+                          ),
+                          borderWidth: 1,
+                        },
+                      ]
+                    : [
+                        {
+                          label: `${seasonName}`,
+                          data: map(
+                            PPI_CATEGORY_LABEL,
+                            (value: any, category: any) => {
+                              if (!isEmpty(player))
+                                return player?.ppi?.summary[category];
+                            }
+                          ).map((o: any) => o * 100),
+                          backgroundColor: map(
+                            PPI_CATEGORY_LABEL,
+                            (value: any, category: any) => {
+                              if (!isEmpty(player))
+                                return getColor(
+                                  player?.ppi?.summary[category] * 100
+                                );
+                            }
+                          ),
+                          borderWidth: 1,
+                        },
+                        {
+                          label: `Average PPI last 3 seasons`,
+                          data: map(
+                            PPI_CATEGORY_LABEL,
+                            (value: any, category: any) => {
+                              if (!isEmpty(ppi))
+                                return ppi?.averagePPI[category];
+                            }
+                          ).map((o: any) => o * 100),
+                          backgroundColor: map(
+                            PPI_CATEGORY_LABEL,
+                            (value: any, category: any) => {
+                              if (!isEmpty(ppi))
+                                return getColor(
+                                  ppi?.averagePPI[category] * 100
+                                );
+                            }
+                          ),
+                          borderWidth: 1,
+                        },
+                      ],
               }}
               type="bar"
               options={{

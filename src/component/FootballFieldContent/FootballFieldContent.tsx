@@ -11,6 +11,9 @@ import {
   values,
   find,
   isEmpty,
+  findIndex,
+  cloneDeep,
+  differenceBy,
 } from "lodash";
 import clsx from "classnames";
 import { FORMATIONS } from "../../constants/formation";
@@ -25,34 +28,27 @@ import transferPlayer from "./assets/transferPlayer.png";
 export const FootballFieldContent = () => {
   const classes = useStyles();
   const { user } = React.useContext<any>(UserCtx);
-  const { formation, updatePlayer, player, tpiToPpi } =
+  const { formation, updatePlayer, player, tpiToPpi, updateFormation } =
     React.useContext<any>(FootballFieldCtx);
 
   const [topWorstPlayer, setTopWorstPlayer] = useState<any>([]); //top 5 Worst players of worst category
   const [listPlayerSuggestion, setListPlayerSuggestion] = useState<any>([]);
-
   const [season, setSeason] = useState<any>();
+  const [localScheme, setLocalScheme] = useState<any>();
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorElDetailSummary, setAnchorElDetailSummary] =
+    React.useState(null);
+  const [anchorElPlayerSuggest, setAnchorElPlayerSuggest] =
+    React.useState(null);
+
   const [listPlayerPlayedTheMost, setListPlayerPlayedTheMost] =
     React.useState<any>();
 
-  const onClose = () => {
-    setAnchorEl(null);
-  };
+  const openDetailSummary = Boolean(anchorElDetailSummary);
+  const idDetailSummary = openDetailSummary ? "simple-popover" : undefined;
 
-  const fetchListPlayerSuggestion = async () => {
-    const listSuggestion = await Player.getListPlayerSuggestion(player);
-    console.log("res: ", listSuggestion);
-
-    setListPlayerSuggestion(listSuggestion);
-  };
-
-  // useEffect(() => {
-  //   if (player) {
-  //     fetchListPlayerSuggestion();
-  //   }
-  // }, [player]);
+  const openPlayerSuggest = Boolean(anchorElPlayerSuggest);
+  const idPlayerSuggest = openPlayerSuggest ? "simple-popover" : undefined;
 
   useEffect(() => {
     if (formation && user) {
@@ -64,6 +60,7 @@ export const FootballFieldContent = () => {
         .catch((e) => {
           console.log(e);
         });
+      setLocalScheme(formation.scheme);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, formation]);
@@ -74,9 +71,6 @@ export const FootballFieldContent = () => {
       setTopWorstPlayer(worstPlayer);
     }
   }, [tpiToPpi]);
-
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
 
   const columns = FORMATIONS[formation.scheme];
   const formationByPosition = groupBy(formation.players, "position");
@@ -102,13 +96,27 @@ export const FootballFieldContent = () => {
   const onDetailsPlayer = async (player: any, event: any) => {
     event.preventDefault();
     event.stopPropagation();
-    setAnchorEl(event.currentTarget);
+    setAnchorElDetailSummary(event.currentTarget);
     const season = await Season.getSeasonById(player?.player?.seasonId);
     const age = computeAge(
       season,
       player?.player?.birthDate || player?.player?.player?.birthDate
     );
     updatePlayer({ ...player, age: age });
+  };
+
+  const fetchListPlayerSuggestion = async (player: any) => {
+    const listSuggestion = await Player.getListPlayerSuggestion({
+      player: player,
+      scheme: formation.scheme,
+    });
+    const listUniq = differenceBy(
+      listSuggestion,
+      formation.players,
+      "playerId"
+    );
+
+    setListPlayerSuggestion(listUniq);
   };
 
   const divisionSeason = (seasonName: any) => {
@@ -201,10 +209,10 @@ export const FootballFieldContent = () => {
 
     return (
       <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={onClose}
+        id={idDetailSummary}
+        open={openDetailSummary}
+        anchorEl={anchorElDetailSummary}
+        onClose={onCloseDetailSummary}
         anchorOrigin={{
           vertical: "top",
           horizontal: "center",
@@ -224,8 +232,6 @@ export const FootballFieldContent = () => {
                     {parse(values(d))}{" "}
                   </>
                 )}
-                {/* <span className={classes.keyText}>{keys(d)}</span>:{" "}
-                {parse(values(d))} */}
               </Typography>
             ))}
           </div>
@@ -234,16 +240,45 @@ export const FootballFieldContent = () => {
     );
   };
 
+  const onCloseDetailSummary = () => {
+    setAnchorElDetailSummary(null);
+  };
+
+  const onCloseSuggestion = () => {
+    setAnchorElPlayerSuggest(null);
+  };
+
+  const onChangePlayerSuggestion = async (e: any, player: any) => {
+    e.stopPropagation();
+    setAnchorElPlayerSuggest(e.currentTarget);
+    await fetchListPlayerSuggestion(player);
+  };
+
+  const onClickUpdateFormation = (event: React.MouseEvent, player: any) => {
+    if (formation) {
+      let newList: any = cloneDeep(formation.players);
+      const idx = findIndex(formation.players, { position: player.position });
+      newList[idx] = player;
+      const formationSuggest = {
+        scheme: localScheme,
+        players: newList,
+      };
+      updateFormation(formationSuggest);
+      onCloseSuggestion();
+    }
+  };
+
   const popOverListPlayerSuggestionRender = () => {
     return (
       <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={onClose}
+        className={classes.popOverSuggest}
+        id={idPlayerSuggest}
+        open={openPlayerSuggest}
+        anchorEl={anchorElPlayerSuggest}
+        onClose={onCloseSuggestion}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
+          vertical: "top",
+          horizontal: "right",
         }}
         transformOrigin={{
           vertical: "top",
@@ -254,18 +289,21 @@ export const FootballFieldContent = () => {
           <div className={classes.popOverRootSuggest}>
             {map(listPlayerSuggestion, (player: any) => {
               return (
-                <div className={classes.infor}>
+                <div
+                  className={classes.infor}
+                  onClick={(e) => onClickUpdateFormation(e, player)}
+                >
                   <div
                     className={classes.playerAvatar}
                     style={{
                       backgroundImage: `url(${
-                        player?.playerAvatar?.imageDataURL ||
+                        player?.player?.imageDataURL ||
                         "https://via.placeholder.com/150"
                       })`,
                     }}
                   />
                   <div className={classes.playerNamePopOver}>
-                    {player?.playerName?.player?.shortName}
+                    {player?.player?.shortName}
                   </div>
                 </div>
               );
@@ -274,12 +312,6 @@ export const FootballFieldContent = () => {
         </div>
       </Popover>
     );
-  };
-
-  const onChangePlayerSuggestion = async (e: any) => {
-    e.preventDefault();
-    // e.stopPropagation();
-    await fetchListPlayerSuggestion();
   };
 
   return (
@@ -334,7 +366,9 @@ export const FootballFieldContent = () => {
                           )}
                           <div className={classes.changePlayerIcon}>
                             <img
-                              onClick={onChangePlayerSuggestion}
+                              onClick={(e) =>
+                                onChangePlayerSuggestion(e, player)
+                              }
                               src={transferPlayer}
                               className={classes.icon}
                               alt=""
