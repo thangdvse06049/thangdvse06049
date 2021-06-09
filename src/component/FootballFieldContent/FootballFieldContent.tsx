@@ -110,6 +110,7 @@ export const FootballFieldContent = () => {
       player: player,
       scheme: formation.scheme,
     });
+
     const listUniq = differenceBy(
       listSuggestion,
       formation.players,
@@ -268,6 +269,11 @@ export const FootballFieldContent = () => {
     }
   };
 
+  const onclosePopOver = () => {
+    setListPlayerSuggestion([]);
+    onCloseSuggestion();
+  };
+
   const popOverListPlayerSuggestionRender = () => {
     return (
       <Popover
@@ -275,7 +281,7 @@ export const FootballFieldContent = () => {
         id={idPlayerSuggest}
         open={openPlayerSuggest}
         anchorEl={anchorElPlayerSuggest}
-        onClose={onCloseSuggestion}
+        onClose={onclosePopOver}
         anchorOrigin={{
           vertical: "top",
           horizontal: "right",
@@ -287,27 +293,39 @@ export const FootballFieldContent = () => {
       >
         <div className={classes.typographySuggest}>
           <div className={classes.popOverRootSuggest}>
-            {map(listPlayerSuggestion, (player: any) => {
-              return (
-                <div
-                  className={classes.infor}
-                  onClick={(e) => onClickUpdateFormation(e, player)}
-                >
+            {listPlayerSuggestion.length > 0 ? (
+              map(listPlayerSuggestion, (player: any) => {
+                return (
                   <div
-                    className={classes.playerAvatar}
-                    style={{
-                      backgroundImage: `url(${
-                        player?.player?.imageDataURL ||
-                        "https://via.placeholder.com/150"
-                      })`,
-                    }}
-                  />
-                  <div className={classes.playerNamePopOver}>
-                    {player?.player?.shortName}
+                    className={classes.infor}
+                    onClick={(e) => onClickUpdateFormation(e, player)}
+                  >
+                    <div
+                      className={classes.playerAvatar}
+                      style={{
+                        backgroundImage: `url(${
+                          player?.player?.imageDataURL ||
+                          "https://via.placeholder.com/150"
+                        })`,
+                      }}
+                    />
+                    <div className={classes.inforRight}>
+                      <div className={classes.playerNamePopOver}>
+                        {player?.player?.shortName}
+                      </div>
+                      <div className={classes.ppiPopOver}>
+                        PPI: {player?.performance?.gradeLabel}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })
+            ) : (
+              <div className={classes.noDataSuggestion}>
+                {" "}
+                No suggestion player
+              </div>
+            )}
           </div>
         </div>
       </Popover>
@@ -410,7 +428,7 @@ export const FootballFieldContent = () => {
       </div>
       <img src="/football_field.svg" className={classes.footballField} alt="" />
       {popOverDetailSummaryRender(player)}
-      {listPlayerSuggestion && popOverListPlayerSuggestionRender()}
+      {popOverListPlayerSuggestionRender()}
       <div className={classes.listPlayerBottom}>
         {listPlayerPlayedTheMost && divisionSeason(season.name)
           ? map(listPlayerPlayedTheMost?.slice(0, 9), (player: any) =>

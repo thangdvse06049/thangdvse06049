@@ -245,6 +245,8 @@ export const useStyles = makeStyles((theme) => ({
   },
   playerNamePopOver: {
     marginLeft: 10,
+    fontSize: 15,
+    fontWeight: 500,
   },
   infor: {
     display: "flex",
@@ -262,4 +264,17 @@ export const useStyles = makeStyles((theme) => ({
     overflowY: "scroll",
   },
   popOverSuggest: {},
+  noDataSuggestion: {
+    height: 100,
+    alignItems: "center",
+    display: "flex",
+    justifyContent: "center",
+    fontSize: 15,
+  },
+  inforRight: {
+    display: "block",
+  },
+  ppiPopOver: {
+    marginLeft: 10,
+  },
 }));
