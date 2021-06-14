@@ -557,7 +557,7 @@ export const TPI_SUMMARY: any = {
     "dans l'ensemble le niveau de réussite est défavorable. En étant plus précis dans l’analyse, nous identifions les points forts et faibles suivants :",
     "dans l'ensemble le niveau de réussite est vraiment défavorable. En étant plus précis dans l’analyse, nous identifions les points forts et faibles suivants :",
   ],
-  "groupDefensiveDuels.groupDefensiveDuels": [
+  "groupDefensiveDuels.defensiveDuelsRatio": [
     "- Une très grande majorité des duels défensifs sont gagnés par les joueurs",
     "- Une majorité des duels défensifs sont gagnés par les joueurs",
     "- Une petite majorité des duels défensifs sont gagnés par les joueurs",
@@ -565,7 +565,7 @@ export const TPI_SUMMARY: any = {
     "- Une majorité des duels défensifs sont perdus par les joueurs",
     "- Une grande majorité des duels défensifs sont perdus par les joueurs",
   ],
-  "groupOffensiveDuels.groupOffensiveDuels": [
+  "groupOffensiveDuels.offensiveDuelsRatio": [
     "- Une très grande majorité des duels offensifs sont gagnés par les joueurs",
     "- Une majorité des duels offensifs sont gagnés par les joueurs",
     "- Une petite majorité des duels offensifs sont gagnés par les joueurs",
@@ -573,7 +573,7 @@ export const TPI_SUMMARY: any = {
     "- Une majorité des duels offensifs sont perdus par les joueurs",
     "- Une grande majorité des duels offensifs sont perdus par les joueurs",
   ],
-  "groupDribblesAgainst.groupDribblesAgainst": [
+  "groupDribblesAgainst.dribblesSuccessful": [
     "les tentatives de dribbles adverses sont très souvent avortées.",
     "les tentatives de dribbles adverses sont souvent avortées.",
     "les tentatives de dribbles adverses ne sont que moyennement avortées.",
@@ -581,7 +581,7 @@ export const TPI_SUMMARY: any = {
     "les tentatives de dribbles adverses sont rarement avortées.",
     "les tentatives de dribbles adverses sont très rarement avortées.",
   ],
-  "groupAerialDuels.groupAerialDuels": [
+  "groupAerialDuels.aerialDuelsRatio": [
     "- Le timming dans les duels aériens est excellent.",
     "- Le timming dans les duels aériens est bon.",
     "- Le timming dans les duels aériens est tout juste acceptable.",
@@ -589,7 +589,7 @@ export const TPI_SUMMARY: any = {
     "- Le timming dans les duels aériens est mauvais.",
     "- Le timming dans les duels aériens est très mauvais.",
   ],
-  "groupSlidingTackles.groupSlidingTackles": [
+  "groupSlidingTackles.slidingTacklesRatio": [
     "- Les tacles glissés sont bien maitrisés.",
     "- Les tacles glissés sont bien maitrisés.",
     "- Les tacles glissés sont trop légèrement maitrisés.",
@@ -597,7 +597,7 @@ export const TPI_SUMMARY: any = {
     "- Les tacles glissés sont mal maitrisés.",
     "- Les tacles glissés sont très mal maitrisés.",
   ],
-  "groupGroundDuels.groupGroundDuels": [
+  "groupGroundDuels.groundDuelsRatio": [
     "- Les joueurs font preuve d’une très bonne agressivité.",
     "- Les joueurs font preuve d’une bonne agressivité.",
     "- Les joueurs font preuve d’une agressivité juste suffisante.",

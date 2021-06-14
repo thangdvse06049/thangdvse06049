@@ -94,4 +94,9 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     marginTop: 5,
   },
+  noData: {
+    justifyContent: "center",
+    display: "flex",
+    fontSize: 15,
+  },
 }));

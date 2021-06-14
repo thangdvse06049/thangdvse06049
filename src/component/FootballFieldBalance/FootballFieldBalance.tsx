@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useStyles } from "./FootballFieldBalance.style";
 import FootballFieldImg from "./assets/football-field.png";
 import { Team } from "../../models/team";
+import { Typography } from "@material-ui/core";
 
 const BalanceArrowSVG = (width: any, leftValue: any, rightValue: any) => {
   return (
@@ -79,19 +80,20 @@ const ArrowSvg = (height: any, value: any) => {
   );
 };
 
-const ArrowSvgDefensive = (height: any, value: any) => {
+const ArrowSvgDefensive = (height: any, value: any, classes: any) => {
   height = height || 200;
   return (
-    <svg height={height} width="80">
-      <path
-        d={`M40 0 L80 ${height * 0.15} L60 ${
-          height * 0.15
-        } L60 ${height} L20 ${height} L20 ${height * 0.15} L0 ${
-          height * 0.15
-        } Z`}
-        fill="#FFCB3A"
-      />
-      <text
+    <div className={classes.mainSvg}>
+      <svg height={height} width="80">
+        <path
+          d={`M40 0 L80 ${height * 0.15} L60 ${
+            height * 0.15
+          } L60 ${height} L20 ${height} L20 ${height * 0.15} L0 ${
+            height * 0.15
+          } Z`}
+          fill="#FFCB3A"
+        />
+        {/* <text
         x="50%"
         y="50%"
         font-weight="bold"
@@ -101,38 +103,12 @@ const ArrowSvgDefensive = (height: any, value: any) => {
         fill="white"
       >
         {value.toFixed(0)}%
-      </text>
-    </svg>
+      </text> */}
+      </svg>
+      <Typography>{value.toFixed(0)}%</Typography>
+    </div>
   );
 };
-
-// const ArrowSvgDefensive = (height: any, value: any) => {
-//   height = height || 200;
-
-//   return (
-//     <svg height={height} width="80">
-//       <path
-//         d={`M40 0 L80 ${height * 0.15} L60 ${
-//           height * 0.15
-//         } L60 ${height} L20 ${height} L20 ${height * 0.15} L0 ${
-//           height * 0.15
-//         } Z`}
-//         fill="#FFCB3A"
-//       />
-//       <text
-//         x="50%"
-//         y="50%"
-//         font-weight="bold"
-//         font-family="SVN-Gilroy"
-//         dominant-baseline="middle"
-//         text-anchor="middle"
-//         fill="white"
-//       >
-//         {value.toFixed(0)}%
-//       </text>
-//     </svg>
-//   );
-// };
 
 export const FootballFieldBalance = (props: any) => {
   const classes = useStyles();
@@ -251,15 +227,18 @@ export const FootballFieldBalance = (props: any) => {
             <div className={classes.arrowsContainerDefensive}>
               {ArrowSvgDefensive(
                 ((footballMidHeight * defensive.leftFlankAttacks) / 100) * 2,
-                defensive.leftFlankAttacks
+                defensive.leftFlankAttacks,
+                classes
               )}
               {ArrowSvgDefensive(
                 ((footballMidHeight * defensive.centerAttacks) / 100) * 2,
-                defensive.centerAttacks
+                defensive.centerAttacks,
+                classes
               )}
               {ArrowSvgDefensive(
                 ((footballMidHeight * defensive.rightFlankAttacks) / 100) * 2,
-                defensive.rightFlankAttacks
+                defensive.rightFlankAttacks,
+                classes
               )}
             </div>
             <div className={classes.arrowsHorizontalContainerDeffensive}>

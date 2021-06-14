@@ -7,7 +7,16 @@ import {
   Typography,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { find, forEach, isEmpty, kebabCase, map, mean, values } from "lodash";
+import {
+  find,
+  forEach,
+  isEmpty,
+  kebabCase,
+  map,
+  mean,
+  values,
+  includes,
+} from "lodash";
 import {
   TPI,
   TPI_SUMMARY,
@@ -232,15 +241,31 @@ export const TeamAnalytics = () => {
                             <div className={classes.sentenceContent}>
                               <span>
                                 {map(fields, (field: any, idx: number) => {
-                                  const index = getSentenceIndex(
-                                    100 -
-                                      (tpi.detailsRanked[category][field] /
-                                        tpi.nbTeams) *
-                                        100
-                                  );
-                                  return TPI[category][field]
-                                    ? TPI[category][field][index]
-                                    : "";
+                                  if (field.includes(".")) {
+                                    const [group, subName] = field.split(".");
+                                    const tpiVal =
+                                      tpi?.detailsRanked?.[category]?.[
+                                        `_${group}`
+                                      ][subName];
+                                    const index = getSentenceIndex(
+                                      100 - (tpiVal / tpi.nbTeams) * 100
+                                    );
+                                    return TPI[category][subName]
+                                      ? TPI[category][subName][index]
+                                      : "";
+                                  } else {
+                                    const index = getSentenceIndex(
+                                      100 -
+                                        (tpi?.detailsRanked?.[category]?.[
+                                          field
+                                        ] /
+                                          tpi.nbTeams) *
+                                          100
+                                    );
+                                    return TPI?.[category]?.[field]
+                                      ? TPI?.[category]?.[field]?.[index]
+                                      : "";
+                                  }
                                 }).join(" et ")}
                               </span>
                             </div>

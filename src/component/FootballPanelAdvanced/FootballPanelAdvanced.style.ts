@@ -99,4 +99,9 @@ export const useStyles = makeStyles((theme) => ({
     height: 10,
     fontSize: 13,
   },
+  noData: {
+    justifyContent: "center",
+    display: "flex",
+    fontSize: 15,
+  },
 }));

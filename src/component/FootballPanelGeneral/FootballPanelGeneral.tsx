@@ -157,15 +157,19 @@ export const FootballPanelGeneral = () => {
 
   return (
     <div className={classes.root}>
-      {map(links, (details: any, category: string) => {
-        return (
-          <div className={classes.category}>
-            {renderCategoryHeader(category)}
-            {renderDetails(category, details)}
-            <div className={classes.categoryContent}> </div>
-          </div>
-        );
-      })}
+      {player?.ppi ? (
+        map(links, (details: any, category: string) => {
+          return (
+            <div className={classes.category}>
+              {renderCategoryHeader(category)}
+              {renderDetails(category, details)}
+              <div className={classes.categoryContent}> </div>
+            </div>
+          );
+        })
+      ) : (
+        <div className={classes.noData}>No data for PPI</div>
+      )}
     </div>
   );
 };

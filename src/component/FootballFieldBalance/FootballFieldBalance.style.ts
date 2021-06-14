@@ -22,10 +22,10 @@ export const useStyles = makeStyles((theme) => ({
   },
   arrowsContainerDefensive: {
     position: "absolute",
-    bottom: 250,
+    bottom: 265,
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "flex-end",
+    alignItems: "end",
     left: 20,
     right: 20,
   },
@@ -60,5 +60,19 @@ export const useStyles = makeStyles((theme) => ({
   offensiveBalance: {
     display: "block",
     margin: "auto",
+  },
+  mainSvg: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    "& > p": {
+      position: "absolute",
+      fontSize: 14,
+      color: "white",
+      fontWeight: 700,
+    },
+    "& > svg": {
+      transform: "rotate(180deg)",
+    },
   },
 }));

@@ -86,6 +86,7 @@ export const FootballPanelAdvanced = () => {
   const onChangeSeason = (event: any, option: any) => {
     setSeason(option);
   };
+
   const fetchPPI = async () => {
     const ppiChart = await Player.getPlayerPPIHistory({
       _id: player?.playerId,
@@ -137,48 +138,86 @@ export const FootballPanelAdvanced = () => {
       <div className={classes.category}>
         <div className={classes.categoryTitle}>Age - 1 ({player?.age - 1})</div>
         <div>
-          {map(BMIAGE_KEYS, (key: any) => {
-            const value = player?.bmiAge[key]?.previousAge;
-            if (value <= 0) return;
-            return (
-              <div
-                className={clsx(classes.grade, getGradeFromKey(key))}
-                key={key}
-              >
-                <div className={classes.gradeValue}>
-                  {Math.round(value * 100)}%
+          {player.bmiAge ? (
+            map(BMIAGE_KEYS, (key: any) => {
+              const value = player?.bmiAge?.[key]?.previousAge;
+              if (value <= 0) return;
+              return (
+                <div
+                  className={clsx(classes.grade, getGradeFromKey(key))}
+                  key={key}
+                >
+                  <div className={classes.gradeValue}>
+                    {Math.round(value * 100)}%
+                  </div>
+                  <div className={classes.gradeKey}>{key}</div>
                 </div>
-                <div className={classes.gradeKey}>{key}</div>
-              </div>
-            );
-          })}
+              );
+            })
+          ) : (
+            <div className={classes.noData}>No data</div>
+          )}
         </div>
       </div>
       <div className={classes.category}>
         <div className={classes.categoryTitle}>Age ({player?.age})</div>
         <div>
-          {map(BMIAGE_KEYS, (key: any) => {
-            const value = player?.bmiAge[key]?.age;
-            if (value <= 0) return;
-            return (
-              <div
-                className={clsx(classes.grade, getGradeFromKey(key))}
-                key={key}
-              >
-                <div className={classes.gradeValue}>
-                  {Math.round(value * 100)}%
+          {player.bmiAge ? (
+            map(BMIAGE_KEYS, (key: any) => {
+              const value = player?.bmiAge?.[key]?.age;
+              if (value <= 0) return;
+              return (
+                <div
+                  className={clsx(classes.grade, getGradeFromKey(key))}
+                  key={key}
+                >
+                  <div className={classes.gradeValue}>
+                    {Math.round(value * 100)}%
+                  </div>
+                  <div className={classes.gradeKey}>{key}</div>
                 </div>
-                <div className={classes.gradeKey}>{key}</div>
-              </div>
-            );
-          })}
+              );
+            })
+          ) : (
+            <div className={classes.noData}>No data</div>
+          )}
         </div>
       </div>
       <div className={classes.category}>
         <div className={classes.categoryTitle}>Age + 1 ({player?.age + 1})</div>
         <div>
-          {map(BMIAGE_KEYS, (key) => {
-            const value = player?.bmiAge[key]?.nextAge;
+          {player.bmiAge ? (
+            map(BMIAGE_KEYS, (key) => {
+              const value = player?.bmiAge?.[key]?.nextAge;
+              if (value <= 0) return null;
+              return (
+                <div
+                  className={clsx(classes.grade, getGradeFromKey(key))}
+                  key={key}
+                >
+                  <div className={classes.gradeValue}>
+                    {Math.round(value * 100)}%
+                  </div>
+                  {key === "Excellent" || key === "Good" ? (
+                    <div className={classes.gradeKey}>PROBABILITY</div>
+                  ) : (
+                    <div className={classes.gradeKey}>{key}</div>
+                  )}
+                </div>
+              );
+            })
+          ) : (
+            <div className={classes.noData}>No data</div>
+          )}
+        </div>
+      </div>
+      <div className={classes.category}>
+        <div className={classes.categoryTitle}>
+          BMI ({player?.performance?.BMI + 1 || "N/A"})
+        </div>
+        {player?.performance?.BMI ? (
+          map(BMIAGE_KEYS, (key) => {
+            const value = player?.bmiAge?.[key]?.bmi;
             if (value <= 0) return null;
             return (
               <div
@@ -188,35 +227,13 @@ export const FootballPanelAdvanced = () => {
                 <div className={classes.gradeValue}>
                   {Math.round(value * 100)}%
                 </div>
-                {key === "Excellent" || key === "Good" ? (
-                  <div className={classes.gradeKey}>PROBABILITY</div>
-                ) : (
-                  <div className={classes.gradeKey}>{key}</div>
-                )}
+                <div className={classes.gradeKey}>{key}</div>
               </div>
             );
-          })}
-        </div>
-      </div>
-      <div className={classes.category}>
-        <div className={classes.categoryTitle}>
-          BMI ({player?.performance.BMI + 1})
-        </div>
-        {map(BMIAGE_KEYS, (key) => {
-          const value = player?.bmiAge[key]?.bmi;
-          if (value <= 0) return null;
-          return (
-            <div
-              className={clsx(classes.grade, getGradeFromKey(key))}
-              key={key}
-            >
-              <div className={classes.gradeValue}>
-                {Math.round(value * 100)}%
-              </div>
-              <div className={classes.gradeKey}>{key}</div>
-            </div>
-          );
-        })}
+          })
+        ) : (
+          <div className={classes.noData}>No data</div>
+        )}
       </div>
       <div className={classes.category}>
         <div className={classes.categoryTitle}>
@@ -266,7 +283,7 @@ export const FootballPanelAdvanced = () => {
                             PPI_CATEGORY_LABEL,
                             (value: any, category: any) => {
                               if (!isEmpty(player))
-                                return player?.ppi?.summary[category];
+                                return player?.ppi?.summary?.[category];
                             }
                           ).map((o: any) => o * 100),
                           backgroundColor: map(
@@ -274,7 +291,7 @@ export const FootballPanelAdvanced = () => {
                             (value: any, category: any) => {
                               if (!isEmpty(player))
                                 return getColor(
-                                  player?.ppi?.summary[category] * 100
+                                  player?.ppi?.summary?.[category] * 100
                                 );
                             }
                           ),
@@ -311,7 +328,7 @@ export const FootballPanelAdvanced = () => {
                             PPI_CATEGORY_LABEL,
                             (value: any, category: any) => {
                               if (!isEmpty(player))
-                                return player?.ppi?.summary[category];
+                                return player?.ppi?.summary?.[category];
                             }
                           ).map((o: any) => o * 100),
                           backgroundColor: map(
@@ -319,7 +336,7 @@ export const FootballPanelAdvanced = () => {
                             (value: any, category: any) => {
                               if (!isEmpty(player))
                                 return getColor(
-                                  player?.ppi?.summary[category] * 100
+                                  player?.ppi?.summary?.[category] * 100
                                 );
                             }
                           ),
