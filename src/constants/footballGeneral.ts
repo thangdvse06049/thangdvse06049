@@ -638,7 +638,7 @@ export const TRANSLATION: any = {
   groupSmartPasses: "PASSES CREATIVES & TECHNIQUES",
   groupThroughPasses: "PASSES EN PROFONDEURS",
   groupLongPasses: "PASSES LONGUES",
-  groupProgressivePasses: "RATIO DE PASSES VERS L'AVANT",
+  groupForwardPasses: "RATIO DE PASSES VERS L'AVANT",
   CREATION: "CREATION",
   assists: "PASSES DECISIVE",
   xgAssist: "PREDICTION DES PASSES DECISIVES",
@@ -675,6 +675,16 @@ export const TRANSLATION: any = {
 };
 
 export const PONDERATION = {
+  GOALKEEPER: {
+    FINITION: 0,
+    CREATION: 0,
+    DISTRIBUTION: 0,
+    PERCUSSION: 0,
+    POSSESSION: 0,
+    DUELS: 0,
+    SET_PIECES: 0,
+    GOALKEEPER: 1,
+  },
   ATTAQUANTS: {
     FINITION: 4,
     CREATION: 1,
@@ -683,6 +693,7 @@ export const PONDERATION = {
     POSSESSION: 0,
     DUELS: 0,
     SET_PIECES: 0,
+    GOALKEEPER: 0,
   },
   ATTAQUANTSLEFT: {
     FINITION: 4,
@@ -692,6 +703,7 @@ export const PONDERATION = {
     POSSESSION: 0,
     DUELS: 0,
     SET_PIECES: 0,
+    GOALKEEPER: 0,
   },
   ATTAQUANTSRIGHT: {
     FINITION: 4,
@@ -701,6 +713,7 @@ export const PONDERATION = {
     POSSESSION: 0,
     DUELS: 0,
     SET_PIECES: 0,
+    GOALKEEPER: 0,
   },
   AILLIERSLEFT: {
     FINITION: 3,
@@ -710,6 +723,7 @@ export const PONDERATION = {
     POSSESSION: 2,
     DUELS: 1,
     SET_PIECES: 0,
+    GOALKEEPER: 0,
   },
   AILLIERSRIGHT: {
     FINITION: 3,
@@ -719,6 +733,7 @@ export const PONDERATION = {
     POSSESSION: 2,
     DUELS: 1,
     SET_PIECES: 0,
+    GOALKEEPER: 0,
   },
   MILIEUXOFFENSIF: {
     FINITION: 3,
@@ -728,6 +743,7 @@ export const PONDERATION = {
     POSSESSION: 2,
     DUELS: 1,
     SET_PIECES: 0,
+    GOALKEEPER: 0,
   },
   MILIEUXRELAYEUR: {
     FINITION: 3,
@@ -737,6 +753,7 @@ export const PONDERATION = {
     POSSESSION: 3,
     DUELS: 2,
     SET_PIECES: 0,
+    GOALKEEPER: 0,
   },
   MILIEUXDEFENSIF: {
     FINITION: 2,
@@ -746,6 +763,7 @@ export const PONDERATION = {
     POSSESSION: 3,
     DUELS: 3,
     SET_PIECES: 0,
+    GOALKEEPER: 0,
   },
   DEFENSEURSCENTRAUX: {
     FINITION: 2,
@@ -755,6 +773,7 @@ export const PONDERATION = {
     POSSESSION: 4,
     DUELS: 4,
     SET_PIECES: 0,
+    GOALKEEPER: 0,
   },
   DEFENSEURSLATERAUXLEFT: {
     FINITION: 3,
@@ -764,6 +783,7 @@ export const PONDERATION = {
     POSSESSION: 2,
     DUELS: 2,
     SET_PIECES: 0,
+    GOALKEEPER: 0,
   },
   DEFENSEURSLATERAUXRIGHT: {
     FINITION: 3,
@@ -773,11 +793,12 @@ export const PONDERATION = {
     POSSESSION: 2,
     DUELS: 2,
     SET_PIECES: 0,
+    GOALKEEPER: 0,
   },
 };
 
 export const POSITIONS = {
-  GOALKEEPERS: ["gk"],
+  GOALKEEPER: ["gk"],
   DEFENSEURSLATERAUXLEFT: ["lb", "lb5", "lwb"],
   DEFENSEURSLATERAUXRIGHT: ["rb", "rb5", "rwb"],
   DEFENSEURSCENTRAUX: ["cb", "lcb", "lcb3", "rcb", "rcb3"],

@@ -81,4 +81,12 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   tabContent: {},
+  avgPPI: {
+    textAlign: "center",
+  },
+  noData: {
+    alignItems: "center",
+    justifyContent: "center",
+    display: "flex",
+  },
 }));

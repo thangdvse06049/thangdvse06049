@@ -71,25 +71,57 @@ export const FootballPanelSuggestion = () => {
           })}
         >
           {map(details, ([value], key: any) => {
-            return (
-              <div className={classes.contentRow}>
-                <div className={classes.contentValue}>
-                  <div className={classes.contentKey}>
-                    {TRANSLATION[key] || key}
-                  </div>
-                  <div>
-                    <div
-                      className={clsx(
-                        classes.grade,
-                        getGrade(ppi?.detailsRanked[category][key])
-                      )}
-                    >
-                      {getGrade(ppi?.detailsRanked[category][key])}
+            if (value.includes(".")) {
+              const [group, subName] = value.split(".");
+              return (
+                <div className={classes.contentRow}>
+                  <div className={classes.contentValue}>
+                    <div className={classes.contentKey}>
+                      {TRANSLATION[key] || key}
+                    </div>
+
+                    <div>
+                      <div
+                        className={clsx(
+                          classes.grade,
+                          getGrade(
+                            player?.ppi?.detailsRanked[category][`_${group}`][
+                              subName
+                            ]
+                          )
+                        )}
+                      >
+                        {getGrade(
+                          player?.ppi?.detailsRanked[category][`_${group}`][
+                            subName
+                          ]
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
+              );
+            } else {
+              return (
+                <div className={classes.contentRow}>
+                  <div className={classes.contentValue}>
+                    <div className={classes.contentKey}>
+                      {TRANSLATION[key] || key}
+                    </div>
+                    <div>
+                      <div
+                        className={clsx(
+                          classes.grade,
+                          getGrade(ppi?.detailsRanked[category][key])
+                        )}
+                      >
+                        {getGrade(ppi?.detailsRanked[category][key])}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
           })}
         </div>
       </Collapse>
@@ -152,7 +184,6 @@ export const FootballPanelSuggestion = () => {
       {suggestions && suggestions.length === 0 && (
         <div className={classes.emptySuggestions}>Aucune suggestions</div>
       )}
-
       {suggestions === null ? (
         <div className={classes.circular}>
           <CircularProgress />
@@ -163,7 +194,7 @@ export const FootballPanelSuggestion = () => {
             if (player?.teamCategory) {
               return `${player?.teamCategory} (${player?.team?.name})`;
             } else {
-              return `UnKnown (${player?.team?.name})`;
+              return `Unknown (${player?.team?.name || "Unknown"})`;
             }
           };
 
@@ -183,7 +214,7 @@ export const FootballPanelSuggestion = () => {
                 <div>
                   Competition: {capitalize(player?.competitionCountry)}
                   {", "}
-                  {capitalize(player?.competitionCategory)}
+                  {capitalize(player?.competitionCategoryByUsersSeason)}
                 </div>
                 <div>Team: {getTeamName(player)}</div>
                 <div>

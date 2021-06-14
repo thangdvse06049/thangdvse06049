@@ -69,7 +69,7 @@ export const TPI_SUMMARY: any = {
     "Un petit nombre d'actions se terminent pas des tirs.",
     "Un très petit nombre d'actions se terminent pas des tirs.",
   ],
-  shots: [
+  "groupShots.shots": [
     "L' équipe à énormément de tirs à son compteur",
     "L' équipe à beaucoup de tirs à son compteur",
     "L' équipe à suffisamment de tirs à son compteur",
@@ -77,7 +77,7 @@ export const TPI_SUMMARY: any = {
     "L' équipe à peu de tirs à son compteur",
     "L' équipe à très peu de tirs à son compteur",
   ],
-  shotsRatio: [
+  "groupShots.shotsRatio": [
     "une précision très favorable.",
     "une précision favorable.",
     "une précision acceptable.",
@@ -109,7 +109,7 @@ export const TPI_SUMMARY: any = {
     "L’ équipe a trop de déficience tactique et technique pour se mettre dans les meilleures dispositions de frappes.",
     "L’ équipe éprouve beaucoup trop de déficience tactique et technique pour se mettre dans les meilleures dispositions de frappes.",
   ],
-  "groupShots.headShotsRatio": [
+  "groupHeadShots.headShotsRatio": [
     "Le jeu de têtes est très régulièrement utilisé",
     "Le jeu de têtes est régulièrement utilisé",
     "Le jeu de têtes est moyennement utilisé",
@@ -117,7 +117,7 @@ export const TPI_SUMMARY: any = {
     "Le jeu de têtes est rarement utilisé",
     "Le jeu de têtes est très rarement utilisé",
   ],
-  "groupShots.headShotsOnTarget": [
+  "groupHeadShots.headShotsOnTarget": [
     "elles sont très souvent efficaces.",
     "elles sont souvent efficaces.",
     "elles sont tout juste efficaces.",
@@ -173,7 +173,7 @@ export const TPI_SUMMARY: any = {
     "son total de clean sheets est pénalisant.",
     "son total de clean sheets est trop pénalisant.",
   ],
-  "groupHeadShot.headShotsRatio2": [
+  "groupHeadShot2.headShotsRatio2": [
     "une très forte proportion de ces tirs sont des têtes.",
     "une forte proportion de ces tirs sont des têtes.",
     "une petite proportion de ces tirs sont des têtes.",
@@ -557,7 +557,7 @@ export const TPI_SUMMARY: any = {
     "dans l'ensemble le niveau de réussite est défavorable. En étant plus précis dans l’analyse, nous identifions les points forts et faibles suivants :",
     "dans l'ensemble le niveau de réussite est vraiment défavorable. En étant plus précis dans l’analyse, nous identifions les points forts et faibles suivants :",
   ],
-  "groupDuelsRatio.defensiveDuelsRatio": [
+  "groupDefensiveDuels.groupDefensiveDuels": [
     "- Une très grande majorité des duels défensifs sont gagnés par les joueurs",
     "- Une majorité des duels défensifs sont gagnés par les joueurs",
     "- Une petite majorité des duels défensifs sont gagnés par les joueurs",
@@ -565,7 +565,15 @@ export const TPI_SUMMARY: any = {
     "- Une majorité des duels défensifs sont perdus par les joueurs",
     "- Une grande majorité des duels défensifs sont perdus par les joueurs",
   ],
-  "groupDuelsRatio.dribblesSuccessful": [
+  "groupOffensiveDuels.groupOffensiveDuels": [
+    "- Une très grande majorité des duels offensifs sont gagnés par les joueurs",
+    "- Une majorité des duels offensifs sont gagnés par les joueurs",
+    "- Une petite majorité des duels offensifs sont gagnés par les joueurs",
+    "- Une petite majorité des duels offensifs sont perdus par les joueurs",
+    "- Une majorité des duels offensifs sont perdus par les joueurs",
+    "- Une grande majorité des duels offensifs sont perdus par les joueurs",
+  ],
+  "groupDribblesAgainst.groupDribblesAgainst": [
     "les tentatives de dribbles adverses sont très souvent avortées.",
     "les tentatives de dribbles adverses sont souvent avortées.",
     "les tentatives de dribbles adverses ne sont que moyennement avortées.",
@@ -573,7 +581,7 @@ export const TPI_SUMMARY: any = {
     "les tentatives de dribbles adverses sont rarement avortées.",
     "les tentatives de dribbles adverses sont très rarement avortées.",
   ],
-  "groupDuelsRatio.aerialDuelsRatio": [
+  "groupAerialDuels.groupAerialDuels": [
     "- Le timming dans les duels aériens est excellent.",
     "- Le timming dans les duels aériens est bon.",
     "- Le timming dans les duels aériens est tout juste acceptable.",
@@ -581,7 +589,7 @@ export const TPI_SUMMARY: any = {
     "- Le timming dans les duels aériens est mauvais.",
     "- Le timming dans les duels aériens est très mauvais.",
   ],
-  "groupDuelsRatio.slidingTacklesRatio": [
+  "groupSlidingTackles.groupSlidingTackles": [
     "- Les tacles glissés sont bien maitrisés.",
     "- Les tacles glissés sont bien maitrisés.",
     "- Les tacles glissés sont trop légèrement maitrisés.",
@@ -589,7 +597,7 @@ export const TPI_SUMMARY: any = {
     "- Les tacles glissés sont mal maitrisés.",
     "- Les tacles glissés sont très mal maitrisés.",
   ],
-  "groupDuelsRatio.groundDuelsRatio": [
+  "groupGroundDuels.groupGroundDuels": [
     "- Les joueurs font preuve d’une très bonne agressivité.",
     "- Les joueurs font preuve d’une bonne agressivité.",
     "- Les joueurs font preuve d’une agressivité juste suffisante.",
@@ -597,7 +605,7 @@ export const TPI_SUMMARY: any = {
     "- Les joueurs font preuve d’un manque important d'agressivité.",
     "- Les joueurs font preuve d’un manque très important d'agressivité.",
   ],
-  "groupDuelsRatio.looseBallDuelsRatio": [
+  "groupLooseBallDuels.groupLooseBallDuels": [
     "- Les joueurs font preuve d'une très bonne réactivité.",
     "- Les joueurs font preuve d'une bonne réactivité.",
     "- Les joueurs font preuve d'une assez bonne réactivité.",
@@ -1314,6 +1322,120 @@ export const TPI: any = {
       "Quand elle n’a pas le ballon, elle est rarement compétitive. Son organisation et jeu sans ballon lui confère une grande fragilité défensive, mais aussi une efficacité offensive trop faible.",
       "Quand elle n’a pas le ballon, elle est rarement compétitive. Son organisation et jeu sans ballon lui confère une très grande fragilité défensive, mais aussi une efficacité offensive beaucoup trop faible.",
     ],
+  },
+};
+
+export const TPI_LINK: any = {
+  OFFENSIF: {
+    Goals: ["goals", "goalsEfficiency"],
+    GoalsMean: ["goalMean"],
+    cleanSheets: ["cleanSheets"],
+    Shots: ["groupShots.shots", "groupShots.shotsRatio"],
+    shotsOutsideConfidence: [
+      "groupShotDistance.shotOutsideBox",
+      "groupShotDistance.shotsOutsideConfidence",
+    ],
+    headShotsRatio: [
+      "groupHeadShots.headShotsRatio",
+      "groupHeadShots.headShotsOnTarget",
+    ],
+    withShots: ["withShots"],
+    counterAttacks: ["counterAttacks"],
+    Offsides: ["Offsides"],
+  },
+  DEFENSIF: {
+    goals2: ["goals2", "cleanSheets2"],
+    goalMean2: ["goalMean2"],
+    groupPasses: ["groupPasses"],
+    attacks: ["groupAttacks.attacks", "groupAttacks.withShots2"],
+    shots2: ["shots2", "groupShotDistance2.shotsFromBox2"],
+    shotBlocked2: [
+      "groupOpportunityBlocked.shotBlocked2",
+      "groupHeadShot2.headShotsRatio2",
+    ],
+    crossesTotal2: [
+      "groupOpportunityBlocked.crossesTotal2",
+      "groupOpportunityBlocked.crossesSuccessful2",
+    ],
+    crossesBlocked2: ["groupOpportunityBlocked.crossesBlocked2"],
+    counterAttacks2: ["counterAttacks2"],
+    corners2: ["groupFreeKicks.corners2", "groupFreeKicks.cornersRatio2"],
+    freeKicksWithShot2: [
+      "groupFreeKicks.freeKicksWithShot2",
+      "groupFreeKicks.freeKicksWithShotRatio2",
+    ],
+    opponentOffsides2: ["opponentOffsides2"],
+    gkSaves2: ["gkSaves2"],
+  },
+  DISTRIBUTION: {
+    passes: ["passes", "passesRatio"],
+    shortLongRatio: [
+      "groupPassesDistances.shortLongRatio",
+      "groupPassesDistances.longPassesRatio",
+    ],
+    keyPasses: ["groupkeyPasses.keyPasses"],
+    keyPassesRatio: ["groupkeyPasses.keyPassesRatio"],
+    smartPasses: ["groupSmartPasses.smartPasses"],
+    smartPassesRatio: ["groupSmartPasses.smartPassesRatio"],
+    crosses: ["groupCrosses.crosses", "groupCrosses.crossesRatio"],
+    throughPasses: ["groupThroughPasses.throughPasses"],
+    throughPassesRatio: ["groupThroughPasses.throughPassesRatio"],
+    passToFinalThirds: [
+      "groupPassToFinalThirds.passToFinalThirds",
+      "groupPassToFinalThirds.passToFinalThirdsRatio",
+    ],
+    passToPenaltyAreas: ["groupPassesZone.passToPenaltyAreas"],
+    "groupPassesZone.passToPenaltyAreasRatio": [
+      "groupPassesZone.passToPenaltyAreasRatio",
+    ],
+    assists: ["assists"],
+  },
+  PERCUSSION: {
+    dribbles: ["groupDribbles.dribbles", "groupDribbles.dribblesRatio"],
+    progressiveRun: ["progressiveRun"],
+    progressivePasses: ["groupProgessivePasses.progressivePasses"],
+    progressivePassesRatio: ["groupProgessivePasses.progressivePassesRatio"],
+  },
+  RECOVERY: {
+    losses: ["losses"],
+    interceptions: ["interceptions"],
+    interceptionsOpponent: ["interceptionsOpponent"],
+    recoveries: ["recoveries"],
+    duels: ["groupDuels.duels", "groupDuels.duelsRatio"],
+    defensiveDuels: [
+      "groupDefensiveDuels.defensiveDuels",
+      "groupDefensiveDuels.defensiveDuelsRatio",
+    ],
+    offensiveDuels: [
+      "groupOffensiveDuels.offensiveDuels",
+      "groupOffensiveDuels.offensiveDuelsRatio",
+    ],
+    aerialDuels: ["groupAerialDuels.aerialDuelsRatio"],
+    slidingTacklesRatio: [
+      "groupSlidingTackles.slidingTackles",
+      "groupSlidingTackles.slidingTacklesRatio",
+    ],
+    groundDuels: [
+      "groupGroundDuels.groundDuels",
+      "groupGroundDuels.groundDuelsRatio",
+    ],
+    looseBallDuels: ["grouplooseBallDuels.looseBallDuelsRatio"],
+    dribblesSuccessful: ["groupDribblesAgainst.dribblesSuccessful"],
+    fouls: ["fouls"],
+  },
+  FREEKICKS: {
+    cornersRatio: ["cornersRatio"],
+    freekicksRatio: ["freekicksRatio"],
+    directFreeKicksRatio: ["directFreeKicksRatio"],
+    freeKicksWithShotRatio: ["freeKicksWithShotRatio"],
+  },
+  PRESSING: {
+    ppda: ["groupPressing.ppda"],
+    challengeIntensity: ["groupPressing.challengeIntensity"],
+  },
+  POSSESSION: {
+    groupPossession: ["groupPossession"],
+    groupOpponentPossession: ["groupOpponentPossession"],
   },
 };
 

@@ -277,4 +277,9 @@ export const useStyles = makeStyles((theme) => ({
   ppiPopOver: {
     marginLeft: 10,
   },
+  noData: {
+    alignItems: "center",
+    justifyContent: "center",
+    display: "flex",
+  },
 }));

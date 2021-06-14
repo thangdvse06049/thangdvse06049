@@ -31,6 +31,7 @@ export const useStyles = makeStyles((theme) => ({
   playerInfo: {
     flexGrow: 1,
     padding: `0 ${theme.spacing(1)}px`,
+    width: "50%",
   },
   circular: {
     display: "flex",
@@ -105,6 +106,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   contentKey: {
     textTransform: "uppercase",
+    fontSize: 10,
   },
   contentValue: {
     display: "flex",

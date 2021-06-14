@@ -10,7 +10,7 @@ import { FootballPanelGeneral } from "../FootballPanelGeneral";
 import { FootballPanelAdvanced } from "../FootballPanelAdvanced";
 import { FootballPanelSuggestion } from "../FootballPanelSuggestion";
 import { FootballFieldCtx } from "../../context/FootballField";
-import { kebabCase } from "lodash";
+import { kebabCase, mean, values } from "lodash";
 import { useStyles } from "./FootballPanel.style";
 import { Season } from "../../models/season";
 import { computeAge } from "../../constants/player_infor";
@@ -40,6 +40,7 @@ export const FootballPanel = () => {
   };
 
   const renderPlayer = () => {
+    const averagePPI = mean(values(player?.ppi?.summary)) * 100;
     return (
       <div>
         <div className={classes.header}>
@@ -66,6 +67,13 @@ export const FootballPanel = () => {
               "Unknown"}{" "}
             ({player?.age || "Unknown"}) - Match Played (
             {player?.count || "Unknown"})
+            {averagePPI ? (
+              <div className={classes.avgPPI}>
+                Average PPI: {averagePPI.toFixed(2)}%
+              </div>
+            ) : (
+              <div className={classes.noData}>No data for PPI</div>
+            )}
           </Typography>
         </div>
         <div className={classes.tabs}>

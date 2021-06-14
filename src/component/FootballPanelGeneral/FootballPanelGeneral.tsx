@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useStyles } from "./FootballPanelGeneral.style";
-import { filter, isNumber, keys, map, startsWith } from "lodash";
+import { isNumber, map } from "lodash";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import clsx from "classnames";
 import { Collapse } from "react-collapse";
@@ -43,7 +43,7 @@ export const FootballPanelGeneral = () => {
 
   useEffect(() => {
     if (formation?.players?.length) {
-      setExpanded(Object.keys(formation?.players[0].ppi?.details)[0]);
+      setExpanded(Object.keys(formation?.players[0]?.ppi?.details)[0]);
     }
   }, [formation]);
 
@@ -139,10 +139,10 @@ export const FootballPanelGeneral = () => {
                       <div
                         className={clsx(
                           classes.grade,
-                          getGrade(player?.ppi?.detailsRanked[category][key])
+                          getGrade(player?.ppi?.detailsRanked?.[category][key])
                         )}
                       >
-                        {getGrade(player?.ppi?.detailsRanked[category][key])}
+                        {getGrade(player?.ppi?.detailsRanked?.[category][key])}
                       </div>
                     </div>
                   </div>
