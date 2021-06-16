@@ -40,23 +40,6 @@ const getGradeFromKey = (key: string) => {
   }
 };
 
-const getGradeFromKeyNextAge = (key: string) => {
-  switch (key) {
-    case "Excellent":
-      return "probability";
-    case "Good":
-      return "probability";
-    case "Average but good":
-      return "ok";
-    case "Average but bad":
-      return "average";
-    case "Bad":
-      return "bad";
-    case "Terrible":
-      return "terrible";
-  }
-};
-
 const getColor = (v: any) => {
   if (v > 80) {
     return "#4BAEEA";
@@ -124,6 +107,8 @@ export const FootballPanelAdvanced = () => {
     setSeasonOption(resSeason);
     setSeason(resSeason[resSeason.length - 1]);
   };
+
+  console.log(player);
 
   const fetchSeasonTeamOfPlayer = async (player: any) => {
     const data = await Player.getSeasonTeam({

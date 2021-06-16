@@ -560,7 +560,6 @@ export const SENTENCES = {
 export const LINK = {
   FINITION: {
     goals: ["goals"],
-    Xg: ["Xg"],
     goalsEfficiency: ["goalsEfficiency"],
     shots: ["shots"],
     shotsOnTarget: ["shotsOnTarget"],
@@ -617,6 +616,7 @@ export const LINK = {
   },
   GOALKEEPER: {
     gkAerialDuels: ["gkAerialDuels"],
+
     groupGoalKicksGoalKicksShort: ["groupGoalKicks.goalKicksShort"],
     groupGoalKicksGoalKicksLong: ["groupGoalKicks.goalKicksLong"],
     gkSaves: ["gkSaves"],
@@ -627,7 +627,6 @@ export const LINK = {
 export const TRANSLATION: any = {
   FINITION: "FINITION",
   goals: "BUTEUR",
-  Xg: "PREDICTION DES BUTS",
   goalsEfficiency: "EFFICACITE DEVANT LE BUT",
   shots: "NOMBRE D'OCCASIONS",
   shotsOnTarget: "QUALITE DES TIRS",
@@ -667,7 +666,7 @@ export const TRANSLATION: any = {
   PERCUSSION: "PERCUSSION",
   groupDribbles2: "DRIBBLES",
   accelerations: "ACCELERATIONS",
-  progressiveRun: "COURSES VERS L'AVANT",
+  progressiveRun: "COURSES PROGRESSIVES",
   SET_PIECES: "SET PIECES",
   directFreeKicksOnTarget: "COUPS FRANCS DIRECTS",
   freeKicksOnTarget: "COUPS FRANCS INDIRECTS",

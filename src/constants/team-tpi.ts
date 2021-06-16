@@ -37,22 +37,6 @@ export const TPI_SUMMARY: any = {
     "Le nombre de buts inscrit est insuffisant",
     "Le nombre de buts inscrit est très insuffisant",
   ],
-  goalsEfficiency: [
-    "le ratio d'efficacité est excellent.",
-    "le ratio d'efficacité est satisfaisant.",
-    "le ratio d'efficacité est acceptable.",
-    "le ratio d'efficacité n'est pas assez satisfaisant.",
-    "le ratio d'efficacité n'est pas satisfaisant.",
-    "le ratio d'efficacité n'est pas du tout satisfaisant.",
-  ],
-  goalMean: [
-    "La régularité offensive est une grande force de l'équipe.",
-    "La régularité offensive est une force de l'équipe.",
-    "Offensivement l'équipe est moyennement régulière.",
-    "Offensivement l'équipe n'est pas assez régulière.",
-    "L' irrégularité offensive est une faiblesse importante de l'équipe.",
-    "L' irrégularité offensive est une grande faiblesse de l'équipe.",
-  ],
   cleanSheets: [
     "Elle comptabilise très peu de matchs sans marquer.",
     "Elle comptabilise peu de matchs sans marquer.",
@@ -60,14 +44,6 @@ export const TPI_SUMMARY: any = {
     "Elle comptabilise un peu trop de matchs sans marquer.",
     "Elle comptabilise trop de matchs sans marquer.",
     "Elle comptabilise beaucoup trop de matchs sans marquer.",
-  ],
-  withShots: [
-    "Un très grand nombre d'actions se terminent par des tirs.",
-    "Un grand nombre d'actions se terminent par des tirs.",
-    "Un nombre acceptable d'actions se terminent pas des tirs.",
-    "Un assez petit nombre d'actions se terminent pas des tirs.",
-    "Un petit nombre d'actions se terminent pas des tirs.",
-    "Un très petit nombre d'actions se terminent pas des tirs.",
   ],
   "groupShots.shots": [
     "L' équipe à énormément de tirs à son compteur",
@@ -125,13 +101,13 @@ export const TPI_SUMMARY: any = {
     "elles ne sont pas efficaces.",
     "elles ne sont absolument pas efficaces.",
   ],
-  Offsides: [
-    "Les joueurs sont très rarement en position de hors-jeu.",
-    "Les joueurs sont rarement en position de hors-jeu.",
-    "Les joueurs sont assez rarement en position de hors-jeu.",
-    "Les joueurs sont assez régulièrement en position de hors-jeu.",
-    "Les joueurs sont régulièrement en position de hors-jeu.",
-    "Les joueurs sont très régulièrement en position de hors-jeu.",
+  attacks: [
+    "Une très large proportion des attaques finissent par frappe.",
+    "Une large proportion des attaques finissent par frappe.",
+    "Une petite proportion des attaques finissent par frappe.",
+    "Assez peu d'attaques finissent par une frappe.",
+    "Peu d'attaques finissent par une frappe.",
+    "Très peu d'attaques finissent par une frappe.",
   ],
   counterAttacks: [
     "L'équipe surprend très souvent ses adversaires en contre-attaque.",
@@ -1328,9 +1304,8 @@ export const TPI: any = {
 export const TPI_LINK: any = {
   OFFENSIF: {
     Goals: ["goals", "goalsEfficiency"],
-    GoalsMean: ["goalMean"],
     cleanSheets: ["cleanSheets"],
-    Shots: ["groupShots.shots", "groupShots.shotsRatio"],
+    Shots: ["groupShotsRatio.shots", "groupShotsRatio.shotsRatio"],
     shotsOutsideConfidence: [
       "groupShotDistance.shotOutsideBox",
       "groupShotDistance.shotsOutsideConfidence",
@@ -1339,9 +1314,8 @@ export const TPI_LINK: any = {
       "groupHeadShots.headShotsRatio",
       "groupHeadShots.headShotsOnTarget",
     ],
-    withShots: ["withShots"],
     counterAttacks: ["counterAttacks"],
-    Offsides: ["Offsides"],
+    attacks: ["attacks"],
   },
   DEFENSIF: {
     goals2: ["goals2", "cleanSheets2"],
@@ -1399,26 +1373,15 @@ export const TPI_LINK: any = {
   RECOVERY: {
     losses: ["losses"],
     interceptions: ["interceptions"],
+
     interceptionsOpponent: ["interceptionsOpponent"],
     recoveries: ["recoveries"],
     duels: ["groupDuels.duels", "groupDuels.duelsRatio"],
-    defensiveDuels: [
-      "groupDefensiveDuels.defensiveDuels",
-      "groupDefensiveDuels.defensiveDuelsRatio",
-    ],
-    offensiveDuels: [
-      "groupOffensiveDuels.offensiveDuels",
-      "groupOffensiveDuels.offensiveDuelsRatio",
-    ],
+    defensiveDuels: ["groupDefensiveDuels.defensiveDuelsRatio"],
+    offensiveDuels: ["groupOffensiveDuels.offensiveDuelsRatio"],
     aerialDuels: ["groupAerialDuels.aerialDuelsRatio"],
-    slidingTacklesRatio: [
-      "groupSlidingTackles.slidingTackles",
-      "groupSlidingTackles.slidingTacklesRatio",
-    ],
-    groundDuels: [
-      "groupGroundDuels.groundDuels",
-      "groupGroundDuels.groundDuelsRatio",
-    ],
+    slidingTacklesRatio: ["groupSlidingTackles.slidingTacklesRatio"],
+    groundDuels: ["groupGroundDuels.groundDuelsRatio"],
     looseBallDuels: ["grouplooseBallDuels.looseBallDuelsRatio"],
     dribblesSuccessful: ["groupDribblesAgainst.dribblesSuccessful"],
     fouls: ["fouls"],
