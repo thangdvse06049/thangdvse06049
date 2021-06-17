@@ -1,3 +1,4 @@
+//link tpi
 export const LINK_SENTENCES = {
   OFFENSIF: {
     Goals: ["goals", "goalsEfficiency"],

@@ -192,25 +192,54 @@ export const SearchPlayer = () => {
           })}
         >
           {map(details, ([value], key: any) => {
-            return (
-              <div className={classes.contentRow}>
-                <div className={classes.contentValue}>
-                  <div className={classes.contentKey}>
-                    {TRANSLATION[key] || key}
-                  </div>
-                  <div>
-                    <div
-                      className={clsx(
-                        classes.grade,
-                        getGrade(ppi?.detailsRanked[category][key])
-                      )}
-                    >
-                      {getGrade(ppi?.detailsRanked[category][key])}
+            if (value.includes(".")) {
+              const [group, subName] = value.split(".");
+              return (
+                <div className={classes.contentRow}>
+                  <div className={classes.contentValue}>
+                    <div className={classes.contentKey}>
+                      {TRANSLATION[key] || key}
+                    </div>
+
+                    <div>
+                      <div
+                        className={clsx(
+                          classes.grade,
+                          getGrade(
+                            ppi?.detailsRanked[category][`_${group}`][subName]
+                          )
+                        )}
+                      >
+                        {getGrade(
+                          ppi?.detailsRanked[category][`_${group}`][subName]
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
+              );
+            } else {
+              return (
+                <div className={classes.contentRow}>
+                  <div className={classes.contentValue}>
+                    <div className={classes.contentKey}>
+                      {TRANSLATION[key] || key}
+                    </div>
+
+                    <div>
+                      <div
+                        className={clsx(
+                          classes.grade,
+                          getGrade(ppi?.detailsRanked?.[category][key])
+                        )}
+                      >
+                        {getGrade(ppi?.detailsRanked?.[category][key])}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
           })}
         </div>
       </Collapse>

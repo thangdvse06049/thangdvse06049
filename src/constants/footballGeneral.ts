@@ -557,6 +557,7 @@ export const SENTENCES = {
   ],
 };
 
+//Link PPI
 export const LINK = {
   FINITION: {
     goals: ["goals"],
@@ -575,7 +576,6 @@ export const LINK = {
   },
   CREATION: {
     assists: ["assists"],
-    xgAssist: ["xgAssist"],
     shotAssists: ["shotAssists"],
     groupKeyPasses: ["groupKeyPasses"],
   },
@@ -616,7 +616,6 @@ export const LINK = {
   },
   GOALKEEPER: {
     gkAerialDuels: ["gkAerialDuels"],
-
     groupGoalKicksGoalKicksShort: ["groupGoalKicks.goalKicksShort"],
     groupGoalKicksGoalKicksLong: ["groupGoalKicks.goalKicksLong"],
     gkSaves: ["gkSaves"],
@@ -640,7 +639,6 @@ export const TRANSLATION: any = {
   groupForwardPasses: "RATIO DE PASSES VERS L'AVANT",
   CREATION: "CREATION",
   assists: "PASSES DECISIVE",
-  xgAssist: "PREDICTION DES PASSES DECISIVES",
   shotAssists: "PASSES AVANT UN TIR",
   groupKeyPasses: "PASSES CLEFS",
   DUELS: "DUELS",
