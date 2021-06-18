@@ -108,8 +108,6 @@ export const FootballPanelAdvanced = () => {
     setSeason(resSeason[resSeason.length - 1]);
   };
 
-  console.log(player);
-
   const fetchSeasonTeamOfPlayer = async (player: any) => {
     const data = await Player.getSeasonTeam({
       teamId: player.player.teamId,

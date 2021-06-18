@@ -11,7 +11,7 @@ import { Autocomplete } from "@material-ui/lab";
 import { Season } from "../../models/season";
 import { Team } from "../../models/team";
 import { User } from "../../models/user";
-import { find } from "lodash";
+import { find, sortBy } from "lodash";
 import { FootballFieldCtx } from "../../context/FootballField";
 
 export const InforSetting = (props: any) => {
@@ -83,8 +83,10 @@ export const InforSetting = (props: any) => {
 
   const fetchTeam = async () => {
     const resTeam = await Team.getListTeamBySeasonId(season._id);
+    const sortTeam = sortBy(resTeam, "name");
+
     const team = find(resTeam, { _id: user.teamId });
-    setTeamOption(resTeam);
+    setTeamOption(sortTeam);
     setTeam(team);
   };
 

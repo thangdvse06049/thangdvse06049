@@ -21,6 +21,22 @@ const TABS = {
   SUGGESTION: 2,
 };
 
+const getCategory = (category: any) => {
+  if (category === "Excellent") {
+    return "Excellent";
+  } else if (category === "Good") {
+    return "Bon";
+  } else if (category === "Average but good") {
+    return "Acceptable";
+  } else if (category === "Average but bad") {
+    return "Pénalisant";
+  } else if (category === "Bad") {
+    return "Mauvais";
+  } else {
+    return "Terrible";
+  }
+};
+
 export const FootballPanel = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -59,7 +75,7 @@ export const FootballPanel = () => {
               kebabCase(player?.performance?.gradeLabel)
             )}
           >
-            {player?.performance?.gradeLabel || "Unknown"}
+            {getCategory(player?.performance?.gradeLabel) || "Unknown"}
           </div>
           <Typography className={classes.name}>
             {player?.player?.shortName ||
