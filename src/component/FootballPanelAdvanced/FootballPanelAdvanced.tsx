@@ -266,7 +266,7 @@ export const FootballPanelAdvanced = () => {
                             PPI_CATEGORY_LABEL,
                             (value: any, category: any) => {
                               if (!isEmpty(player))
-                                return player?.ppi?.summary?.[category];
+                                return player?.ppi?.summaryRanked?.[category];
                             }
                           ).map((o: any) => o * 100),
                           backgroundColor: map(
@@ -274,7 +274,7 @@ export const FootballPanelAdvanced = () => {
                             (value: any, category: any) => {
                               if (!isEmpty(player))
                                 return getColor(
-                                  player?.ppi?.summary?.[category] * 100
+                                  player?.ppi?.summaryRanked?.[category] * 100
                                 );
                             }
                           ),
@@ -286,7 +286,7 @@ export const FootballPanelAdvanced = () => {
                             PPI_CATEGORY_LABEL,
                             (value: any, category: any) => {
                               if (!isEmpty(ppi))
-                                return ppi?.playerPpiCompare[0]?.summary[
+                                return ppi?.playerPpiCompare[0]?.summaryRanked[
                                   category
                                 ];
                             }
@@ -296,8 +296,9 @@ export const FootballPanelAdvanced = () => {
                             (value: any, category: any) => {
                               if (!isEmpty(ppi))
                                 return getColor(
-                                  ppi?.playerPpiCompare[0]?.summary[category] *
-                                    100
+                                  ppi?.playerPpiCompare[0]?.summaryRanked[
+                                    category
+                                  ] * 100
                                 );
                             }
                           ),
@@ -311,7 +312,7 @@ export const FootballPanelAdvanced = () => {
                             PPI_CATEGORY_LABEL,
                             (value: any, category: any) => {
                               if (!isEmpty(player))
-                                return player?.ppi?.summary?.[category];
+                                return player?.ppi?.summaryRanked?.[category];
                             }
                           ).map((o: any) => o * 100),
                           backgroundColor: map(
@@ -319,7 +320,7 @@ export const FootballPanelAdvanced = () => {
                             (value: any, category: any) => {
                               if (!isEmpty(player))
                                 return getColor(
-                                  player?.ppi?.summary?.[category] * 100
+                                  player?.ppi?.summaryRanked?.[category] * 100
                                 );
                             }
                           ),
