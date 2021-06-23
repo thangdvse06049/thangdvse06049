@@ -68,23 +68,23 @@ export const SearchPlayer = () => {
           ),
           datasets: [
             {
-              label: `${playerPPI?.seasonPpi} - ${playerPPI?.playerPpi[0]?.positions}`,
+              label: `${playerPPI?.seasonPpi} - ${playerPPI?.playerPpi?.positions}`,
               suggestedMax: 100,
               backgroundColor: "rgba(64,112,244, 0.5)",
               pointBackgroundColor: "#4070F4",
               data: map(PPI_CATEGORY_LABEL, (value: any, category: any) => {
                 if (!isEmpty(playerPPI))
-                  return playerPPI.playerPpi[0]?.summary[category];
+                  return playerPPI.playerPpi?.summaryRanked[category];
               }).map((o: any) => o * 100),
             },
             {
-              label: `${playerPPI?.seasonPpiHistory} - ${playerPPI?.playerPpiHistory[0]?.positions}`,
+              label: `${playerPPI?.seasonPpiHistory} - ${playerPPI?.playerPpiHistory?.positions}`,
               suggestedMax: 100,
               backgroundColor: "rgba(111,33,94, 0.5)",
               pointBackgroundColor: "#4070F4",
               data: map(PPI_CATEGORY_LABEL, (value: any, category: any) => {
                 if (!isEmpty(playerPPI))
-                  return playerPPI.playerPpiHistory[0]?.summary[category];
+                  return playerPPI.playerPpiHistory?.summaryRanked[category];
               }).map((o: any) => o * 100),
             },
           ],
@@ -377,7 +377,8 @@ export const SearchPlayer = () => {
                   {!isEmpty(playerPPI?.playerPpi) ? (
                     <>
                       <div className={classes.listPlayerInfor}>
-                        {map(playerPPI?.playerPpi, (p: any) => detailPPI(p))}
+                        {/* {map(playerPPI?.playerPpi, (p: any) => detailPPI(p))} */}
+                        {detailPPI(playerPPI?.playerPpi)}
                         {renderRadarChart()}
                       </div>
                     </>
