@@ -171,10 +171,10 @@ export const SearchPlayer = () => {
           <div
             className={clsx(
               classes.grade,
-              kebabCase(getGrade(ppi?.summaryRanked[category]))
+              kebabCase(getGrade(ppi?.summary[category]))
             )}
           >
-            {getGrade(ppi?.summaryRanked[category])}
+            {getGrade(ppi?.summary[category])}
           </div>
           <div className={classes.categoryTitle}>{category}</div>
         </div>

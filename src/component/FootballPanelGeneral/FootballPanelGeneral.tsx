@@ -77,10 +77,10 @@ export const FootballPanelGeneral = () => {
           <div
             className={clsx(
               classes.grade,
-              getGrade(player?.ppi?.summaryRanked[category])
+              getGrade(player?.ppi?.summary[category])
             )}
           >
-            {getGrade(player?.ppi?.summaryRanked[category])}
+            {getGrade(player?.ppi?.summary[category])}
           </div>
         </div>
         <ArrowDropDownIcon className={classes.arrow} />

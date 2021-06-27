@@ -562,8 +562,8 @@ export const LINK = {
   FINITION: {
     goals: ["goals"],
     goalsEfficiency: ["goalsEfficiency"],
-    shotsOnTarget: ["shotsOnTarget"],
-    headShotsOnTarget: ["headShotsOnTarget"],
+    groupShotsHeadShotsOnTarget: ["groupShots.headShotsOnTarget"],
+    groupShotsShotsOnTarget: ["groupShots.shotsOnTarget"],
   },
   DISTRIBUTION: {
     groupPasses: ["groupPasses"],
@@ -626,8 +626,8 @@ export const TRANSLATION: any = {
   FINITION: "FINITION",
   goals: "BUTEUR",
   goalsEfficiency: "BUTS ATTENDUS",
-  shotsOnTarget: "QUALITE DES TIRS",
-  headShotsOnTarget: "QUALITE DU JEU AERIEN",
+  groupShotsShotsOnTarget: "QUALITE DES TIRS",
+  groupShotsHeadShotsOnTarget: "QUALITE DU JEU AERIEN",
   DISTRIBUTION: "DISTRIBUTION",
   groupPasses: "PARTICIPATION AU JEU",
   groupCrosses: "CENTRES",

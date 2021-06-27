@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useStyles } from "./FootballPanelSuggestion.style";
 import clsx from "classnames";
 import { FootballFieldCtx } from "../../context/FootballField";
-import { capitalize, map, isNumber, kebabCase } from "lodash";
+import { capitalize, map, isNumber, kebabCase, sortBy, filter } from "lodash";
 import { Team } from "../../models/team";
 import { CircularProgress } from "@material-ui/core";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
@@ -50,10 +50,10 @@ export const FootballPanelSuggestion = () => {
           <div
             className={clsx(
               classes.grade,
-              kebabCase(getGrade(ppi?.summaryRanked[category]))
+              kebabCase(getGrade(ppi?.summary[category]))
             )}
           >
-            {getGrade(ppi?.summaryRanked[category])}
+            {getGrade(ppi?.summary[category])}
           </div>
           <div className={classes.categoryTitle}>{category}</div>
         </div>
@@ -162,6 +162,13 @@ export const FootballPanelSuggestion = () => {
     );
   };
 
+  const sortHaveUnknownPrice = (players: any) => {
+    const listUnknown = filter(players, (p) => p.pricePlayer === "Unknown");
+    const listNotUnknown = filter(players, (p) => p.pricePlayer !== "Unknown");
+    const sortByPrice = sortBy(listNotUnknown, "pricePlayer").reverse();
+    return sortByPrice.concat(listUnknown);
+  };
+
   useEffect(() => {
     if (formation.scheme) {
       setSuggestions(null);
@@ -171,7 +178,9 @@ export const FootballPanelSuggestion = () => {
         parseInt(rank, 10)
       )
         .then((data) => {
-          setSuggestions(data);
+          console.log(data);
+          const sortByPrice = sortHaveUnknownPrice(data);
+          setSuggestions(sortByPrice);
         })
         .catch((e) => {
           setSuggestions([]);
@@ -224,6 +233,17 @@ export const FootballPanelSuggestion = () => {
                 <div>
                   Status: {capitalize(player?.progression)} ({player?.age})
                 </div>
+                <div>
+                  Matches In Start: {player?.matchesInStart || "Unknown"}
+                </div>
+                <div>
+                  Matches Substituted: {player?.matchesSubstituted || "Unknown"}
+                </div>
+                <div>
+                  Minutes On Field: {player?.minutesOnField || "Unknown"}
+                </div>
+                <div>Price: {player?.pricePlayer || "Unknown"}</div>
+
                 <div>{detailPPI(player, i)}</div>
               </div>
             </div>
