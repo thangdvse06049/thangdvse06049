@@ -43,6 +43,8 @@ export const FootballPanel = () => {
   const [currentTab, setCurrentTab] = React.useState(TABS.GENERAL);
   const { player, updatePlayer } = React.useContext<any>(FootballFieldCtx);
 
+  console.log(player);
+
   useEffect(() => {
     if (player.playerId && player.age === undefined) {
       fetchPlayerAge(player);
@@ -83,6 +85,7 @@ export const FootballPanel = () => {
               "Unknown"}{" "}
             ({player?.age || "Unknown"}) - Match Played (
             {player?.count || "Unknown"})
+            <div className={classes.avgPPI}>Position: {player.position}</div>
             {averagePPI ? (
               <div className={classes.avgPPI}>
                 Average PPI: {averagePPI.toFixed(2)}%
