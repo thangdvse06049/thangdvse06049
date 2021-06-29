@@ -43,7 +43,7 @@ export const FootballPanelGeneral = () => {
 
   useEffect(() => {
     if (formation?.players?.length) {
-      setExpanded(Object.keys(formation?.players[0]?.ppi?.details)[0]);
+      setExpanded(Object.keys(formation?.players?.[0]?.ppi?.details)[0]);
     }
   }, [formation]);
 
