@@ -48,6 +48,7 @@ export const FootballPanel = () => {
       fetchPlayerAge(player);
     }
   }, [player]);
+  console.log(player);
 
   const fetchPlayerAge = async (player: any) => {
     const season = await Season.getSeasonById(player?.player?.seasonId);
@@ -83,7 +84,9 @@ export const FootballPanel = () => {
               "Unknown"}{" "}
             ({player?.age || "Unknown"}) - Match Played (
             {player?.totalMatches || "Unknown"})
-            <div className={classes.avgPPI}>Position: {player.position}</div>
+            <div className={classes.avgPPI}>
+              Position: {player.position} ({player?.ppi?.nbMatches})
+            </div>
             {averagePPI ? (
               <div className={classes.avgPPI}>
                 Average PPI: {averagePPI.toFixed(2)}%
