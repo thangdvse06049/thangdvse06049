@@ -51,103 +51,119 @@ export const FootballPanelGeneral = () => {
     const playerGroupPosition = getGroupPosition(player.position);
 
     return (
-      <div
-        onClick={() => setExpanded(category === expanded ? null : category)}
-        className={clsx(classes.categoryHeader, {
-          expanded: expanded === category,
-        })}
-      >
-        <div className={classes.categoryInnerHeader}>
-          {map(PONDERATION, (cateObj: any, groupPosition: any) => {
-            if (groupPosition === playerGroupPosition) {
-              if (cateObj[category] !== 0) {
-                return (
-                  <>
+      <>
+        {map(PONDERATION, (cateObj: any, groupPosition: any) => {
+          if (groupPosition === playerGroupPosition) {
+            if (cateObj[category] !== 0) {
+              return (
+                <div
+                  onClick={() =>
+                    setExpanded(category === expanded ? null : category)
+                  }
+                  className={clsx(classes.categoryHeader, {
+                    expanded: expanded === category,
+                  })}
+                >
+                  <div className={classes.categoryInnerHeader}>
                     <StarIcon style={{ color: yellow[800] }}></StarIcon>
                     <div className={classes.categoryTitle}>{category}</div>
-                  </>
-                );
-              } else {
-                return (
-                  <div className={classes.categoryTitleNotStar}>{category}</div>
-                );
-              }
+                    <div
+                      className={clsx(
+                        classes.grade,
+                        getGrade(player?.ppi?.summary[category])
+                      )}
+                    >
+                      {getGrade(player?.ppi?.summary[category])}
+                    </div>
+                  </div>
+                  <ArrowDropDownIcon className={classes.arrow} />
+                </div>
+              );
             }
-          })}
-          <div
-            className={clsx(
-              classes.grade,
-              getGrade(player?.ppi?.summary[category])
-            )}
-          >
-            {getGrade(player?.ppi?.summary[category])}
-          </div>
-        </div>
-        <ArrowDropDownIcon className={classes.arrow} />
-      </div>
+          }
+        })}
+      </>
     );
   };
 
   const renderDetails = (category: string, details: any) => {
+    const playerGroupPosition = getGroupPosition(player.position);
     return (
-      <Collapse isOpened={expanded === category} key={category}>
-        <div
-          className={clsx(classes.categoryContent, {
-            expanded: expanded === category,
-          })}
-        >
-          {map(details, ([value], key) => {
-            if (value.includes(".")) {
-              const [group, subName] = value.split(".");
+      <>
+        {map(PONDERATION, (cateObj: any, groupPosition: any) => {
+          if (groupPosition === playerGroupPosition) {
+            if (cateObj[category] !== 0) {
               return (
-                <div className={classes.contentRow}>
-                  <div className={classes.contentValue}>
-                    <div className={classes.contentKey}>
-                      {TRANSLATION[key] || key}
-                    </div>
+                <Collapse isOpened={expanded === category} key={category}>
+                  <div
+                    className={clsx(classes.categoryContent, {
+                      expanded: expanded === category,
+                    })}
+                  >
+                    {map(details, ([value], key) => {
+                      if (value.includes(".")) {
+                        const [group, subName] = value.split(".");
+                        return (
+                          <div className={classes.contentRow}>
+                            <div className={classes.contentValue}>
+                              <div className={classes.contentKey}>
+                                {TRANSLATION[key] || key}
+                              </div>
+                              <div>
+                                <div
+                                  className={clsx(
+                                    classes.grade,
+                                    getGrade(
+                                      player?.ppi?.details[category][
+                                        `_${group}`
+                                      ][subName]
+                                    )
+                                  )}
+                                >
+                                  {getGrade(
+                                    player?.ppi?.details[category][`_${group}`][
+                                      subName
+                                    ]
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      } else {
+                        return (
+                          <div className={classes.contentRow}>
+                            <div className={classes.contentValue}>
+                              <div className={classes.contentKey}>
+                                {TRANSLATION[key] || key}
+                              </div>
 
-                    <div>
-                      <div
-                        className={clsx(
-                          classes.grade,
-                          getGrade(
-                            player?.ppi?.details[category][`_${group}`][subName]
-                          )
-                        )}
-                      >
-                        {getGrade(
-                          player?.ppi?.details[category][`_${group}`][subName]
-                        )}
-                      </div>
-                    </div>
+                              <div>
+                                <div
+                                  className={clsx(
+                                    classes.grade,
+                                    getGrade(
+                                      player?.ppi?.details?.[category][key]
+                                    )
+                                  )}
+                                >
+                                  {getGrade(
+                                    player?.ppi?.details?.[category][key]
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      }
+                    })}
                   </div>
-                </div>
-              );
-            } else {
-              return (
-                <div className={classes.contentRow}>
-                  <div className={classes.contentValue}>
-                    <div className={classes.contentKey}>
-                      {TRANSLATION[key] || key}
-                    </div>
-
-                    <div>
-                      <div
-                        className={clsx(
-                          classes.grade,
-                          getGrade(player?.ppi?.details?.[category][key])
-                        )}
-                      >
-                        {getGrade(player?.ppi?.details?.[category][key])}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                </Collapse>
               );
             }
-          })}
-        </div>
-      </Collapse>
+          }
+        })}
+      </>
     );
   };
 

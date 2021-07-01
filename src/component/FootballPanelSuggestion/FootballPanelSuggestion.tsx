@@ -169,6 +169,12 @@ export const FootballPanelSuggestion = () => {
     return sortByPrice.concat(listUnknown);
   };
 
+  const formatMoney = (money: any) => {
+    return money?.toFixed(0).replace(/./g, function (c: any, i: any, a: any) {
+      return i > 0 && c !== " " && (a.length - i) % 3 === 0 ? " " + c : c;
+    });
+  };
+
   useEffect(() => {
     if (formation.scheme) {
       setSuggestions(null);
@@ -178,7 +184,6 @@ export const FootballPanelSuggestion = () => {
         parseInt(rank, 10)
       )
         .then((data) => {
-          console.log(data);
           const sortByPrice = sortHaveUnknownPrice(data);
           setSuggestions(sortByPrice);
         })
@@ -201,9 +206,9 @@ export const FootballPanelSuggestion = () => {
         map(suggestions, (player: any, i: number) => {
           const getTeamName = (player: any) => {
             if (player?.teamCategory) {
-              return `${player?.teamCategory} (${player?.team?.name})`;
+              return `${player?.teamCategory} (${player?.team?.officialName})`;
             } else {
-              return `Unknown (${player?.team?.name || "Unknown"})`;
+              return `Unknown (${player?.team?.officialName || "Unknown"})`;
             }
           };
 
@@ -233,17 +238,16 @@ export const FootballPanelSuggestion = () => {
                 <div>
                   Status: {capitalize(player?.progression)} ({player?.age})
                 </div>
+                <div>Matches In Start: {player?.matchesInStart || 0}</div>
                 <div>
-                  Matches In Start: {player?.matchesInStart || "Unknown"}
+                  Matches Substituted: {player?.matchesSubstituted || 0}
                 </div>
-                <div>
-                  Matches Substituted: {player?.matchesSubstituted || "Unknown"}
-                </div>
-                <div>
-                  Minutes On Field: {player?.minutesOnField || "Unknown"}
-                </div>
-                <div>Price: {player?.pricePlayer || "Unknown"}</div>
-
+                <div>Minutes On Field: {player?.minutesOnField || 0}</div>
+                {player?.pricePlayer ? (
+                  <div>Price: {formatMoney(player?.pricePlayer)} €</div>
+                ) : (
+                  "Unknown"
+                )}
                 <div>{detailPPI(player, i)}</div>
               </div>
             </div>

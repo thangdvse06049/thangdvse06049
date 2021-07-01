@@ -48,7 +48,6 @@ export const FootballPanel = () => {
       fetchPlayerAge(player);
     }
   }, [player]);
-  console.log(player);
 
   const fetchPlayerAge = async (player: any) => {
     const season = await Season.getSeasonById(player?.player?.seasonId);
