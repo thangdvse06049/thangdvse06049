@@ -590,18 +590,20 @@ export const LINK = {
   },
   POSSESSION: {
     interceptions: ["interceptions"],
-    groupRecoveries: ["groupRecoveries.recoveries"],
+    recoveries: ["recoveries"],
+    losses: ["losses"],
     groupRecoveriesOpponentHalfRecoveries: [
       "groupRecoveries.opponentHalfRecoveries",
     ],
     groupRecoveriesDangerousOpponentHalfRecoveries: [
       "groupRecoveries.dangerousOpponentHalfRecoveries",
     ],
-    groupLosses: ["groupLosses.losses"],
     groupOwnHalfLosses: ["groupLosses.ownHalfLosses"],
     groupDangerousOwnHalfLosses: ["groupLosses.dangerousOwnHalfLosses"],
-    pressingDuels: ["pressingDuels"],
-    counterpressingRecoveries: ["counterpressingRecoveries"],
+    groupPressingPressingDuels: ["groupPressing.pressingDuels"],
+    groupPressingCounterpressingRecoveries: [
+      "groupPressing.counterpressingRecoveries",
+    ],
   },
   PERCUSSION: {
     groupDribbles2: ["groupDribbles2"],
@@ -650,13 +652,13 @@ export const TRANSLATION: any = {
   groupSlidingTackles: "TACLES GLISSES",
   POSSESSION: "POSSESSION",
   interceptions: "INTERCEPTIONS",
-  pressingDuels: "PRESSING",
-  counterpressingRecoveries: "CONTRE PRESSING",
-  groupRecoveries: "RECUPERATIONS",
+  groupPressingPressingDuels: "PRESSING",
+  groupPressingCounterpressingRecoveries: "CONTRE PRESSING",
+  "recoveries ": "RECUPERATIONS",
   groupRecoveriesOpponentHalfRecoveries: "RECUPERATIONS DANS LA MOITIE ADVERSE",
   groupRecoveriesDangerousOpponentHalfRecoveries:
     "RECUPERATIONS DANGEREUSE DANS LA MOITIE ADVERSE",
-  groupLosses: "PERTES DU BALLON",
+  losses: "PERTES DU BALLON",
   groupOwnHalfLosses: "PERTE DANS SA MOITIE DE TERRAIN",
   groupDangerousOwnHalfLosses: "PERTES DANGEREUSE DANS SA MOITIE DE TERRAIN",
   PERCUSSION: "PERCUSSION",
