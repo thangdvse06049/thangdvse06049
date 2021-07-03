@@ -242,11 +242,11 @@ export const FootballPanelSuggestion = () => {
                 <div>
                   Status: {capitalize(player?.progression)} ({player?.age})
                 </div>
-                <div>Matches In Start: {player?.matchesInStart || 0}</div>
+                <div>Matches In Start: {player?.totalMatchesInStart || 0}</div>
                 <div>
-                  Matches Substituted: {player?.matchesSubstituted || 0}
+                  Matches Substituted: {player?.totalMatchesSubstituted || 0}
                 </div>
-                <div>Minutes On Field: {player?.minutesOnField || 0}</div>
+                <div>Minutes On Field: {player?.totalMinutesOnField || 0}</div>
                 {player?.pricePlayer ? (
                   <div>Price: {formatMoney(player?.pricePlayer)} €</div>
                 ) : (
