@@ -170,9 +170,13 @@ export const FootballPanelSuggestion = () => {
   };
 
   const formatMoney = (money: any) => {
-    return money?.toFixed(0).replace(/./g, function (c: any, i: any, a: any) {
-      return i > 0 && c !== " " && (a.length - i) % 3 === 0 ? " " + c : c;
-    });
+    try {
+      return money?.toFixed(0).replace(/./g, function (c: any, i: any, a: any) {
+        return i > 0 && c !== " " && (a.length - i) % 3 === 0 ? " " + c : c;
+      });
+    } catch (e) {
+      return money;
+    }
   };
 
   useEffect(() => {
