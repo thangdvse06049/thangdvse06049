@@ -2,7 +2,15 @@ import React, { useEffect } from "react";
 import { useStyles } from "./FootballPanelSuggestion.style";
 import clsx from "classnames";
 import { FootballFieldCtx } from "../../context/FootballField";
-import { capitalize, map, isNumber, kebabCase, sortBy, filter } from "lodash";
+import {
+  capitalize,
+  map,
+  isNumber,
+  kebabCase,
+  sortBy,
+  filter,
+  compact,
+} from "lodash";
 import { Team } from "../../models/team";
 import { CircularProgress } from "@material-ui/core";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
@@ -188,7 +196,8 @@ export const FootballPanelSuggestion = () => {
         parseInt(rank, 10)
       )
         .then((data) => {
-          const sortByPrice = sortHaveUnknownPrice(data);
+          const compactData = compact(data);
+          const sortByPrice = sortHaveUnknownPrice(compactData);
           setSuggestions(sortByPrice);
         })
         .catch((e) => {
