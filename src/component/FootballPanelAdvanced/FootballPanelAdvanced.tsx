@@ -69,6 +69,7 @@ export const FootballPanelAdvanced = () => {
   const onChangeSeason = (event: any, option: any) => {
     setSeason(option);
   };
+  console.log(player);
 
   const fetchPPI = async () => {
     const ppiChart = await Player.getPlayerPPIHistory({
@@ -119,7 +120,9 @@ export const FootballPanelAdvanced = () => {
   return (
     <div className={classes.root}>
       <div className={classes.category}>
-        <div className={classes.categoryTitle}>Age - 1 ({player?.age - 1})</div>
+        <div className={classes.categoryTitle}>
+          Age - 1 ({player?.ppi?.age - 1})
+        </div>
         <div>
           {player.bmiAge ? (
             map(BMIAGE_KEYS, (key: any) => {
@@ -143,7 +146,7 @@ export const FootballPanelAdvanced = () => {
         </div>
       </div>
       <div className={classes.category}>
-        <div className={classes.categoryTitle}>Age ({player?.age})</div>
+        <div className={classes.categoryTitle}>Age ({player?.ppi?.age})</div>
         <div>
           {player.bmiAge ? (
             map(BMIAGE_KEYS, (key: any) => {
@@ -167,7 +170,9 @@ export const FootballPanelAdvanced = () => {
         </div>
       </div>
       <div className={classes.category}>
-        <div className={classes.categoryTitle}>Age + 1 ({player?.age + 1})</div>
+        <div className={classes.categoryTitle}>
+          Age + 1 ({player?.ppi?.age + 1})
+        </div>
         <div>
           {player.bmiAge ? (
             map(BMIAGE_KEYS, (key) => {

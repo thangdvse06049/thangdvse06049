@@ -561,9 +561,11 @@ export const SENTENCES = {
 export const LINK = {
   FINITION: {
     goals: ["goals"],
-    goalsEfficiency: ["goalsEfficiency"],
-    groupShotsHeadShotsOnTarget: ["groupShots.headShotsOnTarget"],
-    groupShotsShotsOnTarget: ["groupShots.shotsOnTarget"],
+    groupEfficiencygoalsEfficiency: ["groupEfficiency.goalsEfficiency"],
+    groupEfficiencygoalsEfficiency2: ["groupEfficiency.goalsEfficiency2"],
+    groupShotsshots: ["groupShots.shots"],
+    groupShotsheadShotsOnTarget: ["groupShots.headShotsOnTarget"],
+    groupShotsshotsOnTarget: ["groupShots.shotsOnTarget"],
   },
   DISTRIBUTION: {
     groupPasses: ["groupPasses"],
@@ -575,7 +577,6 @@ export const LINK = {
   },
   CREATION: {
     assists: ["assists"],
-    shotAssists: ["shotAssists"],
     groupKeyPasses: ["groupKeyPasses"],
   },
   DUELS: {
@@ -586,22 +587,21 @@ export const LINK = {
     groupAerialDuels: ["groupAerialDuels"],
     groupSlidingTackles: ["groupSlidingTackeles"],
     groupLooseBallDuels: ["groupLooseBallDuels"],
-    fouls: ["fouls"],
   },
   POSSESSION: {
     interceptions: ["interceptions"],
     recoveries: ["recoveries"],
     losses: ["losses"],
-    groupRecoveriesOpponentHalfRecoveries: [
+    groupRecoveriesopponentHalfRecoveries: [
       "groupRecoveries.opponentHalfRecoveries",
     ],
-    groupRecoveriesDangerousOpponentHalfRecoveries: [
+    groupRecoveriesdangerousOpponentHalfRecoveries: [
       "groupRecoveries.dangerousOpponentHalfRecoveries",
     ],
-    groupOwnHalfLosses: ["groupLosses.ownHalfLosses"],
-    groupDangerousOwnHalfLosses: ["groupLosses.dangerousOwnHalfLosses"],
-    groupPressingPressingDuels: ["groupPressing.pressingDuels"],
-    groupPressingCounterpressingRecoveries: [
+    groupLossesownHalfLosses: ["groupLosses.ownHalfLosses"],
+    groupLossesdangerousOwnHalfLosses: ["groupLosses.dangerousOwnHalfLosses"],
+    groupPressingpressingDuels: ["groupPressing.pressingDuels"],
+    groupPressingcounterpressingRecoveries: [
       "groupPressing.counterpressingRecoveries",
     ],
   },
@@ -627,19 +627,20 @@ export const LINK = {
 export const TRANSLATION: any = {
   FINITION: "FINITION",
   goals: "BUTEUR",
-  goalsEfficiency: "BUTS ATTENDUS",
-  groupShotsShotsOnTarget: "QUALITE DES TIRS",
-  groupShotsHeadShotsOnTarget: "QUALITE DU JEU AERIEN",
+  groupEfficiencygoalsEfficiency: " Xg ",
+  groupEfficiencygoalsEfficiency2: " EFFICACITÉ DEVANT LE BUT ",
+  groupShotsshots: "FREQUENCE DES TIRS",
+  groupShotsshotsOnTarget: "QUALITE DES TIRS",
+  groupShotsheadShotsOnTarget: "QUALITE DU JEU AERIEN",
   DISTRIBUTION: "DISTRIBUTION",
   groupPasses: "PARTICIPATION AU JEU",
   groupCrosses: "CENTRES",
   groupSmartPasses: "PASSES CREATIVES & TECHNIQUES",
   groupThroughPasses: "PASSES EN PROFONDEURS",
   groupLongPasses: "PASSES LONGUES",
-  groupForwardPasses: "RATIO DE PASSES VERS L'AVANT",
+  groupForwardPasses: "RATIO DE PASSES EN AVANT",
   CREATION: "CREATION",
-  assists: "PASSES DECISIVE",
-  shotAssists: "PASSES AVANT UN TIR",
+  assists: "PASSES DECISIVES",
   groupKeyPasses: "PASSES CLEFS",
   DUELS: "DUELS",
   fouls: "FAUTES COMMISES",
@@ -652,15 +653,16 @@ export const TRANSLATION: any = {
   groupSlidingTackles: "TACLES GLISSES",
   POSSESSION: "POSSESSION",
   interceptions: "INTERCEPTIONS",
-  groupPressingPressingDuels: "PRESSING",
-  groupPressingCounterpressingRecoveries: "CONTRE PRESSING",
-  "recoveries ": "RECUPERATIONS",
-  groupRecoveriesOpponentHalfRecoveries: "RECUPERATIONS DANS LA MOITIE ADVERSE",
-  groupRecoveriesDangerousOpponentHalfRecoveries:
+  groupPressingpressingDuels: "PRESSING",
+  groupPressingcounterpressingRecoveries: "CONTRE PRESSING",
+  recoveries: "RECUPERATIONS",
+  groupRecoveriesopponentHalfRecoveries: "RECUPERATIONS DANS LA MOITIE ADVERSE",
+  groupRecoveriesdangerousOpponentHalfRecoveries:
     "RECUPERATIONS DANGEREUSE DANS LA MOITIE ADVERSE",
   losses: "PERTES DU BALLON",
-  groupOwnHalfLosses: "PERTE DANS SA MOITIE DE TERRAIN",
-  groupDangerousOwnHalfLosses: "PERTES DANGEREUSE DANS SA MOITIE DE TERRAIN",
+  groupLossesownHalfLosses: "PERTE DANS SA MOITIE DE TERRAIN",
+  groupLossesdangerousOwnHalfLosses:
+    "PERTES DANGEREUSE DANS SA MOITIE DE TERRAIN",
   PERCUSSION: "PERCUSSION",
   groupDribbles2: "DRIBBLES",
   accelerations: "ACCELERATIONS",

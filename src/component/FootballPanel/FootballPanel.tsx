@@ -81,7 +81,7 @@ export const FootballPanel = () => {
             {player?.player?.shortName ||
               player?.player?.player?.shortName ||
               "Unknown"}{" "}
-            ({player?.age || "Unknown"}) - Match Played (
+            ({player?.ppi?.age || "Unknown"}) - Match Played (
             {player?.totalMatches || "Unknown"})
             <div className={classes.avgPPI}>
               Position: {player.position} ({player?.ppi?.nbMatches})
