@@ -70,10 +70,10 @@ export const FootballPanelGeneral = () => {
                     <div
                       className={clsx(
                         classes.grade,
-                        getGrade(player?.ppi?.summary[category])
+                        getGrade(player?.ppi?.summaryRanked[category])
                       )}
                     >
-                      {getGrade(player?.ppi?.summary[category])}
+                      {getGrade(player?.ppi?.summaryRanked[category])}
                     </div>
                   </div>
                   <ArrowDropDownIcon className={classes.arrow} />
@@ -114,16 +114,16 @@ export const FootballPanelGeneral = () => {
                                   className={clsx(
                                     classes.grade,
                                     getGrade(
-                                      player?.ppi?.details[category][
+                                      player?.ppi?.detailsRanked[category][
                                         `_${group}`
                                       ][subName]
                                     )
                                   )}
                                 >
                                   {getGrade(
-                                    player?.ppi?.details[category][`_${group}`][
-                                      subName
-                                    ]
+                                    player?.ppi?.detailsRanked[category][
+                                      `_${group}`
+                                    ][subName]
                                   )}
                                 </div>
                               </div>
@@ -143,12 +143,14 @@ export const FootballPanelGeneral = () => {
                                   className={clsx(
                                     classes.grade,
                                     getGrade(
-                                      player?.ppi?.details?.[category][key]
+                                      player?.ppi?.detailsRanked?.[category][
+                                        key
+                                      ]
                                     )
                                   )}
                                 >
                                   {getGrade(
-                                    player?.ppi?.details?.[category][key]
+                                    player?.ppi?.detailsRanked?.[category][key]
                                   )}
                                 </div>
                               </div>
