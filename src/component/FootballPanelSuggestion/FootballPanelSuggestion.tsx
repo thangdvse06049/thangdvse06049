@@ -204,7 +204,7 @@ export const FootballPanelSuggestion = () => {
           setSuggestions([]);
         });
     }
-  }, [player, rank]);
+  }, [player, rank, formation]);
 
   return (
     <div className={classes.root}>

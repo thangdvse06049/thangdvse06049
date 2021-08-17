@@ -28,16 +28,14 @@ export const SummaryBubble = () => {
   const { user } = React.useContext<any>(UserCtx);
   const [tpi, setTpi] = useState({} as any);
 
-  const fetchData = async () => {
-    const competitions = await Team.getCompetitions();
-    const season = await Team.getSeasons();
-    const tpiApi = await Team.getTPI(competitions[0]._id, season[0]._id);
+  const fetchData = async (compId: any, seasonId: any) => {
+    const tpiApi = await Team.getTPI(compId, seasonId);
     setTpi(tpiApi);
   };
 
   useEffect(() => {
     if (user) {
-      fetchData();
+      fetchData(user.competitionId, user.seasonId);
     }
   }, [user]);
 

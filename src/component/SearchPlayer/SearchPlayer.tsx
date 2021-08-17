@@ -420,8 +420,9 @@ export const SearchPlayer = () => {
         id="auto-complete"
         autoComplete
         value={playerPPI ? playerPPI : null}
-        onChange={onChangePlayer}
-        onInputChange={(e, v) => fetchSearch(e, v)}
+        // onChange={onChangePlayer}
+        // onInputChange={(e, v) => fetchSearch(e, v)}
+        // onInputChange
         includeInputInList
         renderInput={(params: any) => (
           <TextField {...params} label="Search Player" margin="none" />

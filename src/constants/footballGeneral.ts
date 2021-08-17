@@ -584,7 +584,7 @@ export const LINK = {
     precisionGroupDefensiveDuels: ["precisionGroupDefensiveDuels"],
     groupDribblesAgainst: ["groupDribblesAgainst"],
     precisionGroupOffensiveDuels: ["precisionGroupOffensiveDuels"],
-    precisionGroupDribbles: ["precisionGroupDribbles"],
+    // precisionGroupDribbles: ["precisionGroupDribbles"],
     groupAerialDuels: ["groupAerialDuels"],
     precisionGroupSlidingTackles: ["precisionGroupSlidingTackles"],
     groupLooseBallDuels: ["groupLooseBallDuels"],

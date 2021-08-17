@@ -91,10 +91,8 @@ export const TeamAnalytics = () => {
     setSeasonToCompare(option);
   };
 
-  const fetchData = async () => {
-    const competitions = await Team.getCompetitions();
-    const season = await Team.getSeasons();
-    const tpiApi = await Team.getTPI(competitions[0]._id, season[0]._id);
+  const fetchData = async (compId: any, seasonId: any) => {
+    const tpiApi = await Team.getTPI(compId, seasonId);
     setTpi(tpiApi);
   };
 
@@ -121,7 +119,7 @@ export const TeamAnalytics = () => {
   }, [tpiToPpi]);
 
   useEffect(() => {
-    user && fetchData();
+    user && fetchData(user.competitionId, user.seasonId);
   }, [user]);
 
   useEffect(() => {
